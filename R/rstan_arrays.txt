@@ -1,0 +1,6 @@
+R: 
+X <- array(...)
+dim(X) = [a, b, c]
+
+STAN:
+row_vector[c] X[a, b]

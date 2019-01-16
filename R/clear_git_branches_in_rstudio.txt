@@ -1,0 +1,7 @@
+git remote prune origin
+
+git branch --merged >/tmp/merged-branches && vi /tmp/merged-branches && xargs git branch -d </tmp/merged-branches
+
+# remove master branch from the list
+
+:x!

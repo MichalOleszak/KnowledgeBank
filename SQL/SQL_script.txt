@@ -1,0 +1,295 @@
+# Selecting columns -------------------------------------------------------------------
+SELECT var1, var2 FROM table
+SELECT * FROM table                      # all columns
+SELECT DISTINCT var FROM table           # unique values of var
+SELECT COUNT(*) FROM table               # number of rows
+SELECT COUNT(var) FROM table             # number of non-missing values in var
+SELECT COUNT(DISTINCT var) FROM table    # number of unique non-missing values in var
+
+
+# Filtering rows ----------------------------------------------------------------------
+# <> means not equal to
+# = single equation signs checks for equality
+SELECT title FROM films WHERE title = 'Metropolis';     # in PostgreSQL single quotes are used with WHERE
+SELECT title FROM films WHERE release_year > 2000;
+
+SELECT COUNT(*) FROM films WHERE release_year < 2000                        # number of films released before 2000
+SELECT title FROM films WHERE release_year > 1994 AND release_year < 2000   # multiple conditions
+SELECT title FROM films WHERE release_year = 1994 OR release_year = 2000    # one of many conditions must hold
+
+# when combining OR with AND, parenthesis are needed
+SELECT title FROM films WHERE (release_year = 1994 OR release_year = 1995) AND (certification = 'PG' OR certification = 'R');
+
+# checking for ranges
+SELECT title FROM films WHERE release_year BETWEEN 1994 AND 2000;
+# BETWEEN is inclusive, meaning the beginning and end values are included in the results!
+
+# filtering on many conditions
+SELECT name FROM kids WHERE age IN (2, 4, 6, 8, 10);
+
+# checking for missings
+SELECT COUNT(*) FROM people WHERE birthdate IS NULL;      # number of missings birthdates
+SELECT name FROM people WHERE birthdate IS NOT NULL;      # names of all people with non-missing birthdates
+
+# searching for text patterns
+# wildcards (placeholders for characters):
+#   - The % wildcard will match zero, one, or many characters in text. 
+#   - The _ wildcard will match a single character.
+SELECT name FROM companies WHERE name LIKE 'Data%';
+SELECT name FROM companies WHERE name LIKE 'DataC_mp';
+
+
+# Aggregate functions -----------------------------------------------------------------
+SELECT AVG(budget) FROM films;
+SELECT MIN(budget) FROM films;
+SELECT MAX(budget) FROM films;
+SELECT SUM(budget) FROM films;
+
+# Arithmetic operations
+SELECT (4 * 3);                 # gives 12
+SELECT (4 / 3);                 # gives 1, dividing integer by integer returns integer
+SELECT (4.0 / 3.0) AS result;   # gives 1.333
+
+# Aliasing (assigning a temporary name)
+SELECT MAX(budget) AS max_budget FROM films;
+
+
+# Sorting -----------------------------------------------------------------------------
+SELECT title FROM films ORDER BY release_year DESC;     # Defaultly in ascending order
+
+
+# Grouping ----------------------------------------------------------------------------
+SELECT sex, count(*) FROM employees GROUP BY sex ORDER BY count DESC;
+
+
+# Filtering based on the result of an aggregate function ------------------------------
+SELECT release_year FROM films GROUP BY release_year HAVING COUNT(title) > 10;
+
+
+# Inner join --------------------------------------------------------------------------
+# (select fields from inner join of tables)
+SELECT *
+FROM left_table
+INNER JOIN right_table
+ON left_table.id = right_table.id;
+
+# If both tables share column names 
+# (e.g. both countries and cities have a 'name' column)
+SELECT cities.name AS city, countries.name AS country
+FROM cities
+INNER JOIN countries
+ON cities.country_code = countries.code;
+
+# Using aliases for convenience
+SELECT c1.name AS city, c2.name AS country
+FROM cities AS c1
+INNER JOIN countries AS c2
+ON c1.country_code = c2.code;
+
+# Combining multiple joins
+SELECT c.code, c.name, c.region, e.year, p.fertility_rate, e.unemployment_rate
+FROM countries AS c
+INNER JOIN populations AS p
+ON c.code = p.country_code
+INNER JOIN economies AS e
+ON c.code = e.code AND p.year = e.year;
+
+# Inner join via USING (when the key field is the same in both tables)
+SELECT c.name AS country, continent, l.name AS language, official
+FROM countries AS c
+INNER JOIN languages AS l
+USING (code);
+
+
+# Self joins --------------------------------------------------------------------------
+# use the populations table to perform a self-join to calculate the percentage increase 
+# in population from 2010 to 2015 for each country code
+SELECT p1.country_code, 
+       p1.size AS size2010,
+       p2.size AS size2015,
+       (p2.size - p1.size) / p1.size * 100.0 AS growth_perc
+FROM populations AS p1
+INNER JOIN populations AS p2
+ON  p1.country_code = p2.country_code
+WHERE p1.year = p2.year - 5;
+
+
+# Cases (long if...else sequences) ----------------------------------------------------
+# create a new categorical variables with surface area small, medium or large
+# and save as new_table
+SELECT name, continent, code, surface_area,
+    CASE WHEN surface_area > 2000000
+            THEN 'large'
+       WHEN surface_area > 350000
+            THEN 'medium'
+       ELSE 'small' END
+       AS geosize_group
+INTO new_table
+FROM countries;
+
+
+# Left & right joins ------------------------------------------------------------------
+SELECT c.name AS country, local_name, l.name AS language, percent
+FROM countries AS c
+LEFT JOIN languages AS l
+ON c.code = l.code
+ORDER BY country DESC;
+
+# Writing a right join as a left join: the following two are equivalent
+SELECT cities.name AS city, urbanarea_pop, countries.name AS country,
+       indep_year, languages.name AS language, percent
+FROM cities
+LEFT JOIN countries
+ON cities.country_code = countries.code
+LEFT JOIN languages
+ON countries.code = languages.code
+ORDER BY city, language;
+
+SELECT cities.name AS city, urbanarea_pop, countries.name AS country,
+       indep_year, languages.name AS language, percent
+FROM languages
+RIGHT JOIN countries
+ON languages.code = countries.code
+RIGHT JOIN cities
+ON countries.code = cities.country_code
+ORDER BY city, language;
+
+
+# Full joins --------------------------------------------------------------------------
+SELECT name AS country, code, region, basic_unit
+FROM countries
+FULL JOIN currencies
+USING (code)
+WHERE region = 'North America' OR region IS NULL
+ORDER BY region;
+
+
+# Cross joins -------------------------------------------------------------------------
+# (all possible combinations of two tables)
+SELECT c.name AS city, l.name AS language
+FROM cities AS c
+CROSS JOIN languages AS l
+
+ 
+# Set theory clauses ------------------------------------------------------------------
+# Union - elements in one or both sets
+SELECT *
+FROM economies2010
+UNION
+SELECT *
+FROM economies2015 
+
+# Union-all - elements in one or both sets, with the latter duplicated
+SELECT code, year
+FROM economies
+UNION ALL
+SELECT country_code, year
+FROM populations
+ORDER BY code, year;
+
+# Intersect - elements in both sets
+# Example: countries that have capitals named the same as the country itself
+SELECT name
+FROM countries
+INTERSECT
+SELECT name
+FROM cities
+
+# Except - set difference, elemets in one set but not the other
+# Example: cities that are not countries' capitals
+SELECT name
+FROM cities
+EXCEPT
+SELECT capital
+FROM countries
+
+
+# Semi and anti joins -----------------------------------------------------------------
+# (use right table to detect which records from the left table to return)
+
+# Semi join
+# (match records by the key field in the right table with those in the left,
+#  and returns only the rows in the left table that match that conditions)
+# Example: identify languages spoken in the Middle East.
+SELECT DISTINCT name
+FROM languages
+WHERE code IN
+  (SELECT code
+   FROM countries
+   WHERE region = 'Middle East')
+
+# Same results with an inner join   
+SELECT DISTINCT languages.name AS language
+FROM languages
+INNER JOIN countries
+ON languages.code = countries.code
+WHERE region = 'Middle East'
+ORDER BY language;
+
+# Anti join
+# (returns returns those rows in the left table that do not match the condition 
+#  on the right table)
+# Example: identify the currencies used in Oceanian countries.
+SELECT c1.code, c1.name, basic_unit AS currency
+FROM countries AS c1
+INNER JOIN currencies AS c2
+ON c1.code = c2.code
+WHERE continent = 'Oceania'
+
+# not all countries in Oceania were listed in the resulting inner join with currencies
+# use anti join to determine which countries were not included
+SELECT code, name
+FROM countries
+WHERE continent = 'Oceania' 
+  AND code NOT IN 
+  (SELECT code FROM currencies)
+
+
+# Subqueries inside WHERE clauses -----------------------------------------------------
+SELECT *
+FROM populations
+WHERE life_expectancy > 
+1.15 * (SELECT AVG(life_expectancy)
+        FROM populations
+        WHERE year = 2015) AND
+year = 2015;
+
+# example: get urban population for only capital cities
+SELECT name, country_code, urbanarea_pop
+FROM cities
+WHERE name IN
+  (SELECT capital
+   FROM countries)
+
+   
+# Subqueries inside SELECT clauses ----------------------------------------------------
+# Get the top nine countries in terms of number of cities appearing in the cities table
+SELECT countries.name AS country,
+  (SELECT COUNT(*)
+   FROM cities
+   WHERE countries.code = cities.country_code) AS cities_num
+FROM countries
+ORDER BY cities_num DESC, country
+LIMIT 9;
+
+# This is the same as doing this join
+SELECT countries.name AS country, COUNT(*) AS cities_num
+FROM cities
+INNER JOIN countries
+ON countries.code = cities.country_code
+GROUP BY country
+ORDER BY cities_num DESC, country
+LIMIT 9;
+  
+  
+# Subquery inside FROM ----------------------------------------------------------------
+# get local_name from countries and lang_num from a subquery called subquery
+# to determine the number of languages spoken for each country
+SELECT local_name, subquery.lang_num
+FROM countries, (SELECT code, count(name) AS lang_num
+                 FROM languages 
+				 GROUP BY code) AS subquery
+				 
+
+
+

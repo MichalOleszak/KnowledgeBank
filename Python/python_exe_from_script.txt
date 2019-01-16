@@ -1,0 +1,3 @@
+CREATING EXE FILE FROM SCRIPT:
+pip install pyinstaller
+pyinstaller.exe --onefile --windowed filename.py
