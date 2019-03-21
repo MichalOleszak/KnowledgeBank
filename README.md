@@ -13,8 +13,8 @@ This repo tracks the progress of my machine learning and data science self-study
 -   [Framework for predicting football games' results](https://github.com/MichalOleszak/footballpredict)
 
 ### Courses & Certificates
-- 	[Data Scientist with R](https://www.datacamp.com/tracks/data-scientist-with-r?version=1) by DataCamp [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/certificates/data_scientist_with_r.pdf)
-- 	[Data Scientist with Python](https://www.datacamp.com/tracks/data-scientist-with-python?version=1) by DataCamp (certificate)](https://github.com/MichalOleszak/KnowledgeBank/certificates/data_scientist_with_python.pdf)
+- 	[Data Scientist with R](https://www.datacamp.com/tracks/data-scientist-with-r?version=1) by DataCamp [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/data_scientist_with_r.pdf)
+- 	[Data Scientist with Python](https://www.datacamp.com/tracks/data-scientist-with-python?version=1) by DataCamp [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/data_scientist_with_python.pdf)
 
 ### Books
 Technical or math-heavy books:
