@@ -3,5 +3,7 @@
 *.Rhistory
 *.RData
 *.Ruserdata
-.Rproj.user
+*.Rproj.user
 *.html
+*.DS_Store
+*.ipynb_checkpoints/
