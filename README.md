@@ -1,5 +1,5 @@
 # KnowledgeBank
-This repo tracks the progress of my machine learning and data science self-study. The purpose is to document and organize my knowledge and goals and to share my notes, links and resources I deem useful.
+This repo tracks the progress of my machine learning and data science self-study. The purpose is to document and organize my knowledge and goals and to share my publications, notes, links and other resources I deem useful.
 
 ### My community contributions
 
@@ -11,7 +11,7 @@ This repo tracks the progress of my machine learning and data science self-study
 |[A Comparison of Shrinkage and Selection Methods for Linear Regression](https://towardsdatascience.com/a-comparison-of-shrinkage-and-selection-methods-for-linear-regression-ee4dd3a71f16)|Discussion of mathematical properties and Python implementation of 7 popular shrinkage and selection methods.|tutorial|2019-04-07|
 
 ### Side projects
--   [Framework for predicting football games' results](https://github.com/MichalOleszak/footballpredict)
+-   [footballpredict AI: a framework for predicting football games' winning odds](https://github.com/MichalOleszak/footballpredict)
 
 ### Courses & Certificates
 - 	[Data Scientist with R](https://www.datacamp.com/tracks/data-scientist-with-r?version=1) by DataCamp [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/data_scientist_with_r.pdf)
@@ -27,3 +27,4 @@ Non-technical or popular science books:
 - 	[Weapons of Math Destruction](http://crownpublishing.com/archives/news/weapons-math-destruction-cathy-oneil#.XIPdgbhCdPY)
 -   [The Signal and the Noise](https://www.penguinrandomhouse.com/books/305826/the-signal-and-the-noise-by-nate-silver/9780143125082/)
 - 	[Doing Data Science](http://shop.oreilly.com/product/0636920028529.do)
+-	[A Field Guide to Lies and Statistics](https://www.penguin.co.uk/books/288/288885/a-field-guide-to-lies-and-statistics/9780241974872.html)
