@@ -33,3 +33,8 @@ Non-technical or popular science books:
 -   [The Signal and the Noise](https://www.penguinrandomhouse.com/books/305826/the-signal-and-the-noise-by-nate-silver/9780143125082/)
 - 	[Doing Data Science](http://shop.oreilly.com/product/0636920028529.do)
 -	[A Field Guide to Lies and Statistics](https://www.penguin.co.uk/books/288/288885/a-field-guide-to-lies-and-statistics/9780241974872.html)
+
+### Contact
+- [My website](https://michaloleszak.github.io/)
+- [LinkedIn](https://www.linkedin.com/in/michal-oleszak/)
+- [GitHub](https://github.com/MichalOleszak)
