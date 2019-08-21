@@ -20,13 +20,13 @@ This repo tracks the progress of my machine learning and data science self-study
 - 	[Data Scientist with Python](https://www.datacamp.com/tracks/data-scientist-with-python?version=1) by DataCamp [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/data_scientist_with_python.pdf)
 <br/>Python programming; importing, cleaning & visualising data; connnecting to databases; statistical thinking; unsupervised & supervised learning; deep learning; network analysis
 -   [57 Python, R and SQL DataCamp courses (certificates)](https://github.com/MichalOleszak/KnowledgeBank/tree/master/certificates/individual_datacamp_courses)
-<br/> Among others: advanced deep learning with Tensorflow and PyTorch, text mining, software engineering in Python, building web apps with Shiny and Flask, PySpark
+<br/> Among others: advanced deep learning with Tensorflow and PyTorch, text mining, software engineering in Python, building web apps with Shiny and Flask, PySpark, object-oriented programming, machine learning for time series
 
 ### Books
 Technical or math-heavy books:
-- 	[The Elements of Statistical Learning: Data Mining, Inference, and Prediction.](https://web.stanford.edu/~hastie/Papers/ESLII.pdf)
-- 	[Deep Learning with R](https://www.manning.com/books/deep-learning-with-r)
--   [Mostly Harmless Econometrics](https://www.researchgate.net/publication/51992844_Mostly_Harmless_Econometrics_An_Empiricist's_Companion)
+- 	[The Elements of Statistical Learning: Data Mining, Inference, and Prediction.](https://web.stanford.edu/~hastie/Papers/ESLII.pdf) by Trevor Hastie et al.
+- 	[Deep Learning with R](https://www.manning.com/books/deep-learning-with-r) by François Chollet & Joseph J. Allaire
+-   [Mostly Harmless Econometrics](https://www.researchgate.net/publication/51992844_Mostly_Harmless_Econometrics_An_Empiricist's_Companion) by Joshua Angrist & Jörn-Steffen Pischke
 
 Non-technical or popular science books:
 - 	[Weapons of Math Destruction](http://crownpublishing.com/archives/news/weapons-math-destruction-cathy-oneil#.XIPdgbhCdPY) by Cathy O’Neil
