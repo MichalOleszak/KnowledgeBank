@@ -3,13 +3,13 @@ This repo tracks the progress of my machine learning and data science self-study
 
 ### My community contributions
 
-|Contribution|Description / Keywords|Type|Published|
-|---|---|---|---|
-|[Visualize Missing Data with VIM package](https://www.datacamp.com/community/tutorials/visualize-data-vim-package)|Tutorial on using the R package VIM for learnig about missing data patterns with visualizations.|tutorial|2018-09-05|
-|[Posterior Mean Panel Predictor](https://www.rdocumentation.org/packages/pmpp/versions/0.1.0)|R package for predictive modelling with micro-panel data; methodology is described [in my paper here](https://thesis.eur.nl/pub/42668).|R package|2018-10-12|
-|[Regularization: Ridge, Lasso and Elastic Net](https://www.datacamp.com/community/tutorials/tutorial-ridge-lasso-elastic-net)|Tutorial on the R implementation and the math under the hood of regularization methods.|tutorial|2018-11-29|
-|[A Comparison of Shrinkage and Selection Methods for Linear Regression](https://towardsdatascience.com/a-comparison-of-shrinkage-and-selection-methods-for-linear-regression-ee4dd3a71f16)|Linear Regression, Best Subset Regression, LASSO, Elastic Net, Least Angle Regression, Principal Components Regression, Partial Least Squares|tutorial|2019-04-07|
-|[Linear Classifiers: An Overview](https://towardsdatascience.com/linear-classifiers-an-overview-e121135bd3bb)|Linear Discriminant Analysis, Quadratic Discriminant Analysis, Regularized Discriminant Analysis, Logistic Regression|tutorial|2019-05-21|
+|Item|Description / Keywords|Published|
+|---|---|---|
+|[Visualize Missing Data with VIM package](https://www.datacamp.com/community/tutorials/visualize-data-vim-package)|Tutorial on using the R package VIM for learnig about missing data patterns with visualizations.|2018-09-05|
+|[Posterior Mean Panel Predictor](https://www.rdocumentation.org/packages/pmpp/versions/0.1.0)|R package for predictive modelling with micro-panel data; methodology is described [in my paper here](https://thesis.eur.nl/pub/42668).|2018-10-12|
+|[Regularization: Ridge, Lasso and Elastic Net](https://www.datacamp.com/community/tutorials/tutorial-ridge-lasso-elastic-net)|Tutorial on the R implementation and the math under the hood of regularization methods.|2018-11-29|
+|[A Comparison of Shrinkage and Selection Methods for Linear Regression](https://towardsdatascience.com/a-comparison-of-shrinkage-and-selection-methods-for-linear-regression-ee4dd3a71f16)|Linear Regression, Best Subset Regression, LASSO, Elastic Net, Least Angle Regression, Principal Components Regression, Partial Least Squares|2019-04-07|
+|[Linear Classifiers: An Overview](https://towardsdatascience.com/linear-classifiers-an-overview-e121135bd3bb)|Linear Discriminant Analysis, Quadratic Discriminant Analysis, Regularized Discriminant Analysis, Logistic Regression|2019-05-21|
 
 ### Side projects
 -   [footballpredict AI](https://github.com/MichalOleszak/footballpredict): a framework for predicting football games' winning odds
@@ -19,15 +19,22 @@ This repo tracks the progress of my machine learning and data science self-study
 <br/>R programming; tidyverse; importing, cleaning & visualising data; using R with SQL databases; EDA; regression modelling; unsupervised & supervised learning, reporting with RMarkdown 
 - 	[Data Scientist with Python](https://www.datacamp.com/tracks/data-scientist-with-python?version=1) by DataCamp [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/data_scientist_with_python.pdf)
 <br/>Python programming; importing, cleaning & visualising data; connnecting to databases; statistical thinking; unsupervised & supervised learning; deep learning; network analysis
+-   [57 Python, R and SQL DataCamp courses (certificates)](https://github.com/MichalOleszak/KnowledgeBank/tree/master/certificates/individual_datacamp_courses)
+<br/> Among others: advanced deep learning with Tensorflow and PyTorch, text mining, software engineering in Python, building web apps with Shiny and Flask, PySpark, object-oriented programming, machine learning for time series
 
-### Books
+### Books I recommend (and have read)
 Technical or math-heavy books:
-- 	[The Elements of Statistical Learning: Data Mining, Inference, and Prediction.](https://web.stanford.edu/~hastie/Papers/ESLII.pdf)
-- 	[Deep Learning with R](https://www.manning.com/books/deep-learning-with-r)
--   [Mostly Harmless Econometrics](https://www.researchgate.net/publication/51992844_Mostly_Harmless_Econometrics_An_Empiricist's_Companion)
+- 	[The Elements of Statistical Learning: Data Mining, Inference, and Prediction.](https://web.stanford.edu/~hastie/Papers/ESLII.pdf) by Trevor Hastie et al.
+- 	[Deep Learning with R](https://www.manning.com/books/deep-learning-with-r) by François Chollet & Joseph J. Allaire
+-   [Mostly Harmless Econometrics](https://www.researchgate.net/publication/51992844_Mostly_Harmless_Econometrics_An_Empiricist's_Companion) by Joshua Angrist & Jörn-Steffen Pischke
 
 Non-technical or popular science books:
-- 	[Weapons of Math Destruction](http://crownpublishing.com/archives/news/weapons-math-destruction-cathy-oneil#.XIPdgbhCdPY)
--   [The Signal and the Noise](https://www.penguinrandomhouse.com/books/305826/the-signal-and-the-noise-by-nate-silver/9780143125082/)
-- 	[Doing Data Science](http://shop.oreilly.com/product/0636920028529.do)
--	[A Field Guide to Lies and Statistics](https://www.penguin.co.uk/books/288/288885/a-field-guide-to-lies-and-statistics/9780241974872.html)
+- 	[Weapons of Math Destruction](http://crownpublishing.com/archives/news/weapons-math-destruction-cathy-oneil#.XIPdgbhCdPY) by Cathy O’Neil
+-   [The Signal and the Noise](https://www.penguinrandomhouse.com/books/305826/the-signal-and-the-noise-by-nate-silver/9780143125082/) by Nate Silver
+-   [Doing Data Science](http://shop.oreilly.com/product/0636920028529.do) by Cathy O'Neil & Rachel Schutt
+-   [A Field Guide to Lies and Statistics](https://www.penguin.co.uk/books/288/288885/a-field-guide-to-lies-and-statistics/9780241974872.html) by Daniel Levitin
+
+### Contact
+- [My personal website](https://michaloleszak.github.io/)
+- [LinkedIn](https://www.linkedin.com/in/michal-oleszak/)
+- [GitHub](https://github.com/MichalOleszak)
