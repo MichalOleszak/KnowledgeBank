@@ -450,3 +450,26 @@ pl.fit(X_train, y_train)
 # Compute accuracy on test data
 accuracy = pl.score(X_test, y_test)
 
+
+# Assigning cost to false positives and false negatives ---------------------------------------------------------------
+
+# Make each false alarm count ten times as much as a missed case
+def my_scorer(y_test, y_est, cost_fp=10.0, cost_fn=1.0):
+    tn, fp, fn, tp = confusion_matrix(y_test, y_est).flatten()
+    return cost_fp * fp + cost_fn * 
+
+# Fit a DecisionTreeClassifier to the data and compute the loss
+clf = DecisionTreeClassifier().fit(X_train, y_train)
+my_scorer(y_test, clf.predict(X_test))
+
+
+# Detecting overfitting - comparing accuracy in crossval and on test set ----------------------------------------------
+
+# Fit your pipeline using GridSearchCV with three folds
+grid_search = GridSearchCV(pipe, params, cv=3, return_train_score=True)
+# Fit the grid search
+gs = grid_search.fit(X_train, y_train)
+# Store the results of CV into a pandas dataframe
+results = pd.DataFrame(gs.cv_results_)
+
+

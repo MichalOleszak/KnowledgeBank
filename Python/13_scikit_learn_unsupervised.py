@@ -257,3 +257,54 @@ artist = df.loc['Bruce Springsteen']
 similarities = df.dot(artist)
 print(similarities.nlargest())
 
+
+# Anomaly (outlier) detection -----------------------------------------------------------------------------------------
+from sklearn.neighbors import LocalOutlierFactor as lof
+preds = lof(contamination=0.2).fit_predict(X)
+
+
+# Novelty detection - when outlying cases only appear in new, future data, but are absent in training data ------------
+
+# 1. Using Local Outlier Factor
+# Create a list of thirty 1s and cast to a dataframe
+X = pd.DataFrame([1.0]*30)
+# Create an instance of a lof novelty detector
+detector = lof(novelty=True)
+# Fit the detector to the data
+detector.fit(X)
+# Use it to predict the label of an example with value 10.0
+print(detector.predict(pd.DataFrame([10])))
+
+# 2. Using One-Class SVM
+# Import the novelty detector
+from sklearn.svm import OneClassSVM as onesvm
+# Fit it to the training data and score the test data
+svm_detector = onesvm().fit(X_train)
+scores = svm_detector.score_samples(X_test)
+
+# 3. Using Isolaion Forest
+# Import the novelty detector
+from sklearn.ensemble import IsolationForest as isof
+# Fit it to the training data and score the test data
+svm_detector = isof().fit(X_train)
+scores = svm_detector.score_samples(X_test)
+
+
+# Distance-based learning ---------------------------------------------------------------------------------------------
+from sklearn.neighbors import DistanceMetric as dm
+
+# Find the Euclidean distance between all pairs
+dist_eucl = dm.get_metric('euclidean').pairwise(features)
+# Find the Hamming distance between all pairs
+dist_hamm = dm.get_metric('hamming').pairwise(features)
+# Find the Chebyshev distance between all pairs
+dist_cheb = dm.get_metric('chebyshev').pairwise(features)
+
+# Compute outliers according to the euclidean metric
+out_eucl = lof(metric='euclidean').fit_predict(features)
+# Compute outliers according to the hamming metric
+out_hamm = lof(metric='hamming').fit_predict(features)
+# Compute outliers according to the jaccard metric
+out_jacc  = lof(metric='jaccard').fit_predict(features)
+
+# 
