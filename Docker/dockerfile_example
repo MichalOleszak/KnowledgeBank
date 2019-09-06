@@ -1,0 +1,10 @@
+FROM python:3.6.7
+WORKDIR /app
+VOLUME ["/app"]
+COPY . /app
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt && \
+    pip install some_package_stored_in_root.whl
+RUN python setup.py develop
+ENV NEW_ENV_VAR="abc"
+CMD ["python", "/app/app.py"]
