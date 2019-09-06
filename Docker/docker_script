@@ -1,0 +1,71 @@
+# Basics --------------------------------------------------------------------------------------------------------------
+
+# Pull image
+docker pull image_name
+
+# List locally available images
+docker images
+
+# Run
+# When you call run, the Docker client finds the image, loads up the container and then runs a command in that container.
+# Running `docker run image` without providing a command makes the container boot up, run an empty command and then exit.
+docker run busybox
+docker run busybox echo "hello from busybox"
+
+# See a list of all flags supported by run
+docker run --help
+
+# List all containers that are actually running / have been ran recently
+docker ps
+docker ps -a
+
+# Running multiple commands in a container
+# Running the run command with the -it flags attaches us to an interactive tty in the container. 
+# Now we can run as many commands in the container as we want.
+docker run -it busybox sh
+ls
+uptime
+exit
+
+# Delete a container
+docker rm container_id
+
+# Delete all exited containers (2 equivalent ways)
+docker rm $(docker ps -a -q -f status=exited)
+docker container prune
+
+# Remove image
+docker rmi image_name
+
+# Example: website with Docker
+# --rm flag removes the container as soon as it exits
+# -d flag detaches the terminal from the container, so that it can be closed without stopping the container run
+# -p flag will publish the exposed port to the specified port
+# --name flag corresponds to a name we want to give
+
+docker run -d -p 8888:80 --name static-site prakhar1989/static-site
+
+
+# Images --------------------------------------------------------------------------------------------------------------
+
+# To build a docker image, place a DOCKERFILE in the directory where the app lives and run:
+docker build -t michal/myapp .
+
+# DOCKERFILE example:
+```
+# our base image
+FROM python:3-onbuild
+
+# specify the port number the container should expose
+EXPOSE 5000
+
+# run the application
+CMD ["python", "./app.py"]
+```
+
+# Host your image on DockerHub
+docker push username/image_name
+
+
+
+
