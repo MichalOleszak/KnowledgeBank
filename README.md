@@ -19,7 +19,7 @@ This repo tracks the progress of my machine learning and data science self-study
 <br/>R programming; tidyverse; importing, cleaning & visualising data; using R with SQL databases; EDA; regression modelling; unsupervised & supervised learning, reporting with RMarkdown 
 - 	[Data Scientist with Python](https://www.datacamp.com/tracks/data-scientist-with-python?version=1) by DataCamp [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/data_scientist_with_python.pdf)
 <br/>Python programming; importing, cleaning & visualising data; connnecting to databases; statistical thinking; unsupervised & supervised learning; deep learning; network analysis
--   [57 Python, R and SQL DataCamp courses (certificates)](https://github.com/MichalOleszak/KnowledgeBank/tree/master/certificates/individual_datacamp_courses)
+-   [59 Python, R and SQL DataCamp courses (certificates)](https://github.com/MichalOleszak/KnowledgeBank/tree/master/certificates/individual_datacamp_courses)
 <br/> Among others: advanced deep learning with Tensorflow and PyTorch, text mining, software engineering in Python, building web apps with Shiny and Flask, PySpark, object-oriented programming, machine learning for time series
 
 ### Books I recommend (and have read)
