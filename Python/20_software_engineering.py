@@ -300,5 +300,70 @@ def nbconv(nb_name: str, exporter: str = "script") -> str:
     return exp.from_filename(nb_name)[0]
 
 
+# Shell Command Line Interfaces (CLIs) --------------------------------------------------------------------------------
+
+# With argparse
+
+def argparse_cli(func: Callable) -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("in_files", nargs="*")
+    args = parser.parse_args()
+    print(func(args.in_files))
+
+if __name__ == "__main__":
+    argparse_cli(nbuild)
+
+# With docopt
+# In docopt docstrings, optional arguments are wrapped in square brackets ([]), 
+# while lists of arguments are followed by ellipses (...).
+
+"""Usage: docopt_cli.py [IN_FILES...]"""
+def docopt_cli(func: Callable) -> None:
+    # Assign the shell arguments to "args"
+    args = docopt(__doc__)
+    print(func(args["IN_FILES"]))
+
+if __name__ == "__main__":
+    docopt_cli(nbuild)
 
 
+# GitPython -----------------------------------------------------------------------------------------------------------
+
+# Initialize a new repo in the current folder
+repo = git.Repo.init()
+
+# Obtain a list of untracked files
+untracked = repo.untracked_files
+
+# Add all untracked files to the index
+repo.index.add(untracked)
+
+# Commit newly added files to version control history
+repo.index.commit(f"Added {', '.join(untracked)}")
+print(repo.head.commit.message)
+
+# Commit modified files
+changed_files = [file.b_path
+                 # Iterate over items in the diff object
+                 for file in repo.index.diff(None)
+                 # Include only modified files
+                 .iter_change_type("M")]
+
+repo.index.add(changed_files)
+repo.index.commit(f"Modified {', '.join(changed_files)}")
+for number, commit in enumerate(repo.iter_commits()):
+    print(number, commit.message)
+
+
+# Virtual environments ------------------------------------------------------------------------------------------------
+
+# Create a venv and check pandas version
+venv.create(".venv")
+cp = subprocess.run([".venv/bin/python", "-m", "pip", "list"], stdout=-1)
+for line in cp.stdout.decode().split("\n"):
+    if "pandas" in line:
+        print(line)
+
+# Install a package and show info
+print(run([".venv/bin/python", "-m", "pip", "install", "-r", "requirements.txt"], stdout=-1).stdout.decode())
+print(run([".venv/bin/python", "-m", "pip", "show", "aardvark"], stdout=-1).stdout.decode())
