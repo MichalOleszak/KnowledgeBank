@@ -123,7 +123,7 @@ my_tweets.plot_counts('hashtag_counts')
 my_tweets.retweets.plot_counts('hashtag_counts')
 
 
-# Proper docstring example --------------------------------------------------------------------------------------------
+# Docstrings ----------------------------------------------------------------------------------------------------------
 def tokenize(text, regex=r'[a-zA-z]+'):
   """Split text into tokens using a regular expression
 
@@ -139,6 +139,37 @@ def tokenize(text, regex=r'[a-zA-z]+'):
 # Print the docstring
 help(tokenize)
 
+# Google docstring style
+"""Google style.
+
+The Google style tends to result in
+wider docstrings with fewer lines of code.
+
+Section 1:    
+	Item 1: Item descriptions don't need line breaks.
+"""
+
+# Numpy docstring style
+"""Numpy style.
+
+The Numpy style tends to results in
+narrower docstrings with more lines of code.
+
+Section 1
+---------
+Item 1    
+	Item descriptions are indented on a new line.
+"""
+
+# Building docstring from multiple strings in parenthesis
+def get_matches(word_list: List[str], query:str) -> List[str]:
+    ("Find lines containing the query string.\nExamples:\n\t"
+     # Complete the docstring example below
+     ">>> get_matches(['a', 'list', 'of', 'words'], 's')\n\t"
+     # Fill in the expected result of the function call
+     "['list', 'words']")
+    return [line for line in word_list if query in line]
+	
 
 # The Zen of Python ---------------------------------------------------------------------------------------------------
 import this
@@ -185,6 +216,89 @@ def test_social_media_hashtags():
 
 # Run from command line
 $ pytest
+
+# Parametrizing test
+@pytest.mark.parametrize("inputs", ["intro.md", "plot.py", "discussion.md"])
+def test_nbuild(inputs):
+    assert nbuild([inputs]).cells[0].source == Path(inputs).read_text()
+
+# Check whether error is raised
+@pytest.mark.parametrize("not_exporters", ["htm", "ipython", "markup"])
+def test_nbconv(not_exporters):
+    with pytest.raises(ValueError):
+        nbconv(nb_name="mynotebook.ipynb", exporter=not_exporters)
+	
+
+# Classmethods --------------------------------------------------------------------------------------------------------
+# Due to the classmethod decorator, the first argument in the function it decorates is not the class' instance (self),
+# but the class itself. This allows to instatiate multiple instances at ones.
+
+class TextFile:
+	
+	instances = []
+	
+	def__init__(self, file):        
+		self.text = Path(file).read_text()        
+		self.__class__.instances.append(file)    
+		
+	@classmethod
+	def instantiate(cls, filenames):
+		return map(cls, filenames)
+		
+boston, diabetes = TextFile.instantiate(['boston.txt', 'diabetes.txt'])
+TextFile.instances
+
+
+# Type annotations ----------------------------------------------------------------------------------------------------
+from typing import List, Optional
+
+# Example 1
+class TextFile:
+    def __init__(self, name: str) -> None:
+        self.text = Path(name).read_text()
+	# Return list of strings
+    def get_lines(self) -> List[str]:
+        return self.text.split("\n")
+
+# Example 2
+class MatchFinder:
+	# MatchFinder should only accept a list of strings as its strings argument
+    def __init__(self, strings: List[str]) -> None:
+        self.strings = strings
+	# The get_matches() method returns a list of either
+	# 	- every string in strings that contains the query argument or
+    # 	- all strings in strings if the match argument is None.
+    def get_matches(self, query: Optional[str] = None) -> List[str]:
+        return [s for s in self.strings if query in s] if query else self.strings
+
+		
+# Building Jupyter notebooks from within python code ------------------------------------------------------------------
+from nbformat.v4 import new_notebook, new_code_cell
+from nbconvert.exporters import get_exporter
+from pathlib import Path
+
+
+def nbuild(filenames: List[str]) -> nbformat.notebooknode.NotebookNode:
+    """Create a Jupyter notebook from text files and Python scripts."""
+    nb = new_notebook()
+    nb.cells = [
+        # Create new code cells from files that end in .py
+        new_code_cell(Path(name).read_text()) 
+        if name.endswith(".py")
+        # Create new markdown cells from all other files
+        else new_markdown_cell(Path(name).read_text()) 
+        for name in filenames
+    ]
+    return nb
+	
+	
+def nbconv(nb_name: str, exporter: str = "script") -> str:
+    """Convert a notebook into various formats using different exporters."""
+    # Instantiate the specified exporter class
+    exp = get_exporter(exporter)()
+    # Return the converted file"s contents string 
+    return exp.from_filename(nb_name)[0]
+
 
 
 
