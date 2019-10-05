@@ -1,0 +1,140 @@
+# Manipulating files and directories ----------------------------------------------------------------------------------
+
+# Print working direcotry
+pwd
+
+# List contents of working dir
+ls
+# with all subdirectories (recursively)
+ls -R
+
+# Change dir
+cd
+
+# Copy files
+cp original.txt duplicate.txt
+
+# Move files
+mv origin destination
+
+# Rename files - move it within the same locaion
+mv new_name.txt old_name.txt
+
+# Deleting files
+rm file
+
+# Deleting and creating directories
+# rmdir only works with empty folders
+rmdir folder_name
+mkdir folder name
+
+
+# Manipulating data ---------------------------------------------------------------------------------------------------
+
+# View file's content
+cat file.txt
+
+# Paging file's content
+# space - more content of current file; :n - next file; :p - previous file; :q - quit
+less files_1 files_2
+
+# Count the number of characteds, words and lines in a file
+wc file
+
+# View first 10 / 3 lines
+head file
+head -n 3 file
+
+# Accessing command's manual
+man head
+
+# Selecting columns from file
+# select columns 2 through 5 and column 8, using comma as the delimiter
+cut -f 2-5,8 -d , values.csv
+
+# Rerunning commands
+# Rerun the most recently ran head command
+!head
+# View history
+history
+# Rerun 55th command from history
+!55
+
+# Selecting lines based on their content with grep
+#   -c: print a count of matching lines rather than the lines themselves
+#   -h: do not print the names of files when searching multiple files
+#   -i: ignore case (e.g., treat "Regression" and "regression" as matches)
+#   -l: print the names of files that contain matches, not the matches
+#   -n: print line numbers for matching lines
+#   -v: invert the match, i.e., only show lines that don't match
+grep phrase file.csv
+
+# Sorting
+#   -n: sort numerically, instead of default alphabetically
+#   -r: reverse order to descending from default ascending
+#   -f: fold case (be case-insensitive)
+#   -b: ignore leading blanks
+sort file
+
+# Removing adjacent duplicates
+#   -c: count unique values 
+uniq file
+
+
+# Combining tools -----------------------------------------------------------------------------------------------------
+
+# Store command's output in file
+head file.csv > top_of_file.csv
+
+# Combining commands with pipes
+# Print lines 3-5 from file
+head -n 5 file.csv | tail -n 3
+
+
+# Batch processing ----------------------------------------------------------------------------------------------------
+
+# Print value of a variable
+echo $varname
+
+# Assigning variables values
+var=some_value
+
+# Looping
+# The structure is for ...variable... in ...list... ; do ...body... ; done
+for filetype in gif jpg png; do echo $filetype; done
+
+
+# Creating new tools --------------------------------------------------------------------------------------------------
+
+# Editing files with Nano
+#   Ctrl + K: delete a line.
+#   Ctrl + U: un-delete a line.
+#   Ctrl + O: save the file ('O' stands for 'output').
+#   Ctrl + X: exit the editor.
+nano filename
+
+# Running commands stored in shell files
+bash file.sh
+
+# Passing arguments to scripts
+# $@ - all parameters passed to scripts
+# Script example:
+sort $@ | uniq
+# Use script to get unique values from file
+bash script.sh file
+
+# Refering to specific parameters
+# $1, $2, ...
+# Shell script to get a column from a file:
+cut -d , -f $2 $1
+# Run
+bash sript.sh file.csv 2
+
+# Loops in shell scripts don't need semicolons:
+# Print the first and last data records of each file.
+for filename in $@
+do
+    head -n 2 $filename | tail -n 1
+    tail -n 1 $filename
+done
+
