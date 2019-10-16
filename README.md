@@ -9,9 +9,10 @@ This repo tracks the progress of my machine learning and data science self-study
 |[Regularization: Ridge, Lasso and Elastic Net](https://www.datacamp.com/community/tutorials/tutorial-ridge-lasso-elastic-net)|Tutorial on the R implementation and the math under the hood of regularization methods.|2018-11-29|
 |[A Comparison of Shrinkage and Selection Methods for Linear Regression](https://towardsdatascience.com/a-comparison-of-shrinkage-and-selection-methods-for-linear-regression-ee4dd3a71f16)|Linear Regression, Best Subset Regression, LASSO, Elastic Net, Least Angle Regression, Principal Components Regression, Partial Least Squares|2019-04-07|
 |[Linear Classifiers: An Overview](https://towardsdatascience.com/linear-classifiers-an-overview-e121135bd3bb)|Linear Discriminant Analysis, Quadratic Discriminant Analysis, Regularized Discriminant Analysis, Logistic Regression|2019-05-21|
+|[Non-linear regression: basis expansion, polynomials & splines](https://towardsdatascience.com/non-linear-regression-basis-expansion-polynomials-splines-2d7adb2cc226)|How to capture non-linear relations with polynomials and splines|2019-09-29|
 
 ### Projects
--   [Posterior Mean Panel Predictor](https://www.rdocumentation.org/packages/pmpp/versions/0.1.0): an R package for predictive modelling with micro-panel data; methodology is described [in my paper](https://thesis.eur.nl/pub/42668)
+-   [Posterior Mean Panel Predictor](https://www.rdocumentation.org/packages/pmpp): an R package for predictive modelling with micro-panel data; methodology is described [in my paper](https://thesis.eur.nl/pub/42668)
 -   [footballpredict AI](https://github.com/MichalOleszak/footballpredict): a framework for predicting football games' winning odds
 
 ### Courses & Certificates
