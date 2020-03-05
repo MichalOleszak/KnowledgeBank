@@ -4,7 +4,7 @@ This repo tracks the progress of my machine learning and data science self-study
 ### Blog Posts
 
 |Article|Description / Keywords|
-|---|---|---|
+|---|---|
 |[Visualize Missing Data with VIM package](https://www.datacamp.com/community/tutorials/visualize-data-vim-package)|Tutorial on using the R package VIM for learnig about missing data patterns with visualizations.|
 |[Regularization: Ridge, Lasso and Elastic Net](https://www.datacamp.com/community/tutorials/tutorial-ridge-lasso-elastic-net)|Tutorial on the R implementation and the math under the hood of regularization methods.|
 |[A Comparison of Shrinkage and Selection Methods for Linear Regression](https://towardsdatascience.com/a-comparison-of-shrinkage-and-selection-methods-for-linear-regression-ee4dd3a71f16)|Linear Regression, Best Subset Regression, LASSO, Elastic Net, Least Angle Regression, Principal Components Regression, Partial Least Squares|
