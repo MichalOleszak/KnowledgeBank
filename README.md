@@ -23,7 +23,7 @@ This repo tracks the progress of my machine learning and data science self-study
 -   [61 Python, R, SQL and Shell DataCamp courses (certificates)](https://github.com/MichalOleszak/KnowledgeBank/tree/master/certificates/individual_datacamp_courses)
 <br/> Among others: advanced deep learning with Tensorflow and PyTorch, text mining, software engineering in Python, building web apps with Shiny and Flask, Shell, PySpark, object-oriented programming, machine learning for time series
 
-### Books I recommend (and have read)
+### Books I recommend
 Technical or math-heavy books:
 - 	[The Elements of Statistical Learning: Data Mining, Inference, and Prediction.](https://web.stanford.edu/~hastie/Papers/ESLII.pdf) by Trevor Hastie et al.
 - 	[Deep Learning with R](https://www.manning.com/books/deep-learning-with-r) by François Chollet & Joseph J. Allaire
