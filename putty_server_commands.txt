@@ -1,7 +1,0 @@
-# show available and used space
-df -h
-
-# task manager
-htop
-# exit task manager
-q
