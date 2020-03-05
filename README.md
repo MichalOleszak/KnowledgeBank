@@ -1,5 +1,5 @@
 # KnowledgeBank
-This repo tracks the progress of my machine learning and data science self-study. The purpose is to document and organize my knowledge and goals and to share my publications, notes, links and other resources I deem useful.
+This repo tracks the progress of my machine learning and data science self-study. The purpose is to document and organize my knowledge and to collect and share my publications, notes and other resources I deem useful.
 
 ### Blog Posts
 
