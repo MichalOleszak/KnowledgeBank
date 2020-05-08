@@ -18,7 +18,7 @@ This repo tracks the progress of my machine learning and data science self-study
 ### Courses & Certificates
 -   [Deep Learning Specialization](https://www.deeplearning.ai/deep-learning-specialization/) by deeplearning.ai [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/deep_learning_specialization.pdf)
 <br/>Basics of neural networks; hyperparameter tuning, optimization and regularization of neural networks; structuring machine learning projects; convolutional networks (style transfer, face recognition, object detection); recurrent networks (natural langugage processing, sequence generation, machine translation, speech recognition)
--   [Deep Learning Specialization](https://www.deeplearning.ai/tensorflow-in-practice/) by deeplearning.ai [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/tensorflow_in_practice_specialization.pdf)
+-   [TensorFlow in Practice Specialization](https://www.deeplearning.ai/tensorflow-in-practice/) by deeplearning.ai [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/tensorflow_in_practice_specialization.pdf)
 <br/>Practical applications of convolutional and recurrent (LSTM, RNN) networks.
 - 	[Data Scientist with R](https://www.datacamp.com/tracks/data-scientist-with-r?version=1) by DataCamp [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/data_scientist_with_r.pdf)
 <br/>R programming; tidyverse; importing, cleaning & visualising data; using R with SQL databases; EDA; regression modelling; unsupervised & supervised learning, reporting with RMarkdown 
