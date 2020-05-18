@@ -11,6 +11,7 @@ This repo tracks the progress of my machine learning and data science self-study
 |[Linear Classifiers: An Overview](https://towardsdatascience.com/linear-classifiers-an-overview-e121135bd3bb)|Linear Discriminant Analysis, Quadratic Discriminant Analysis, Regularized Discriminant Analysis, Logistic Regression|
 |[Non-linear regression: basis expansion, polynomials & splines](https://towardsdatascience.com/non-linear-regression-basis-expansion-polynomials-splines-2d7adb2cc226)|How to capture non-linear relations with polynomials and splines|
 |[Model Selection & Assessment](https://towardsdatascience.com/model-selection-assessment-bb2d74229172)|Going beyond the train-val-test split: AIC, BIC & cross-validation|
+|[Estimating the state of the economy with finite-mixture models and the EM algorithm](https://towardsdatascience.com/estimating-the-state-of-the-economy-with-finite-mixture-models-and-the-em-algorithm-d975d280dbc6)|Estimating latent variables with a mixture of two Gaussians|
 
 ### Projects
 -   [Posterior Mean Panel Predictor](https://www.rdocumentation.org/packages/pmpp): an R package for predictive modelling with micro-panel data; methodology is described [in my paper](https://thesis.eur.nl/pub/42668)
