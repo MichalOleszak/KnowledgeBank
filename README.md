@@ -3,15 +3,7 @@ This repo tracks the progress of my machine learning and data science self-study
 
 ### Blog Posts
 
-|Article|Description / Keywords|
-|---|---|
-|[Visualize Missing Data with VIM package](https://www.datacamp.com/community/tutorials/visualize-data-vim-package)|Tutorial on using the R package VIM for learnig about missing data patterns with visualizations.|
-|[Regularization: Ridge, Lasso and Elastic Net](https://www.datacamp.com/community/tutorials/tutorial-ridge-lasso-elastic-net)|Tutorial on the R implementation and the math under the hood of regularization methods.|
-|[A Comparison of Shrinkage and Selection Methods for Linear Regression](https://towardsdatascience.com/a-comparison-of-shrinkage-and-selection-methods-for-linear-regression-ee4dd3a71f16)|Linear Regression, Best Subset Regression, LASSO, Elastic Net, Least Angle Regression, Principal Components Regression, Partial Least Squares|
-|[Linear Classifiers: An Overview](https://towardsdatascience.com/linear-classifiers-an-overview-e121135bd3bb)|Linear Discriminant Analysis, Quadratic Discriminant Analysis, Regularized Discriminant Analysis, Logistic Regression|
-|[Non-linear regression: basis expansion, polynomials & splines](https://towardsdatascience.com/non-linear-regression-basis-expansion-polynomials-splines-2d7adb2cc226)|How to capture non-linear relations with polynomials and splines|
-|[Model Selection & Assessment](https://towardsdatascience.com/model-selection-assessment-bb2d74229172)|Going beyond the train-val-test split: AIC, BIC & cross-validation|
-|[Estimating the state of the economy with finite-mixture models and the EM algorithm](https://towardsdatascience.com/estimating-the-state-of-the-economy-with-finite-mixture-models-and-the-em-algorithm-d975d280dbc6)|Estimating latent variables with a mixture of two Gaussians|
+I'm blogging about machine learning, statistics and other data-related topics. All the articles are available [on my website](https://michaloleszak.github.io/blog/).
 
 ### Projects
 -   [Posterior Mean Panel Predictor](https://www.rdocumentation.org/packages/pmpp): an R package for predictive modelling with micro-panel data; methodology is described [in my paper](https://thesis.eur.nl/pub/42668)
@@ -35,7 +27,7 @@ Technical or math-heavy books:
 - 	[Deep Learning with R](https://www.manning.com/books/deep-learning-with-r) by François Chollet & Joseph J. Allaire
 -   [Mostly Harmless Econometrics](https://www.researchgate.net/publication/51992844_Mostly_Harmless_Econometrics_An_Empiricist's_Companion) by Joshua Angrist & Jörn-Steffen Pischke
 
-Non-technical or popular science books:
+Non-technical and popular science books:
 - 	[Weapons of Math Destruction](http://crownpublishing.com/archives/news/weapons-math-destruction-cathy-oneil#.XIPdgbhCdPY) by Cathy O’Neil
 -   [The Signal and the Noise](https://www.penguinrandomhouse.com/books/305826/the-signal-and-the-noise-by-nate-silver/9780143125082/) by Nate Silver
 -   [Doing Data Science](http://shop.oreilly.com/product/0636920028529.do) by Cathy O'Neil & Rachel Schutt
