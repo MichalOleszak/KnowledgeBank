@@ -1,0 +1,147 @@
+// Intro -----------------------------------------------------------------------------------------------
+// Scala is:
+// - object-oriented: every value is an object and every operation is a method call (1+2 gets translated to 1.+2, call of method + on object 1)
+// - functional: functions are first-class values (you pass them as arguemnts to other functinos, store in variables etc.) and program operations map inputs to outputs rather than change data in place
+
+// Results get assigned a reusable name
+scala> 3 + 6
+res0: Int = 9
+scala> res0 * 2
+res1: Int = 18
+
+// Print commnad
+scala> println("Huh")
+Huh
+
+// Assigning results to variables
+// Calculate the difference between 8 and 5
+val difference = 8 - 5
+// Print the difference
+println(difference)
+
+// Scala has 2 types of variables:
+// - val (immutable)
+// - var (mutable)
+
+// Create val called pi of type Double
+val pi: Double = 3.14
+
+// Define immutable variables for clubs 2♣ through 4♣
+val twoClubs: Int = 2
+val threeClubs: Int = 3
+val fourClubs: Int = 4
+
+// Define mutable variables for all aces (Int's, leveraging type inference)
+var aceClubs = 1
+var aceDiamonds = 1
+var aceHearts = 1
+var aceSpades = 1
+
+// Scala is a compiled language. Scripts are compiled automatically before execution.
+// Applications need tobe pre-compiled as follows:
+// - Save a file myapp.scala
+// - compile: scalac myapp.scala
+// - run: scala myapp.scala
+
+// The main benefit of compiled code is that it's faster, which becomes evident in large programs. 
+// The drawback is that it takes time to do the compiling, sometimes on the order of minutes for large 
+// Scala programs. This trade-off is usually worth it, especially for applications with pieces of code 
+// that will be run many many times.
+
+
+// Functions -------------------------------------------------------------------------------------------
+def maxHand(handA: Int, handB: Int): Int = {
+  if (handA > handB) handA
+  else handB
+}
+
+// Arrays ----------------------------------------------------------------------------------------------
+// Mutable collection of objects that share the same time ("Any" supertype allows for mixed types)
+val players = Array("Alex", "Chen", "Marta")
+
+// The above is equivalent to:
+// 1. Parametrize the array
+val players: Array[String] = new Array[String](3)
+// 2. Initializing the array
+players(0) = "Alex"
+players(1) = "Chen"
+players(2) = "Marta"
+
+// Print each element of the array
+players.foreach(println)
+
+// Even though players is an immutable val, arrays are mutable and hence their elements can change
+// as long as the replacements are of the same type.
+// Arrays are a handy tool because of their ability to update elements in place. 
+// That said, they aren't commonly used in Scala as their mutability encourages side effects,
+
+
+// Lists -----------------------------------------------------------------------------------------------
+// Immutable collection of objects that share the same time ("Any" supertype allows for mixed types)
+
+// Prepend new item to the list
+val players = List("Alex", "Chen", "Marta")
+val newPlayers = "John" :: players
+
+// Empty list
+Nil
+
+// A common way to initialize lists:
+// Nil has to be at the end as the :: operator is a method unique to lists
+val players = "Alex" :: "Chen" :: "Marta" :: Nil
+
+// Concatenating lists
+val mylist = listA ::: listB
+
+
+// Static type -----------------------------------------------------------------------------------------
+// Type: restricts the possible values to which a variable can refer, or an expression can produce, at run time
+// Compile time: when source code is translated into machine code (java byte code)
+// Run time: when commands are executed (after compilation, if compiled)
+// Statically-typed languages: if variable types are known at compile time = types checked before run time (eg. C, C++, Fortran, Java, Scala)
+// Dynamically-typed languages: if types are checked on the fly (during execution, at run time) (eg. JavaScript, Ruby, Python, R)
+
+// Pros of static type systemsL
+// - Faster executed, since no need to check types at runtime 
+// - Proves the absence of common type-related bugs (such as adding booleans to strings)
+// - Safe refactoring: when recompiling after a refactor, Scala will alert to lines that cause type errors
+// - Documentation in the form of type annotations
+// Cons:
+// - It takes time to check types (delay before execution)
+// - Code is verbose = longer, more annoying to write (can be alleviated by type inference)
+
+// Scala being compiles AND statically-typed, doubles down on the performance at run time.
+
+
+// Control structures ----------------------------------------------------------------------------------
+// When there is no else, use curly braces for good Scala style
+if (hand == 21) {
+  println("Twenty-One!")
+}
+
+// Assing if-else statement to a variable
+val informPlayer: String = {
+  if (hand > 21)
+    "Bust! :("
+  else if (hand == 21)
+    "Twenty-One! :)"
+  else
+    "Hit or stay?"
+}
+
+// While loops
+var i = 0
+var hands = List(16, 21, 8, 25, 4)
+while (i < hands.length) {
+  println(pointsToBust(hands(i)))
+  i += 1
+}
+
+// Imperative programming = one command at a time, iterate with loops, mutate shared state
+// like while loop above; also eg. C, Java, Python
+// Functional style - prefered in Scala = function can be passed as arguments (eg. in foreach)
+// The line below is equivalent to the while loop above
+hands.foreach(pointsToBust)
+
+
+

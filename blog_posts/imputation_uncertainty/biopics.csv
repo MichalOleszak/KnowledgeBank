@@ -1,0 +1,762 @@
+country,year,earnings,sub_num,sub_type,sub_race,non_white,sub_sex
+UK,1971,NA,1,Criminal,NA,0,Male
+US/UK,2013,56.7,1,Other,African,1,Male
+US/UK,2010,18.3,1,Athlete,NA,0,Male
+Canada,2014,NA,1,Other,White,0,Male
+US,1998,0.537,1,Other,NA,0,Male
+US,2008,81.2,1,Other,other,1,Male
+UK,2002,1.13,1,Musician,White,0,Male
+US,2013,95,1,Athlete,African,1,Male
+US,1994,19.6,1,Athlete,NA,0,Male
+US/UK,1987,1.08,2,Author,NA,0,Male
+US/UK,1987,1.08,2,Author,NA,0,Female
+US,2001,171,1,Academic,NA,0,Male
+Canada/UK,2011,5.7,3,Academic,White,0,Male
+Canada/UK,2011,5.7,3,Academic,White,0,Male
+Canada/UK,2011,5.7,3,Academic,White,0,Female
+US,1993,1.7,1,Other,NA,0,Female
+US,1955,NA,1,Other,White,0,Male
+UK,1966,NA,1,Historical,White,0,Male
+US/UK,2008,NA,2,Actress,Hispanic,0,Female
+US/UK,2008,NA,2,Athlete,Hispanic,0,Male
+US/UK,2007,9.17,2,Journalist,White,0,Male
+US/UK,2007,9.17,2,Journalist,Multi racial,1,Female
+US,1945,NA,1,Musician,White,0,Male
+US,1940,NA,1,World leader,White,0,Male
+US,1952,NA,1,Military,NA,0,Male
+US,1930,NA,1,World leader,White,0,Male
+US,2004,5.88,1,Athlete,NA,0,Female
+US,1959,NA,1,Criminal,White,0,Male
+US/UK,2004,34.3,1,Historical,White,0,Male
+US,1956,NA,1,Historical,White,0,Male
+US,2001,58.2,1,Athlete,African,1,Male
+US,2006,15.2,1,Criminal,NA,0,Male
+US,1984,0.366,2,Musician,White,0,Male
+US,1984,0.366,2,Musician,White,0,Male
+US/UK,2006,21.2,1,Other,White,0,Male
+US/Canada,2009,14.2,1,Other,White,0,Female
+US/UK,2007,130,1,Criminal,African,1,Male
+US,1992,13.1,1,Criminal,Hispanic,1,Male
+US,2014,350,1,Military,NA,0,Male
+US,2003,6,1,Comedian,White,0,Male
+US,2007,NA,2,Criminal,White,0,Female
+US,2007,NA,2,Other,NA,0,Female
+UK,1990,1.1,1,Author,White,0,Female
+US,1956,NA,1,Other,White,0,Female
+US,1946,NA,1,Other,Multi racial,0,Female
+US,1950,8,1,Athlete,White,0,Female
+US,1935,NA,1,Athlete,White,0,Female
+UK,1984,NA,1,Military,NA,0,Male
+US,2002,21.1,1,Military,African,1,Male
+US,2002,2.06,1,Actor,White,0,Male
+US,1990,52.1,1,Medicine,White,0,Male
+US,2003,0.365,1,Actor,African,1,Male
+UK,2002,NA,1,Military,White,0,Male
+UK,1994,2.39,2,Musician,White,0,Male
+UK,1994,2.39,2,Musician,White,0,Male
+UK,1994,0.4,1,Criminal,other,1,Female
+US,1961,NA,1,Historical,White,0,Male
+US,1996,2.96,1,Artist,Multi racial,1,Male
+UK,2008,NA,1,Criminal,White,0,Female
+US,1957,NA,1,Military,NA,0,Male
+US,1954,NA,1,Other,White,0,Male
+US/UK,1964,NA,2,Historical,White,0,Male
+US/UK,1964,NA,2,Historical,White,0,Male
+UK,2007,18.7,1,Author,White,0,Female
+US,2000,4.22,1,Activist,Hispanic,1,Male
+Canada/UK,1997,0.0193,1,Military,Multi racial,0,Male
+US,2006,NA,2,Other,White,0,Male
+US/UK,2006,NA,2,Other,White,0,Female
+UK,2000,NA,1,Athlete,White,0,Male
+US,1993,NA,1,Other,NA,0,Male
+US/UK,2004,6.14,1,Musician,White,0,Male
+US/Canada,2014,14.5,1,Artist,White,0,Female
+US,1941,NA,1,Criminal,White,0,Male
+US,1988,2.18,1,Musician,Multi racial,1,Male
+US,1962,NA,1,Criminal,NA,0,Male
+US,1989,19.1,1,Politician,White,0,Male
+US,1988,11.8,1,Athlete,NA,0,Male
+US,1941,NA,1,Other,NA,0,Female
+US,2001,52.9,1,Criminal,White,0,Male
+UK,1993,1.72,1,Other,NA,0,Male
+US,2013,0.0867,1,Criminal,African,1,Male
+US,2004,2.69,1,Athlete,NA,0,Male
+US,1967,NA,2,Criminal,NA,0,Male
+US,1967,NA,2,Criminal,NA,0,Female
+US,1989,70,1,Military / activist,NA,0,Male
+US,1976,NA,1,Singer,White,0,Male
+US,1999,11.5,1,Other,NA,0,Male
+US,1938,NA,1,Other,White,0,Male
+US,1995,75.6,1,Military,White,0,Male
+US,2007,33,1,Criminal,White,0,Male
+US,1940,NA,1,Other,White,0,Male
+UK,2009,4.44,2,Author (poet),White,0,Male
+UK,2009,4.44,2,Other,NA,0,Female
+UK,2008,0.105,1,Criminal,NA,0,Male
+UK,1972,NA,1,Historical,White,0,Male
+US,2001,5,1,Medicine,NA,0,Male
+US,1944,NA,1,Other,White,0,Male
+US,1991,49.1,1,Criminal,White,0,Male
+US,2013,NA,1,Military,NA,0,Male
+UK,1988,0.54,1,Criminal,NA,0,Male
+US,1969,102,2,Criminal,White,0,Male
+US,1969,102,2,Criminal,White,0,Male
+US,2008,8.13,3,Singer,African,1,Female
+US,2008,8.13,3,Musician,African,1,Male
+US,2008,8.13,3,Musician,White,0,Male
+UK,1945,NA,2,Historical,White,0,Male
+UK,1945,NA,2,Historical,Mid Eastern,1,Female
+UK,2002,0.446,1,Singer,other,0,Female
+US,1993,NA,1,Criminal,NA,0,Male
+US,1975,NA,1,Criminal,White,0,Male
+US/Canada,2005,28.7,1,Author,NA,0,Male
+US,1945,NA,1,Historical,White,0,Male
+US,2013,107,1,Military,NA,0,Male
+UK,1986,0.00315,1,Artist,White,0,Male
+US,1952,NA,1,Other,NA,0,Male
+UK,1995,3.24,2,Author,White,0,Male
+UK,1995,3.24,2,Artist,White,0,Female
+UK,1958,NA,1,Military,White,0,Female
+US,1995,42.4,1,Criminal,NA,0,Male
+Canada,2010,1.04,1,Other,NA,0,Male
+UK,2008,NA,1,Other,other,1,Male
+US/UK,2006,4.29,1,Activist,African,1,Male
+US/Canada,2002,164,1,Criminal,NA,0,Male
+US,2014,5.55,1,Activist,Hispanic,1,Male
+US,1992,9.49,1,Comedian,White,0,Male
+US,2007,66.6,1,Military,NA,0,Male
+US,2012,6,1,Athlete,NA,0,Male
+US,1989,0.259,1,Military,NA,0,Male
+US,2008,1.73,1,Activist,Hispanic,0,Male
+US,2008,NA,1,Activist,Hispanic,0,Male
+US,1969,2,1,Activist,Hispanic,0,Male
+US,1970,6,1,Other,NA,0,Male
+US/UK,1992,8.25,1,Other,White,0,Male
+US,1972,NA,1,Actress,White,0,Female
+US,2005,61.6,1,Athlete,White,0,Male
+US,1934,NA,1,Historical,Mid Eastern,1,Female
+US/UK,1963,57.8,1,Historical,Mid Eastern,1,Female
+US,1980,79.9,1,Singer,Multi racial,1,Female
+US,1994,1.01,1,Athlete,White,0,Male
+US/UK,1989,1.92,1,Other,NA,0,Male
+US,1959,NA,2,Criminal,White,0,Male
+US,1959,NA,2,Criminal,White,0,Male
+US/Canada,2002,NA,1,Actor,NA,0,Male
+US/UK,2007,0.872,1,Musician,NA,0,Male
+US,2010,6.78,1,Other,NA,0,Female
+US,2006,0.353,1,Musician,White,0,Male
+US,2013,NA,1,Athlete,Hispanic,1,Male
+UK,2009,0.341,1,Academic,NA,0,Male
+UK,1970,NA,1,Historical,White,0,Male
+US,1983,0.2,1,Author,NA,0,Female
+US,2004,NA,1,Actor,NA,0,Male
+UK,1987,5.9,1,Activist,African,1,Male
+US,1967,NA,1,Military,White,0,Male
+US,2002,NA,1,Criminal,White,0,Male
+US,2013,27.3,1,Activist,NA,0,Male
+UK,1985,0.138,1,Criminal,NA,0,Female
+US,1998,4.53,1,Other,White,0,Female
+US,1995,84.9,1,Teacher,White,0,Female
+US/UK,2004,13.3,1,Musician,White,0,Male
+US,1996,0.226,1,Author,Hispanic,0,Male
+UK,2014,0.144,1,Artist,Mid Eastern,1,Male
+UK,2009,0.0443,1,Activist,African,1,Female
+US,1954,NA,2,Historical,White,0,Female
+US,1954,NA,2,Historical,White,0,Male
+US,2013,NA,3,Criminal,NA,0,Male
+US,2013,NA,3,Criminal,NA,0,Male
+US,2013,NA,3,Criminal,NA,0,Male
+US,1946,NA,3,Author,White,0,Female
+US,1946,NA,3,Author,White,0,Female
+US,1946,NA,3,Author,White,0,Female
+UK,2013,0.332,1,Other,White,0,Female
+US,2014,NA,1,Other,NA,0,Male
+US,1945,4,1,Criminal,White,0,Male
+US,1973,NA,1,Criminal,NA,0,Male
+US,1929,NA,1,World leader,White,0,Male
+US/UK,2005,10.1,1,Other,White,0,Female
+US,1997,42,1,Government,White,0,Male
+US,1981,0.1,1,Artist,Multi racial,1,Male
+US,1940,NA,1,Medicine,White,0,Male
+US,1993,35.1,1,Athlete,other,1,Male
+UK,1985,NA,1,Other,NA,0,Female
+US/UK,2000,0.00571,1,Criminal,NA,0,Male
+US,1994,5.89,1,Other,NA,0,Male
+US,1940,NA,1,Academic,White,0,Male
+UK,2007,NA,1,Military,White,0,Male
+US,2006,7.56,1,Musician,Hispanic,1,Male
+US,1961,26.6,1,Historical,Hispanic,0,Male
+US/UK,1998,30,1,Historical,White,0,Female
+US/UK,2007,16.3,1,Historical,White,0,Female
+US,2000,126,1,Activist,NA,0,Female
+US,1979,36.5,3,Criminal,NA,0,Male
+US,1979,36.5,3,Criminal,NA,0,Male
+US,1979,36.5,3,Criminal,NA,0,Male
+US,1971,NA,1,Athlete,White,0,Male
+US,2009,NA,1,Military,NA,0,Male
+US,1996,50,1,Actress / activist,Hispanic,0,Female
+UK,2014,65,1,Historical,Mid Eastern,0,Male
+US,2006,1.65,1,Actress,White,0,Female
+US,2010,9.53,1,Government,White,0,Female
+US,1989,3.56,2,Military,White,0,Male
+US,1989,3.56,2,Academic,White,0,Male
+US,1957,NA,1,Athlete,NA,0,Male
+US,1976,NA,1,Historical,White,0,Male
+US,2006,1.17,1,Criminal,White,0,Male
+US,1998,NA,1,Musician,White,0,Male
+US/UK,2004,51.7,1,Author,White,0,Male
+US,1993,20.1,1,Other,NA,0,Male
+US/Canada,2008,4.23,1,Other,NA,0,Male
+US,2014,12.1,1,Athlete,White,0,Male
+US,1982,5,1,Actress,White,0,Female
+US,1961,NA,1,Historical,White,0,Male
+US,1995,NA,2,Criminal,White,0,Male
+US,1995,NA,2,Criminal,White,0,Male
+Canada,2010,0.693,1,Other,African,1,Female
+US,2007,36.6,1,Other,White,0,Female
+US,1962,NA,1,Academic,White,0,Male
+US/Canada,2002,25.8,1,Artist,Hispanic,1,Female
+US,2013,16.1,1,Other,African,1,Male
+US,1968,0.223,1,Actress,White,0,Female
+US,2006,0.221,1,Other,White,0,Female
+UK,1982,NA,1,Activist,other,1,Male
+US,1942,NA,1,Athlete,White,0,Male
+US,1962,NA,1,Military,other,1,Male
+US/UK,2014,30.5,1,Singer,African,1,Male
+US/Canada,2005,31,1,Singer,African,1,Male
+UK,2003,11.6,1,Artist,White,0,Male
+US,1999,28.9,1,Author,NA,0,Female
+US,2006,42.6,1,Athlete,NA,0,Male
+US/UK,1998,6.39,1,Other,White,0,Male
+UK,2012,NA,1,Artist,White,0,Male
+US,1987,124,1,Media,NA,0,Male
+UK,2012,NA,1,Musician,NA,0,Male
+US,1990,46.8,1,Criminal,White,0,Male
+US,1988,24.7,1,Academic,NA,0,Female
+US,2006,1,1,Artist,Hispanic,0,Male
+US,2014,NA,1,Actress,White,0,Male
+US,2007,2.96,1,Athlete,White,0,Female
+US,1977,NA,1,Athlete,African,1,Male
+US,1989,13.7,1,Musician,NA,0,Male
+Canada/UK,1999,0.315,1,Other,Multi racial,1,Male
+US,1962,NA,2,Artist,White,0,Female
+US,1962,NA,2,Other,White,0,Female
+US,1952,NA,1,Author,White,0,Male
+US,1965,NA,1,Actress,White,0,Female
+US,1983,NA,1,Athlete,White,0,Female
+US,1993,5.86,1,Other,other,1,Female
+US,1960,NA,1,Military,Hispanic,1,Male
+US,1990,11.6,3,Author,White,0,Male
+US,1990,11.6,3,Author,White,0,Female
+US,1990,11.6,3,Other,White,0,Female
+UK,1944,NA,1,Historical,White,0,Male
+UK,1989,10.2,1,Historical,White,0,Male
+US,2003,NA,1,Other,White,0,Male
+UK,1998,4.87,2,Musician,White,0,Female
+UK,1998,4.87,2,Musician,White,0,Female
+US,1954,NA,1,Other,White,0,Male
+US/UK,2012,6,2,Other,White,0,Male
+US/UK,2012,6,2,Other,White,0,Female
+UK,1977,NA,1,Military,White,0,Male
+UK,1973,NA,1,Military,White,0,Male
+US,1992,24.3,1,Activist,White,0,Male
+US,2006,14.4,1,Actor,NA,0,Male
+US,1953,NA,1,Other,White,0,Male
+US,2010,0.617,1,Author,White,0,Male
+UK,2008,0.154,1,Activist,White,0,Male
+UK,2012,6.37,2,World leader,White,0,Male
+UK,2012,6.37,2,Other,NA,0,Female
+US,2005,0.113,1,Actor,Mid Eastern,1,Male
+US,2009,2.04,1,Criminal,NA,0,Male
+US/UK,1996,1.81,1,Activist,Hispanic,0,Female
+US,1958,NA,1,Criminal,NA,0,Female
+US,1955,NA,1,Actress,White,0,Female
+US,1951,NA,1,Musician,White,0,Male
+US/Canada,2007,4,1,Musician,White,0,Male
+Canada,1982,NA,1,Singer,White,0,Male
+US/UK,1994,14.4,1,Musician,White,0,Male
+UK,1991,4.08,2,Musician,White,0,Male
+UK,1991,4.08,2,Other,White,0,Female
+US,1996,14.5,2,Media,White,0,Male
+US,1996,14.5,2,Other,White,0,Female
+US/UK,1993,25,1,Other,White,0,Male
+US,2006,1.15,1,Other,NA,0,Male
+US,1996,0.146,1,Academic,NA,0,Male
+US,1955,NA,1,Singer,White,0,Female
+US,2007,18.4,1,Athlete,NA,0,Male
+US,2009,37.5,2,World leader,African,1,Male
+US,2009,37.5,2,Athlete,White,0,Male
+US,2006,57.8,1,Athlete,NA,0,Male
+US/UK,2001,1.2,1,Author,White,0,Female
+UK,1968,NA,1,Artist,NA,0,Female
+US/UK,2000,2.95,1,Author,White,0,Female
+US,2013,NA,1,Other,Multi racial,1,Male
+US,2011,37.3,1,Government,White,0,Male
+US,2014,NA,1,Criminal,NA,0,Male
+Canada,2013,NA,1,Athlete,White,0,Male
+UK,2009,NA,1,Other,White,0,Male
+US,1995,2.47,1,Historical,White,0,Male
+US,2014,47,4,Musician,White,0,Male
+US,2014,47,4,Musician,White,0,Male
+US,2014,47,4,Musician,White,0,Male
+US,2014,47,4,Musician,White,0,Male
+US,1939,NA,1,Criminal,White,0,Male
+US,1951,NA,1,Athlete,other,1,Male
+US/UK,2013,0.323,1,Musician,Multi racial,1,Male
+UK,1998,NA,1,Other,Mid Eastern,1,Male
+US,1986,18,1,Comedian,African,1,Male
+US,1948,NA,1,Historical,White,0,Female
+US,2013,16.1,1,Other,Multi racial,1,Male
+US,1959,NA,1,Military,White,0,Male
+US,1939,NA,1,World leader,Hispanic,1,Male
+US,2009,94.1,2,Other,NA,0,Female
+US,2009,94.1,2,Other,NA,0,Female
+US,2014,0.00557,1,Criminal,NA,0,Male
+US,2011,1.19,1,Criminal,White,0,Male
+US,2014,2.45,1,Media,NA,0,Male
+US,2013,1.03,1,Author,White,0,Male
+US,1995,0.0657,1,Criminal,White,0,Male
+US,1985,NA,1,Historical,Mid Eastern,0,Male
+US,1961,NA,1,Historical,Mid Eastern,0,Male
+US,2004,10.2,1,Academic,White,0,Male
+UK,2006,NA,1,Artist,White,0,Male
+US,1940,NA,1,Athlete,White,0,Male
+UK,1990,NA,1,Other,White,0,Male
+US,1997,5.53,1,Activist,Asian,1,Male
+US,1987,54.2,1,Musician,Hispanic,1,Male
+Canada/UK,2007,10.3,1,Singer,White,0,Female
+UK,1986,0.278,1,Historical,NA,0,Female
+US,1972,9.6,1,Musician,African,1,Female
+US,2005,0.455,1,Musician,White,0,Male
+UK,1962,0.342,1,Military,White,0,Male
+US,2013,117,1,Other,African,1,Male
+US,1974,NA,1,Comedian,White,0,Male
+US,2012,182,1,World leader,White,0,Male
+US,1981,NA,1,Activist,Mid Eastern,1,Male
+UK,1975,NA,1,Musician,White,0,Male
+UK,2008,0.48,1,Artist,Multi racial,1,Male
+US,2013,125,1,Military,NA,0,Male
+US,2005,11,3,Athlete,NA,0,Male
+US,2005,11,3,Athlete,Hispanic,1,Male
+US,2005,11,3,Athlete,NA,0,Male
+Canada,2013,NA,1,Athlete,White,0,Male
+US,2014,9.26,1,Musician,White,0,Male
+US,1955,NA,1,Other,other,1,Female
+US/UK,1998,0.343,1,Artist,White,0,Male
+US,1955,NA,1,Singer,NA,0,Female
+US,2013,0.355,1,Actress,White,0,Female
+US,2014,0.0445,1,Musician,White,0,Male
+US,1973,NA,1,Criminal,White,0,Male
+US,1956,NA,1,Artist,White,0,Male
+US,2003,5.67,1,Historical,White,0,Male
+US,1977,NA,1,Military,White,0,Male
+US,2011,0.538,1,Other,White,0,Male
+US,1958,NA,1,Criminal,NA,0,Male
+US,1943,NA,2,Academic,White,0,Male
+US,1943,NA,2,Academic,White,0,Female
+UK,1974,NA,2,Musician,White,0,Male
+UK,1974,NA,2,Other,NA,0,Female
+US,1992,48.2,1,Activist,African,1,Male
+US,1957,NA,1,Actor,White,0,Male
+US/UK,1999,34.6,1,Comedian,NA,0,Male
+UK,2013,8.32,1,World leader,African,1,Male
+US,1938,NA,1,Historical,White,0,Female
+US,2006,16,1,Historical,White,0,Female
+US,1936,NA,1,Historical,White,0,Female
+UK,1971,NA,1,Historical,White,0,Female
+US,1985,42.4,1,Other,White,0,Male
+UK,1979,NA,1,Other,White,0,Male
+US,2000,48.8,1,Athlete,African,1,Male
+Canada/UK,1994,NA,1,Medicine,White,0,Male
+Canada,2008,0.552,1,Criminal,White,0,Male
+Canada,2008,0.275,1,Criminal,White,0,Male
+US/UK,1996,11,1,Activist,White,0,Male
+US/UK,1978,35,1,Criminal,NA,0,Male
+US,2008,31.8,1,Activist,White,0,Male
+US,2014,36.4,1,Athlete,White,0,Male
+US,1952,NA,1,Athlete,White,0,Female
+US,2004,64.4,1,Athlete,NA,0,Male
+US,1985,0.45,1,Author,Asian,1,Male
+US/UK,2006,2.98,1,Author,White,0,Female
+US,2001,NA,1,Other,NA,0,Female
+UK,2004,0.195,1,Artist,White,0,Male
+US,1981,NA,1,Actress,White,0,Female
+US,2011,75.6,1,Athlete,White,0,Male
+UK,2003,0.0168,1,Historical,White,0,Male
+US,2003,34.5,1,Criminal,NA,0,Female
+UK,1952,NA,1,Artist,NA,0,Male
+UK,2010,NA,1,Criminal,NA,0,Male
+UK,2014,3.96,1,Artist,White,0,Male
+US/UK,1997,9.22,1,Historical,White,0,Female
+US/Canada,1994,2.14,1,Author,White,0,Female
+US,2002,NA,1,Historical,Mid Eastern,1,Male
+US,1960,NA,1,Other,NA,0,Male
+US,2007,0.153,1,Activist,Multi racial,1,Male
+UK,1972,NA,1,Other,NA,0,Male
+US,1981,0.00507,2,Actor,White,0,Male
+US,1981,0.00507,2,Actor,White,0,Male
+UK,1989,14.7,1,Artist,White,0,Male
+US/UK,1999,0.616,1,Other,White,0,Male
+US,2009,2.48,1,Other,White,0,Male
+US/UK,2011,14.6,1,Actress,NA,0,Female
+US/UK,2003,0.0749,1,Criminal,White,0,Male
+UK,1971,NA,2,Historical,White,0,Female
+UK,1971,NA,2,Historical,White,0,Male
+US,1946,NA,1,Musician,NA,0,Male
+Canada/UK,2007,NA,1,Artist,White,0,Male
+US,1995,13.6,1,World leader,White,0,Male
+UK,2000,0.0123,2,Author,White,0,Male
+UK,2000,0.0123,2,Other,NA,0,Female
+UK,1994,0.364,1,Historical,NA,0,Male
+US,2009,36.8,1,Musician,other,1,Male
+Canada/UK,2009,1.45,1,Musician,White,0,Male
+US,1999,32.5,1,Other,Multi racial,1,Male
+US/UK,2013,0.0897,1,Musician,NA,0,Male
+US,1941,NA,1,Other,White,0,Male
+US,2006,13.4,1,Historical,Mid Eastern,0,Female
+US,2003,30.5,2,Other,NA,0,Female
+US,2003,30.5,2,Other,NA,0,Male
+US,1985,87.1,1,Other,White,0,Female
+UK,2000,NA,2,Author (poet),NA,0,Male
+UK,2001,NA,2,Author (poet),NA,0,Male
+US,1973,53.3,1,Criminal,White,0,Male
+US,2003,0.297,1,Criminal,NA,0,Male
+US,1998,135,1,Medicine,NA,0,Male
+US,1970,NA,1,Military,White,0,Male
+US/UK,1988,1.22,1,Other,White,0,Female
+US,1998,1.17,1,Comedian,White,0,Male
+US,2007,4.44,1,Activist,Mid Eastern,1,Female
+US,2008,NA,1,Athlete,African,1,Male
+US/UK,2013,37.7,1,Other,White,0,Female
+US/UK,2005,0.0218,1,Other,White,0,Male
+US,2001,1.42,1,Actor,Hispanic,1,Male
+US,2000,8.6,1,Artist,White,0,Male
+US,1997,0.532,1,Athlete,White,0,Male
+UK,1987,1.65,2,Author,NA,0,Male
+UK,1987,1.65,2,Other,NA,0,Male
+US,1945,NA,1,Military,White,0,Male
+US,1997,41.2,1,Media,White,0,Male
+US,1963,NA,1,Military,White,0,Male
+US,2009,97,1,Criminal,NA,0,Male
+US,1933,NA,1,Historical,White,0,Female
+US/UK,2000,7.06,1,Criminal,White,0,Male
+US,1951,NA,2,Historical,White,0,Female
+US,1951,NA,2,Historical,White,0,Male
+US,2003,52.3,2,Athlete,African,1,Male
+US,2003,52.3,2,Athlete,NA,0,Male
+US,2014,NA,1,Singer,White,0,Male
+US,1980,0.0452,1,Athlete,White,0,Male
+UK,1966,NA,1,Other,White,0,Male
+US,2004,75.3,1,Musician,African,1,Male
+UK,1956,NA,1,Military,NA,0,Male
+US,1981,NA,1,Media,White,0,Male
+US,1915,NA,1,Other,White,0,Male
+UK,1936,NA,1,Artist,White,0,Male
+US,2000,116,1,Athlete,African,1,Male
+US,2006,5.48,1,Military,White,0,Male
+US/UK,1995,4.1,1,Historical,White,0,Male
+US/UK,1990,15.4,2,Other,White,0,Male
+US/UK,1990,15.4,2,Other,White,0,Female
+US,1945,NA,1,Musician,White,0,Male
+UK,1955,NA,1,Historical,White,0,Male
+US,2000,NA,1,Criminal,NA,0,Male
+US,2001,29.8,1,Other,NA,0,Female
+UK,2007,NA,1,Criminal,NA,0,Male
+US/UK,1995,31.6,1,Other,White,0,Male
+US,1989,1.32,1,Other,Hispanic,0,Male
+US,2014,3.09,1,Media,Mid Eastern,1,Male
+US,1993,22.8,1,Athlete,NA,0,Male
+US/UK,2013,26.9,2,Athlete,White,0,Male
+US/UK,2013,26.9,2,Athlete,White,0,Male
+US,1957,NA,1,Historical,White,0,Female
+US/UK,1988,0.331,1,Author,White,0,Male
+US,1940,NA,1,Other,White,0,Male
+UK,1972,NA,1,Artist,NA,0,Male
+US/UK,2013,83.3,2,Other,White,0,Male
+US/UK,2013,83.3,2,Author,White,0,Female
+US,1993,96.1,1,Other,White,0,Male
+UK,1948,NA,1,Other,White,0,Male
+US,1993,7.27,1,Other,NA,0,Male
+US,1997,35.4,1,Singer,Hispanic,1,Female
+US,2005,0.0988,1,Other,NA,0,Male
+US/UK,2014,52.1,1,Activist,African,1,Male
+US,1941,16.4,1,Military,White,0,Male
+US,1973,NA,1,Other,White,0,Male
+UK,2014,0.00327,1,Author (poet),White,0,Male
+US/UK,1997,37.9,1,Other,White,0,Male
+UK,2010,NA,1,Musician,NA,0,Male
+UK,1993,25.8,2,Author,White,0,Male
+UK,1993,25.8,2,Author (poet),White,0,Female
+UK,1986,2.83,2,Singer,NA,0,Male
+UK,1986,2.83,2,Other,NA,0,Female
+US,1983,35.6,1,Activist,NA,0,Female
+US,1946,NA,1,Medicine,White,0,Female
+UK,2006,0.225,1,Other,NA,0,Male
+UK,2008,NA,1,Other,African,1,Female
+US,1956,NA,1,Athlete,White,0,Male
+US,2014,59.7,1,Historical,Mid Eastern,0,Male
+US,2011,43.9,1,Athlete,NA,0,Female
+US,1960,NA,1,Historical,NA,0,Male
+UK,1942,NA,1,Military,White,0,Male
+US,1994,3.34,1,Historical,other,1,Male
+Canada/UK,2003,0.0191,1,Other,White,0,Male
+US,1983,6.5,1,Actress,White,0,Female
+US,1968,4,1,Actress,White,0,Female
+US,1952,NA,1,Musician,White,0,Male
+US,2000,0.0761,1,Activist,White,0,Male
+US,2003,NA,2,Criminal,NA,0,Male
+US,2003,NA,2,Other,White,0,Male
+UK,2005,NA,1,Musician,White,0,Male
+US,1945,NA,1,Media,NA,0,Male
+UK,1934,NA,2,Musician,White,0,Male
+UK,1934,NA,2,Musician,White,0,Male
+US,1960,NA,1,World leader,White,0,Male
+US,1996,1.99,1,Artist,White,0,Female
+US,1985,NA,1,Singer,White,0,Female
+US,2003,0.0472,1,Athlete,NA,0,Male
+US,1992,0.34,2,Criminal,White,0,Male
+US,1992,0.34,2,Criminal,White,0,Male
+UK,2003,1.3,2,Author (poet),White,0,Female
+UK,2003,1.3,2,Author (poet),White,0,Male
+US,2007,4.47,1,Activist,African,1,Male
+US,2002,NA,1,Criminal,White,0,Male
+UK,2008,NA,1,Musician,White,0,Male
+UK,2014,0.671,1,Other,NA,0,Female
+US,2010,0.4,1,Athlete,NA,0,Male
+US,1953,NA,1,Actress,NA,0,Female
+US,1938,NA,1,Historical,White,0,Male
+US,1944,NA,1,Author,White,0,Male
+US/UK/Canada,2007,3.9,2,Criminal,White,0,Male
+US/UK/Canada,2007,3.9,2,Criminal,NA,0,Male
+US,2004,0.698,1,Other,NA,0,Male
+UK,1972,NA,1,Activist,White,0,Male
+US,2004,103,1,Other,NA,0,Male
+US,1992,17.5,1,Athlete,White,0,Male
+US,1948,NA,1,Athlete,White,0,Male
+Canada,2010,NA,4,Media,NA,0,Male
+Canada,2010,NA,4,Media,White,0,Male
+Canada,2010,NA,4,Media,NA,0,Male
+Canada,2010,NA,4,Media,White,0,Male
+US,1934,NA,2,Author (poet),Multi racial,0,Female
+US,1934,NA,2,Author (poet),Multi racial,0,Male
+US,1995,2.42,1,Author,White,0,Male
+US,1956,NA,1,Musician,White,0,Male
+UK,1992,1.3,2,Other,NA,0,Male
+UK,1992,1.3,2,Other,NA,0,Female
+US,2014,NA,1,World leader,White,0,Male
+US,2009,256,1,Athlete,African,1,Male
+Canada,1986,0.275,1,Athlete,White,0,Male
+US,2014,NA,1,Actress,White,0,Female
+US,2011,NA,1,Author (poet),NA,0,Male
+US,1978,NA,1,Singer,Multi racial,0,Male
+US,2010,NA,1,Criminal,Multi racial,1,Male
+UK,2007,NA,1,Other,White,0,Male
+US,2012,NA,1,Author,NA,0,Male
+US,1956,4.5,1,Military,Asian,1,Male
+US,2009,NA,1,Historical,White,0,Female
+US,1955,NA,1,Military,White,0,Male
+US,1970,NA,1,Other,NA,0,Male
+UK,2009,0.45,1,Athlete,NA,0,Male
+US,1951,NA,1,Military,White,0,Male
+US,1959,NA,1,Other,White,0,Female
+US,2007,5.99,1,Media,White,0,Male
+US,1991,35.2,1,Singer,White,0,Male
+US/UK,2008,13.8,1,Other,White,0,Female
+US,1956,NA,1,Musician,NA,0,Male
+UK,2008,0.0286,1,Author (poet),White,0,Male
+US,1980,NA,1,Other,White,0,Male
+US,1982,NA,1,Other,NA,0,Female
+US,2008,9.59,1,Athlete,African,1,Male
+US/UK,1985,17.1,1,Criminal,NA,0,Male
+US,2013,3.25,1,Other,White,0,Male
+US,2010,93.6,1,Athlete,White,0,Male
+US,2010,0.331,1,Other,African,1,Male
+US,1959,NA,1,Musician,NA,0,Male
+US,2013,NA,2,Other,NA,0,Male
+US,2013,NA,2,Criminal,White,0,Male
+US,1960,NA,1,Military,White,0,Male
+Canada,2001,NA,1,Historical,White,0,Male
+UK,1998,1.21,1,Criminal,White,0,Male
+US,1955,NA,1,Actress,White,0,Female
+US,1954,NA,1,Musician,White,0,Male
+US,1951,NA,1,Musician,White,0,Male
+US,2007,30.2,1,Academic,African,1,Male
+US,1944,NA,1,Medicine,NA,0,Male
+US,1938,NA,1,Musician,White,0,Male
+US,1936,NA,1,Musician,White,0,Male
+US/UK,1977,NA,1,Athlete,African,1,Male
+US,1965,8,1,Historical,Mid Eastern,0,Male
+Canada,1982,NA,1,Other,NA,0,Male
+US,2010,NA,1,Athlete,NA,0,Male
+US,1975,NA,1,Other,White,0,Female
+US,1934,NA,1,Other,White,0,Male
+US,1980,NA,1,Other,NA,0,Male
+US,1999,50.7,1,Athlete,African,1,Male
+US,2012,1.94,1,Criminal,White,0,Male
+US,1980,NA,1,Other,NA,0,Male
+US/UK,2014,91.1,1,Academic,White,0,Male
+US,1958,NA,1,Other,White,0,Female
+US,1999,29,1,Activist,NA,0,Male
+UK,2013,1.23,1,Author,White,0,Male
+UK,2011,30,1,World leader,White,0,Female
+US,1950,NA,1,Athlete,African,1,Male
+US,1979,NA,1,Historical,Mid Eastern,0,Male
+US,1946,NA,1,Musician,White,0,Male
+US,1956,NA,1,Other,Multi racial,0,Female
+US,1927,NA,1,Historical,Mid Eastern,0,Male
+US/UK,2010,139,1,Historical,White,0,Male
+UK,1990,2.06,2,Criminal,Multi racial,0,Male
+UK,1990,2.06,2,Criminal,Multi racial,0,Male
+UK,2011,NA,1,Activist,Asian,1,Female
+UK,1987,0.109,1,World leader,Asian,1,Male
+UK,2006,17.6,1,Other,African,1,Male
+US,2013,0.27,1,Actor,White,0,Male
+US,2012,NA,1,Musician,NA,0,Male
+UK,2009,6.62,1,Author,White,0,Male
+US,1997,0.0128,1,Author,NA,0,Male
+US,1953,NA,1,Criminal,NA,0,Male
+US,1958,NA,1,Criminal,White,0,Male
+US,2004,NA,1,Actor,White,0,Male
+US,1937,NA,1,Author,White,0,Male
+UK,1992,0.0228,1,Other,White,0,Male
+US,1955,NA,1,Military,White,0,Male
+US,2008,11.5,1,Athlete,African,1,Female
+US/UK,2013,0.0104,1,Other,NA,0,Male
+UK,1992,4.9,1,Other,White,0,Female
+UK,1994,15.2,1,Historical,White,0,Male
+UK,1951,NA,1,Other,NA,0,Male
+US,1981,NA,1,Academic,White,0,Male
+UK,1977,NA,1,Historical,Mid Eastern,1,Male
+UK,2000,NA,1,Historical,Mid Eastern,0,Male
+US,1962,NA,2,Other,White,0,Female
+US,1962,NA,2,Other,White,0,Female
+US/UK,2004,16.8,1,Activist,Hispanic,0,Male
+UK,1970,NA,1,Musician,White,0,Male
+US/UK,2005,12.7,1,Historical,other,1,Female
+US,2003,NA,1,Singer,White,0,Male
+US,2005,1.41,1,Other,Multi racial,0,Female
+US/UK,2008,26.8,2,Historical,White,0,Female
+US/UK,2008,26.8,2,Historical,White,0,Female
+US,2001,4.72,1,Other,NA,0,Male
+US,1975,NA,1,Athlete,NA,0,Female
+US,1996,20.2,1,Activist,White,0,Male
+US,1947,NA,1,Actress,NA,0,Female
+UK,2002,32.5,1,Musician,White,0,Male
+US,1991,NA,1,Athlete,White,0,Male
+US,1936,NA,1,Historical,White,0,Male
+US,1942,NA,1,Athlete,White,0,Male
+US,1998,101,2,Historical,Mid Eastern,0,Male
+US,1998,101,2,Historical,Mid Eastern,0,Male
+US,1936,NA,1,Medicine,White,0,Male
+UK,1933,NA,1,Historical,White,0,Male
+US,1939,NA,2,Historical,White,0,Female
+US,1939,NA,2,Historical,White,0,Male
+US,2005,0.626,1,Other,NA,0,Female
+US,2006,163,1,Other,African,1,Male
+US/UK,2006,56.4,1,Historical,White,0,Female
+UK,2013,4.44,1,Military,NA,0,Male
+UK,2008,0.0366,1,Military,White,0,Male
+Canada,2005,NA,1,Athlete,White,0,Male
+US,2010,3.57,2,Musician,White,0,Female
+US,2010,3.57,2,Musician,NA,0,Female
+US,2012,6,1,Medicine,NA,0,Male
+US,1955,NA,1,Actor,White,0,Male
+US,1966,NA,1,Musician,White,0,Female
+US,2010,96.9,1,Other,NA,0,Male
+US/UK,2009,31.7,2,Musician,African,1,Male
+US/UK,2009,31.7,2,Media,NA,0,Male
+US,1943,NA,1,Other,White,0,Female
+UK,2002,NA,2,Academic,White,0,Male
+UK,2002,NA,2,Academic,White,0,Female
+US,1965,163,1,Singer,White,0,Female
+US,1957,NA,1,Other,White,0,Male
+US,1939,NA,1,Academic,White,0,Male
+US,1936,NA,1,Academic,White,0,Male
+US,1939,1.12,2,Artist,NA,0,Female
+US,1939,1.12,2,Artist,NA,0,Male
+US/UK,1999,6.2,1,Other,NA,0,Male
+US,1949,NA,1,Athlete,NA,0,Male
+US,1956,80,1,Historical,Mid Eastern,0,Male
+UK,2014,35.9,1,Academic,White,0,Male
+US,1937,NA,1,Criminal,White,0,Male
+UK,1960,NA,1,Author,White,0,Male
+US,1957,NA,1,Criminal,White,0,Male
+US,1964,NA,1,Other,White,0,Female
+Canada/UK,2003,4.07,1,Historical,Mid Eastern,0,Male
+US/Canada,2010,1.12,1,Other,White,0,Female
+US,1996,0.137,2,Author,White,0,Male
+US,1996,0.137,2,Author,Multi racial,0,Female
+US,1957,NA,1,Military,NA,0,Male
+US,1952,NA,1,Athlete,White,0,Male
+US,1988,NA,1,Other,NA,0,Male
+US,2013,117,1,Criminal,NA,0,Male
+US,1961,NA,2,Author,White,0,Male
+US,1961,NA,2,Author,White,0,Male
+US,2005,5.13,1,Athlete,White,0,Male
+US/UK,2009,11,1,Historical,White,0,Female
+US,1941,NA,1,Military,White,0,Male
+US,2003,4.6,2,Other,White,0,Female
+US,2003,4.6,2,Other,NA,0,Female
+Canada,1993,1.57,1,Musician,White,0,Male
+US,1993,4.1,1,Other,NA,0,Male
+US,1981,NA,1,Musician,White,0,Male
+US,2008,NA,1,Artist,White,0,Male
+US,1950,NA,2,Musician,White,0,Male
+US,1950,NA,2,Musician,White,0,Male
+US,1946,6.72,1,Musician,White,0,Male
+US,1955,NA,1,Military,White,0,Male
+UK,2003,NA,2,Historical,White,0,Male
+UK,2003,NA,2,Historical,White,0,Male
+Canada/UK,1999,NA,2,Other,NA,0,Male
+Canada/UK,1999,NA,2,Other,NA,0,Male
+US,2012,NA,1,Other,NA,0,Female
+US/UK,1994,0.539,2,Author,White,0,Male
+US/UK,1994,0.539,2,Author,White,0,Female
+US/UK,1999,6.2,2,Musician,White,0,Male
+US/UK,1999,6.2,2,Author,White,0,Male
+UK,1995,0.34,2,Author (poet),NA,0,Male
+UK,1995,0.34,2,Author (poet),NA,0,Male
+US,1989,0.409,1,Athlete,White,0,Male
+US,1988,19.7,1,Other,NA,0,Male
+US,2014,116,1,Athlete / military,White,0,Male
+US/UK,1977,NA,1,Actor,White,0,Male
+UK,2000,0.0495,1,Other,White,0,Male
+US/UK,2003,1.57,1,Media,White,0,Female
+UK,1990,2.23,2,Other,White,0,Male
+UK,1990,2.23,2,Artist,White,0,Male
+US,2010,NA,1,Criminal,White,0,Male
+US,1977,NA,1,Athlete,White,0,Male
+US,1934,1.11,1,Military,Hispanic,1,Male
+US,1952,NA,1,Activist,Hispanic,1,Male
+US,1971,NA,2,Military,White,0,Male
+US,1971,NA,2,Military,White,0,Male
+US,2008,25.5,1,World leader,White,0,Male
+US,2005,120,1,Musician,White,0,Male
+US,1987,0.257,1,Other,White,0,Male
+US,1975,NA,1,Other,NA,0,Male
+US,2007,0.0588,1,Singer,NA,0,Male
+US,1993,39.1,1,Singer,Multi racial,1,Female
+UK,2007,1.07,1,Other,White,0,Male
+US,1980,NA,1,Media,NA,0,Male
+UK,2009,NA,1,Other,NA,0,Male
+US,1998,12.4,1,Musician,African,1,Male
+US,2014,37.9,1,Other,NA,0,Female
+US,1995,2.17,1,Historical,White,0,Male
+UK,1997,2.16,1,Author,White,0,Male
+US,1944,2,1,World leader,White,0,Male
+Canada,2011,NA,1,Government,African,1,Female
+US,1989,1.09,1,Comedian,NA,0,Male
+US,1952,NA,1,Musician,NA,0,Female
+US,1998,0.777,1,Athlete,White,0,Male
+UK,1993,NA,1,Academic (Philosopher),White,0,Male
+US,1948,NA,2,Musician,White,0,Male
+US,1948,NA,2,Musician,White,0,Male
+US,1994,25.1,1,Other,White,0,Male
+US,1942,NA,1,Musician,White,0,Male
+US,1953,NA,1,Historical,White,0,Female
+UK,1965,NA,1,Author,White,0,Male
+US,1950,NA,1,Musician,White,0,Male
+US,1939,NA,1,World leader,White,0,Male
+US,1940,NA,1,Other,White,0,Male
+US,1972,NA,1,World leader,White,0,Male
+US,1964,NA,1,Musician,NA,0,Male
