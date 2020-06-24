@@ -1,0 +1,269 @@
+# Intro --------------------------------------------------------------------------------------
+# Count lines that contain either "Sydney Carton" or "Charles Darnay"
+cat two_cities.txt | grep 'Sydney Carton \| Charles Darnay' | wc -l
+
+# Get bash location
+where bash
+
+# Bash scripts start with a shebang: #!/bin/bash
+
+# Split by comma and take only second column
+cat data.csv | cut -d "," -f 2
+
+# Count unique values
+uniq -c
+
+# Change all "old name" to "new name" and save
+cat data.csv | sed 's/old name/new name/g' > corrected_data.csv 
+
+
+# Streams -------------------------------------------------------------------------------------
+# The are 3 streams in bash programs:
+# - STDIN - a stream of data into the program
+# - STDOUT - a stream of data out of the program
+# - STDERR - errors in the program
+
+# Redirecting STDERR to be deleted:
+2> /dev/null
+# Redirecting STDOUT to be deleted:
+1> /dev/null
+
+
+# Arguments and assigning variables -----------------------------------------------------------
+# ARGV is the array of all arguments given to the program
+# Accessing aruments: 
+# $2 - second arguemnt
+# $* / $@ - all arguments in ARGV
+# $# - number of arguments
+
+# Assigning variables 
+var1="varname" (no spaces around "="!)
+echo $var1
+
+
+# Quotation marks -----------------------------------------------------------------------------
+# - 'single' - whatever is between them, it is represented literally
+# - "double" - will understand $variables and backticks
+# - `backticks` - shell-within-a-shell, runs the command and captures STDOUT into a variable
+
+# Backticks examples:
+#
+# ip-xxx:~ michaloleszak$ date
+# Sat Jun 20 18:45:58 CEST 2020
+#
+# ip-xxx:~ michaloleszak$ rightnow="The date is `date`."
+# ip-xxx:~ michaloleszak$ echo $rightnow
+# The date is Sat Jun 20 18:47:18 CEST 2020.
+
+# Alternative way to invocek shell-within-a-shell
+# ightnow="The date is $(date)."
+
+
+# Numeric variables ---------------------------------------------------------------------------
+# Number are not natively supported in bash (1 + 4 gives an error); instead, use expr:
+expr 1 + 4 
+echo $((1 + 4))
+
+# expr cannot handle decimal places
+# bc - basic calculator: "bc" to enter, "quit" of ctrl+D to quit
+
+# Using bc without opening the program:
+# echo "5 + 7.5" | bc
+
+# Passing aruments to bc (scale - number of decimal placse)
+echo "scale=3; 10 / 3" | bc
+
+# Load data from file to a variable
+temp=$(cat "temps/region_A")
+
+
+# Arrays ---------------------------------------------------------------------------------------
+# Create empty array
+declare -a myarray
+
+# Create array with numbers
+myarray=(1 2 3)  # no commas!
+
+# Return all array elements
+echo ${myarray[@]}
+
+# Return the length of the arrat
+echo ${#myarray[@]}
+
+# Return 3rd element
+echo ${myarray[2]}
+
+# Overwrite 1st element to 999
+myarray[0]=999
+
+# Slicing array
+# N - starting index
+# M - how many elements to return after the Nth-indexed element
+array[@]:N:M
+
+# Appending to arrays
+myarray+=(elements)
+
+
+# Associative arrays - key-value paris --------------------------------------------------------
+# Create empty
+declare -A myarray
+
+# Add elements
+myarray=([key]="somestring" [anotherkey]=2)
+
+# Index using key to return a value
+echo ${myarray[key]}
+
+# Create and populate at the same time
+declare -A myarray=([key]="somestring" [anotherkey]=2)
+
+# Return all keys
+echo ${!myarray[@]}
+
+
+# If-statements --------------------------------------------------------------------------------
+if [CONDITION]; then
+	# code
+else 
+	# code
+fi
+
+# Chaining conditions
+if [CONDITION] && [CONDITION]
+if [[CONDITION && CONDITION]]
+
+
+# Loops ----------------------------------------------------------------------------------------
+# For loop
+for x in 1 2 3
+do
+	echo $x
+done
+
+# Brace expantion - craeting numeric ranges
+{start..stop..increment}
+
+# Three expression syntax
+# ((start_expression;terminating_condition;increment))
+for ((x=2;x<=4;x+=2))
+do
+	echo $x
+done
+
+# Glob expansions
+# there are multiple text files in the /books directory, we loop over them:
+for book in books/*.txt
+
+# While loop
+x=1
+while [ $x -le 3 ];
+do
+	echo $x
+	((x+=1))
+done
+
+
+# Case statements ------------------------------------------------------------------------------
+case MATCHVAR in
+  PATTERN1)
+  COMMAND1;;
+  PATTERN2)
+  COMMAND2;;
+  *)
+  DEFAULT COMMAND;;
+esac
+
+# Example: we pass a file name as argument to the script
+# if a file contains "sydney", move it to /sydney dir
+# if a file contains "melbourne" or "brisbane", delete it 
+# if a file contains "canberra", prepend "IMPORTANT" to its name
+case $(cat $1) in
+	*sydney*)
+	mv $1 sydney/ ;;
+	*melbourne*|*brisbane*)
+	rm $1 ;;
+	*canberra*)
+	mv $1 "IMPORTANT__$1" ;;
+	*)
+	echo "no cities found";;
+esac
+
+
+# Functions ------------------------------------------------------------------------------------
+function_name () {
+	# function code
+	return #something
+}
+
+# or
+
+function function_name {
+	# function code
+	return #something
+}
+
+# The return value is not for data. 
+# It only determines if the function was a success (0) or failure (1-255).
+# It is captured in the global variable $?
+
+# To return a value:
+funtion convert_temp {
+	echo $("scale=2; ($1 - 32) * 5 / 9" | bc)
+}
+converted=$(convert_temp 30)
+
+# Example: a percentage calculator
+function return_percentage () {
+  percent=$(echo "scale=4; $1 / $2" | bc)
+  echo $percent
+}
+return_test=$(return_percentage 456 632)
+echo "456 out of 632 as a percent is $return_test"
+
+# Example: summing an array
+function sum_array () {
+  local sum=0
+  for number in "$@"
+  do
+    sum=$(echo "$sum + $number" | bc)
+  done
+  echo $sum
+}
+test_array=(14 12 23.5 16 19.34)
+total=$(sum_array "${test_array[@]}")
+echo "The sum of the test array is $total"
+
+
+# Scheduling scripts with CRON ----------------------------------------------------------------
+# crontab - a file that contains cronjobs which tell it what code to run and when
+
+# List what cronjobs are scheduled
+crontab -l
+
+# Each line of a crontab file represents a job and looks like this:
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of the month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday;
+# │ │ │ │ │                                   7 is also Sunday on some systems)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * * <command to execute>
+# default "*" means "every"
+
+# Examples:
+5 1 * * * bash myscript.sh ---> run myscript every day at 1:05am
+15 14 * * 7 bash myscript.sh ---> every Sunday at 2:15pm
+
+# Specific intervals:
+15,30,45 * * * * ---> run 15, 30 and 45 minutes after every hour
+
+# Every increment:
+*/15 * * * * ---> every 15 minutes
+
+# Edit list of cronjobs
+crontab -e 
+
+

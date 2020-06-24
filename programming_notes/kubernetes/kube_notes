@@ -1,0 +1,15 @@
+# check minikube version
+minikube version
+
+# start a virtual machine and run a Kubernetes cluster in that VM
+minikube start
+
+# kubectl - command line interface
+kubectl version
+
+# view cluster details
+kubectl cluster-info
+
+# view the nodes in the cluster
+kubectl get nodes
+
