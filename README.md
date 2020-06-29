@@ -7,9 +7,11 @@ I'm blogging about machine learning, statistics and other data-related topics. A
 
 ### Projects
 -   [Posterior Mean Panel Predictor](https://www.rdocumentation.org/packages/pmpp): an R package for predictive modelling with micro-panel data; methodology is described [in my paper](https://thesis.eur.nl/pub/42668)
--   [footballpredict AI](https://github.com/MichalOleszak/footballpredict): a framework for predicting football games' winning odds
+-   [tsaugur](https://github.com/MichalOleszak/tsaugur): Time Series Augur: a low-code Python package for time series forecasting
 
 ### Courses & Certificates
+- 	[Data Engineer with Python](https://www.datacamp.com/tracks/data-engineer-with-python) by DataCamp [(certificate)]()
+<br/>Writing efficient python code, software engineering in python, bash scripting, data processing in Shell, CLI automation, AWS Boto, SQL Server: database design, transactions and error handling, building optimized triggers, PySpark, SparkSQL, intro to Scala, intro to MongoDB
 -   [Deep Learning Specialization](https://www.deeplearning.ai/deep-learning-specialization/) by deeplearning.ai [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/deep_learning_specialization.pdf)
 <br/>Basics of neural networks; hyperparameter tuning, optimization and regularization of neural networks; structuring machine learning projects; convolutional networks (style transfer, face recognition, object detection); recurrent networks (natural langugage processing, sequence generation, machine translation, speech recognition)
 -   [TensorFlow in Practice Specialization](https://www.deeplearning.ai/tensorflow-in-practice/) by deeplearning.ai [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/tensorflow_in_practice_specialization.pdf)
@@ -18,8 +20,6 @@ I'm blogging about machine learning, statistics and other data-related topics. A
 <br/>R programming; tidyverse; importing, cleaning & visualising data; using R with SQL databases; EDA; regression modelling; unsupervised & supervised learning, reporting with RMarkdown 
 - 	[Data Scientist with Python](https://www.datacamp.com/tracks/data-scientist-with-python?version=1) by DataCamp [(certificate)](https://github.com/MichalOleszak/KnowledgeBank/blob/master/certificates/data_scientist_with_python.pdf)
 <br/>Python programming; importing, cleaning & visualising data; connnecting to databases; statistical thinking; unsupervised & supervised learning; deep learning; network analysis
--   [64 Python, R, SQL, Shell & Scala courses from DataCamp (certificates)](https://github.com/MichalOleszak/KnowledgeBank/tree/master/certificates/individual_datacamp_courses)
-<br/> Among others: advanced deep learning with Tensorflow and PyTorch, text mining, software engineering in Python, building web apps with Shiny and Flask, Shell, PySpark, object-oriented programming, machine learning for time series, unit testing
 
 ### Books I recommend
 Technical or math-heavy books:
