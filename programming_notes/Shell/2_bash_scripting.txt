@@ -56,7 +56,7 @@ echo $var1
 # The date is Sat Jun 20 18:47:18 CEST 2020.
 
 # Alternative way to invocek shell-within-a-shell
-# ightnow="The date is $(date)."
+# rightnow="The date is $(date)."
 
 
 # Numeric variables ---------------------------------------------------------------------------

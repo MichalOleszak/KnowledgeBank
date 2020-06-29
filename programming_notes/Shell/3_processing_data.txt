@@ -1,0 +1,118 @@
+# Downloading data with curl (client URL) -------------------------------------------------------------------
+
+# Display curl manual or help
+man curl
+curl --help
+
+# Download file
+curl https://website.com/file.txt
+
+# Flags
+# -O - save file with original name
+# -o newfilename - save with a new name
+# -L - redirects the http url if a 300 error occurs
+# -C - resumes the previous file trasnfer, if it timed out before completion
+
+# Downloading multiple files: eg. file001.txt, ..., file100.txt
+curl -O https://website.com/file*.txt
+curl -O https://website.com/file[001-100].txt
+curl -O https://website.com/file[001-100:10].txt # Every 10th file
+
+
+# Downloading data using Wget (world wide web get) ----------------------------------------------------------
+# curl: supports more protocols, easier to install across all operating systems
+# Wget: handles multiple file downloads better, can handle various formats for download (directory, web page)
+
+# Check installation
+which wget
+
+# Install
+# Linux: sudo apt-get install wget
+# MacOS: brew install wget
+
+# Flags
+# -b - run download in the background
+# -q - turn off wget output
+# -c - resume broken download
+# -i - pass txt file with urls instead of the url itself
+# possible to link flags: -bqc
+# --limit-rate=200k - constrain download to 200kB/s to prevent consuming the entire bandwidth
+# --wait=2 - set a mandatory pause between file downloads (in seconds)
+
+
+# Basics of csvkit ------------------------------------------------------------------------------------------
+# written in Python
+# can be installed with pip
+
+# Convert files to csv
+in2csv somefile.xlsx > newfile.csv
+
+# Print sheet names
+in2csv -n somefile.xlsx
+
+# Convert specific sheet
+in2csv somefile.xlsx --sheet "sheetname" > newfile.csv
+
+# Print csv to console in a readible format
+csvlook file.csv
+
+# Print descriptive summary stats for all columns in a csv file (like pandas' describe())
+csvstat file.csv
+
+
+# Filtering data using csvkit -------------------------------------------------------------------------------
+
+# Print column names and positions
+csvcut -n file.csv
+
+# Filter by column name or position
+csvcut -c 2 file.csv
+csvcut -c 2,3,4 file.csv
+csvcut -c "colname2" file.csv
+csvcut -c "colname2","colname3","colname4" file.csv
+
+# Filter rows (using exact match of regex fuzzy match)
+# csvgrep must be paired with one of:
+# -m - row value to fileter 
+# -r - regex pattern
+# -f - file path
+
+# Return rows where "col1" equals abc
+csvgrep -c "col1" -m abc file.csv
+
+
+# Stacking data and chaining commands with csvkit -----------------------------------------------------------
+
+# Stack files vertically
+csvstack file1.csv file2.csv > files_all.csv
+
+# Add original file's indicator
+csvstack -g "f1","f2" -n "orig_file_column_name "file1.csv file2.csv > files_all.csv
+
+# Chaining commands
+# ; - run commands sequentially
+# && - only runs the 2nd command if the first succeeds
+# > - redirect the output of the 1st command to the location indicated in the 2nd command
+# | - use output of the 1st command as input to the 2nd command
+
+ 
+ 
+# Database operations --------------------------------------------------------------------------------------
+
+# Pull data from database
+sql2csv --db "sqlite:///Database.db" \
+        --query "SELECT * FROM table" \
+        > output.csv
+
+# Apply SQL statements to local csv files
+# This creates a SQL database in memory, so it's computationally expensive; not good with large files
+csvsql --query "SELECT * file" file.csv
+
+# Push data back to database
+csvsql --db "sqlite:///Database.db" \
+       --insert file.csv
+
+# Flags
+# --no-inference - disable type inference when parsing input (treat each column as text)
+# --no-constraints - generate schema without length limits or null checks
+
