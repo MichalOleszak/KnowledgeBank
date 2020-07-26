@@ -145,5 +145,5 @@ comprehend = boto3.client("comprehend", region_name="us-east-1",
 comprehend.detect_dominant_language(Text="some text")
 
 # Detect sentiment
-comprehend.detect_dominant_sentiment(Text="some text", LanguageCode="en")
+comprehend.detect_sentiment(Text="some text", LanguageCode="en")
 
