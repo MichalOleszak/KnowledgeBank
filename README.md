@@ -8,5 +8,5 @@ I'm [blogging](https://michaloleszak.github.io/blog/) about machine learning, st
 ### Contact
 - [My personal website](https://michaloleszak.github.io/)
 - [LinkedIn](https://www.linkedin.com/in/michal-oleszak/)
-- [Twitter](https://michaloleszak.github.io/blog/)
+- [Twitter](https://twitter.com/MichalOleszak)
 - [GitHub](https://github.com/MichalOleszak)
