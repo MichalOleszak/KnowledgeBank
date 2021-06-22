@@ -1,0 +1,73 @@
+An ELO-based simulation of the UEFA Euro 2020 group stage
+A statistician’s take on which countries will advance to the knockout phase and what (not) to bet one’s money on
+Michał Oleszak
+Michał Oleszak
+Jun 8 · 8 min read
+
+
+
+
+
+
+Photo by Janosch Diggelmann on Unsplash
+With the Champions League final having concluded club games across Europe, all football fans’ attention shifts to the national teams and the European Championships that is to start on June 11. Originally scheduled for 2020 but postponed for a year due to the pandemic, the ‘Euro 2020’ tournament will crown the best European side. Which teams stand a chance? Which ones will go back home prematurely? Let’s ask statistics!
+
+How it works
+Twenty-four teams made it through the qualifiers to the tournament. They are divided into six groups, named A through F, each consisting of four teams.
+
+Euro 2020 groups. Compiled by the author.
+Each team plays once against each of the group rivals, which yields three games in the group stage for each team. A win is worth 3 points, and a draw gives 1 point. There are no points for losing.
+Teams ranked first and second in each group directly advance to the knockout phase. Of the six teams ranked third, four will advance, based on the number of points they have collected in their respective groups. Altogether, this provides for 16 teams advancing to the knockout phase. In this post, we will look at the group stage only, specifically at the probabilities of advancement to the knockout phase.
+
+Predicting the winners
+Predicting the outcomes of sporting events is inherently difficult. There are two major reasons for this.
+First, the number of relevant factors determining the winning side seems to approach infinity. It’s impossible to take account of all of them. You can account for the quality and recent form of the players. But what about the weather? A playing field that is soaked with rain might favor big, strong players over the technical ones. What about sudden injuries or red cards that may eliminate a key player early on? And don’t even get me started on the players’ morale and psychological condition on the match day.
+Second, a major part of each outcome is determined by random chance. Was this not the case, there would be no point in competing at all. The beauty of sport is that the underdog stands a chance of winning against the top rival. Often, a single ball deflection or a single player’s slip decides on the final result.
+Statistically speaking, there is huge uncertainty regarding football results. How can we deal with it? The answer is simple: don’t fight the uncertainty, but embrace it instead.
+To predict uncertain outcomes, one must not fight the uncertainty, but should rather embrace it.
+
+Embracing uncertainty
+Some time ago, I have written about how to properly treat missing data while performing statistical analyses or training machine learning models. The bottom line was that one must not just fill in, or impute, the missing values once and go on with modeling. Since there is uncertainty in imputed data, a better approach is to run a simulation in which we impute the missing data thousands of times, each time slightly differently, as we draw the values to be inserted from a distribution estimated by some imputation model. The exact same logic applies to football.
+The results of individual games are highly uncertain. Hence, we are not really interested in predicting who wins, as this is impossible. What we are interested in is getting the winning odds right.
+Predicting who wins is impossible. Getting the winning odds right is the key.
+What we need is called a well-calibrated classifier in the machine learning jargon. It is such a predictive model, whose class membership outputs can be interpreted as certainty measures. As an illustration, imagine we try to predict the outcomes (home win, draw, or away win) of a large number of games. Next, we only look at the predictions where our model says the home win probability is 30%. If the model is well-calibrated, then the home team will win in about 30% of these cases.
+Getting these winning odds right won’t tell us who wins, as even the smallest probability will sometimes materialize, leading the underdog to victory. But it will allow us to run simulations, which is a way of translating winning odds of individual matches into probabilities of any tournament outcome of interest! But how to get these calibrated winning odds in the first place?
+
+The ELO rating
+One way to do so is to use the so-called ELO scores. The ELO rating system is a method for calculating the relative skill levels of competing teams or players. Originally invented with chess players in mind, it has been extended to accommodate the football specifics.
+In the ELO ranking, each team has a number of points. After each game, the two teams involved exchange points based on their rankings prior to the game, the game’s importance, and the result. Knowing the ELO scores of two teams plus some maths is enough to get the winning probability of both teams and the probability of the game finishing with a draw. You can find the exact formulas in this paper by Xiong et al. These probabilities have been shown to be accurate and well-calibrated.
+This allows us to run a tournament simulation! I have played the entire Championships on my computer one million times. For each game, I have drawn the result from the probability distribution I calculated from the ELO scores of the opposing teams. With this many simulated tournaments, we can calculate the percentage of times each team was ranked at each position. Let’s see how it went!
+
+For our simulation, 1,000,000 futures should be sufficient.
+
+Simulation results
+The table below shows, for each team, the probabilities that it finishes the group stage as ranked first through fourth, as well the direct advancement probability, which is the sum of probabilities of being ranked first and second. Next, there is the third-place advancement probability, which is the probability that the team will finish third and will advance (recall only four out of six third-ranked teams advance). By adding up the latter two, we get the total advancement probability for each team.
+
+Each country’s probability of advancement to the knockout phase. Simulation results by the author.
+
+Probability product rule
+Cool! So, in group B, we can be pretty sure Belgium and Denmark will advance, where ‘pretty sure’ equals 98% * 89 % = 87%, right? Well, wrong! Actually, there is only a 63% chance these two teams advance from group B! How come?
+To get the probability of two independent events occurring at the same time, such as Belgium advances and Denmark advances, we should multiply the two respective probabilities of each event occurring on its own. But this only holds for independent events, which these two are clearly not! If one team is playing well, increasing its chances to advance, the chances of its group rivals go down instantaneously!
+In this case, the formula for the probability of the two teams both advancing, which we can write as P(Belgium AND Denmark), is:
+P(Belgium) * P(Denmark | Belgium),
+where the latter term is the probability of Denmark advancing given that Belgium has advanced.
+Luckily, we can easily get such probabilities from the simulation results. It’s enough to count the fraction of the simulated tournaments in which these two teams have advanced. Let’s look at some interesting probabilities!
+The probability that the most likely team to advance in each group indeed does advance, is 69%.
+
+Simulation results by the author.
+The probability that the second most likely team to advance from each group does so is 22%.
+
+The probability that the two teams most likely to advance from each group do so is only 13%.
+
+Simulation results by the author.
+The probability that the team least likely to advance in each group indeed won’t advance is 11%.
+
+Simulation results by the author.
+Given these results, does it make sense to bet on any of these events? Let’s see!
+
+Bet or not to bet
+From a statistician’s perspective, a game is worth playing as long as its expected value is positive. The expected value captures how much would we win, on average, had we played the game multiple times. As long as this approach makes sense for casino games, it doesn’t really for a football tournament which is a one-time event. No matter the expected values, when playing only once, we might simply be unlucky and lose all the money. Hence, the following is not financial advice!
+Let’s look at the first scenario. My bookmaker pays $115.55 for a $100 bet that Italy, England, Belgium, Spain, France, and The Netherlands will all advance. Hence, I win $15.55 with a 69% probability or lose $100 which is 31% likely. This yields the expected value of 15.55 * 0.69 -100 * 0.31 = $-20.3. Nah, not worth it…
+What about the second scenario, where we bet that the second most likely teams advance from each group, that is Switzerland, Croatia, Denmark, Sweden, Ukraine, and Portugal? The payout is $396.30 for a $100 bet, which yields the expectation of a positive $9.19! This one might be worth a shot! Unless… the weather’s unlucky, or Cristiano Ronaldo has a bad day, or…
+
+Thanks for reading! Stay tuned for more on the topic once the group stage is over on June 23! In the meantime, try one of my other articles. Can’t choose? Pick one of these:

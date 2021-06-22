@@ -1,0 +1,57 @@
+Handling Missing Data
+A statistician’s perspective on how (not to) do it to keep your machine learning workflow unflawed.
+Michał Oleszak
+Michał Oleszak
+
+Jan 10·7 min read
+
+
+
+
+
+Photo by Raúl Nájera on Unsplash
+Recently, I couldn't help but notice something alarming about the popular machine learning books. Even the best titles that do a great job explaining the algorithms and their applications, tend to neglect one important aspect. In cases where statistical rigor is needed to do things properly, they often suggest dangerously over-simplified solutions, causing severe headache to a statistician-by-training such as myself, and detrimentally impacting the machine learning workflow.
+Even the best machine learning books tend to neglect topics in which statistical rigor is needed to do things properly, proposing dangerously over-simplified solutions instead.
+A couple of weeks back, I have written an article on data measurement levels, explaining how a frequently recommended way of encoding categorical variables stays in contrast to statistical theory, causing potential problems for model interpretability and ease of learning. Don’t hesitate to take a detour:
+Data Measurement Levels
+A statistician’s perspective on the types of variables, their meaning, and implications for machine learning.
+towardsdatascience.com
+
+Here goes another one: handling missing data. Heads-up: please, don’t mean-impute, and don’t drop incomplete observations!
+
+Don’t drop incomplete rows
+Since most machine learning algorithms don’t accept NaN inputs, many texts suggest simply removing rows that contain missing values from the data. As long as you have a lot of data, that is to say. If that’s the case, dropping a couple of rows will solve the problem and won’t have much impact, right? Wrong! Doubly wrong, I dare say.
+First, the benign reason. The rows that are not fully complete are typically not fully-NaN, either. Removing them is a shortcut to get rid of the bad NaNs, but along the way, one also removes some very much valid data points. Why on earth would a data scientist throw useful data away?
+Second, the malignant reason. This one has to do with the so-called missing data mechanisms. In statistical theory, they are the possible reasons for missingness. There are three of them: data could be missing completely at random (MCAR), missing at random (MAR), and missing not at random (MNAR). If you are curious about the implications of having each of them in the data, and how to distinguish between them, take a look at the course in handling missing data that I teach on DataCamp. What’s important here is that one can only drop incomplete rows if the data are MCAR, which means there is absolutely nothing impacting which data points are missing. If the data are not MCAR (which happens, among others, when the missingness in a variable can be predicted with other variables), dropping incomplete rows introduces bias to the data that will transfer to any machine learning model built on these data.
+If the reason for missingness is not purely random, dropping incomplete rows introduces bias to the data that will transfer to any machine learning model built on these data.
+It’s not straightforward to distinguish between MCAR and other mechanisms. There are some statistical tests for it, one would also need a great deal of domain knowledge. But to stay on the safe side, it’s best to drop the practice of dropping incomplete rows altogether.
+
+Don’t mean-impute
+Another advice often found in top-notch machine learning books is to replace all missing values in each variable by the mean of this variable’s observed values. The supposed logic behind it is that by entering an average value, we won’t affect the model much. Please, don’t you ever do it! By mean-imputing, we create two problems: we reduce the variance of the mean-imputed variables and destroy correlations between such variables and the rest of the data.
+By mean-imputing, we create two problems: we reduce the variance of the mean-imputed variables and destroy correlations between such variables and the rest of the data.
+Consider the scatter plot below. It shows people’s height in centimeters versus their weight in kilograms based on health survey data. The two variables are clearly positively correlated, but there are some missing values in both of them. Let’s impute all missing heights with the average height (166 cm) and all missing weights with the average weight (67 kg). The imputed data points are shown in orange.
+
+Picture from the Handling Missing Data with Imputations in R course, taught by the author at DataCamp.
+What has happened here? The imputed values are often outliers. Any machine learning model trained on these data will be fooled by them and will produce biased results. Machine learning is about finding patterns in data. Mean imputation is often about introducing artificial, false patterns to data. How are they supposed to go hand in hand?
+Machine learning is about finding patterns in data. Mean imputation is often about introducing artificial, false patterns to data. They don’t go hand in hand.
+What to do instead? It depends on how much time and computational resources you have.
+
+What to do instead when you have time
+If both time and computational resources are in abundance, the best you can do is run multiple imputation. One way to implement this technique is by bootstrapping. Let’s take a look at how it’s done. The process is best illustrated by the following diagram:
+
+Picture from the Handling Missing Data with Imputations in R course, taught by the author at DataCamp.
+First, we create many (say, a thousand) copies of the data by sampling from its rows with replacement. This is called bootstrapping. Then, we apply an imputation algorithm to each copy. Commonly used imputing algorithms are kNN, random forest, or iterative model-based imputation. This way, we have a thousand copies of different, fully complete datasets. Next, we do whatever we wanted to do with the original data with each of the copies: train a model, compute some summary statistics, you name it. Finally, whatever our final result is (model prediction, a descriptive statistic?), we average the values over all bootstrapped and imputed datasets to obtain a distribution of results.
+This may seem a little overwhelming, but it’s actually quite easy to implement, and there are packages in both Python and R that can do it. Check out my course to learn how to do it yourself.
+Among many advantages of multiple imputation, arguable the most important one is that you obtain a probability distribution of the results, which allows quantifying the uncertainty of your model or analysis, including the uncertainty from imputation (which, after all, is just an educated guess and guesses come with uncertainty). I have written more about it here:
+Uncertainty from imputation
+Are you taking it into account in your predictions?
+towardsdatascience.com
+
+The drawback of multiple imputation is that it can be really slow. What if you don’t have that much time?
+
+What to do instead when you don’t have time
+A quick but reasonable solution is the so-called hot-deck imputation. To impute missing values in a variable, you select one or more of the other variables that are correlated with the one in question. Then, you sort the rows of your data set by these selected variables. Finally, you loop over the rows from top to bottom and replace each missing value with the previous non-missing value in the same variable.
+This way, the rows from which you borrow the values are similar to those where you paste them. This prevents most of the drawbacks of the mean imputation and is pretty fast, too.
+
+Thanks for reading! If you are interested in learning more about missing data, various imputation methods, and how to incorporate imputation uncertainty into modeling, please check out my course.
+If you liked this post, try one of my other articles. Can’t choose? Pick one of these:

@@ -1,0 +1,37 @@
+Working with Amazon SNS with Boto3
+The complete cheat sheet.
+Michał Oleszak
+Michał Oleszak
+
+Jul 15, 2020·3 min read
+
+
+
+
+
+Photo by Jamie Street on Unsplash
+Amazon Simple Notification Service, or SNS, allows us to automatically send messages, such as emails or SMS. We can also send messages via an HTTP Post to a specified URL, which is a convenient way of decoupling microservices. When working with Python, one can easily interact with SNS with the Boto3 package. In this post, I will put together a cheat sheet of Python commands that I use a lot when working with SNS. I hope you will find it useful.
+
+Let’s kick off with some basic SNS concepts. You can think of the SNS system as a group chat. Once you publish a message to the chat, all participants will receive a pop-up. In the SNS setting, the group chat will be called a topic. You can publish messages to topics and once this happens, all topic subscribers will be notified.
+AWS resources can be uniquely identified by Amazon Resource Names (ARNs). Each topic has its unique TopicArn and each subscription to a topic has its unique SubscriptionArn.
+
+Setting up a client
+To access any AWS service with Boto3, we have to connect to it with a client. Here, we create an SNS client. We specify the region in which our messages will be kept. We also have to pass the access key and the password, which we can generate in the AWS console, as described here.
+
+Topics: listing, creating & deleting
+To create a new topic, we use the create_topic() function, passing the desired name. Once the topic is created, we can get its ARN by extracting the TopicArn key from the object returned by craete_topic().
+To list topics already existing on AWS, we can use the list_topics() function and extract the Topics key from its output.
+To delete a topic, we simply pass its ARN to the delete_topic() function.
+
+Subscriptions: listing, creating & deleting
+To create a new subscription to a topic, we call the subscribe() function, passing the ARN of the topic to subscribe to, the protocol (e.g. SMS or email), and the endpoint (e.g. phone number for the SMS protocol or email address for the email protocol). Once a subscription has been created, we can get its ARN by extracting the SubscriptionArn key from the object returned by subscribe().
+To list all subscriptions existing on AWS, we can use the list_subscriptions() function and extract the Subscriptions key from its output. Similarly, in order to list subscriptions to a specific topic, we call the list_subscriptions_by_topic() function.
+To delete a single subscription, we pass its ARN to the unsubscribe() function. In order to delete multiple subscriptions, e.g. all that have the same protocol, we can loop over them using the for-loop at bottom of the code chunk below.
+
+Publishing to topics
+To publish a message to a topic, we simply call the publish() function, passing the topic’s ARN, the desired message, and optionally a subject (it will only be used in email messages).
+Alternatively, we could publish an SMS message without any topic or subscription. To do this, we call the publish() function with phone number and message text passed as arguments.
+
+
+Thanks for reading! I hope you have learned something useful that will boost your projects 🚀
+If you liked this post, try one of my other articles. Can’t choose? Pick one of these:

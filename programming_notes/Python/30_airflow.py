@@ -1,3 +1,8 @@
+# Installing and configuring Airflow
+export AIRFLOW_HOME=~/airflow
+pip install apache-airflow
+airflow initdb
+
 # Import the DAG object
 from airflow.models import DAG
 
@@ -184,8 +189,24 @@ branch_task = BranchPythonOperator(
 start_task >> branch_task >> even_day_task
 branch_task >> odd_day_task
 
+
 # Running
 airflow run <dag_id> <task_id> <execution_date>
 airflow trigger_dag -e <execution_date> <dag_id>
 
 
+# Runnin PySpark from Airflow
+spark_master = "spark://spark_cluster_IP:7077"
+command = f"spark-submit --master {spark_master} --py-files file.zip /path/to/app.py"
+
+# Method 1: requires spark being installed on the Airflow server
+task = BashOperator(bash_command=command, ...)
+
+# Method 2: delegate to a different server
+from airflow.contrib.operators.ssh_operator import SSHOperator
+task = SSHOperator(task_id="shh-spark-submit", dag=dag, command=command, ssh_conn_id="spark_master_ssh")
+
+# Method 3
+from airflow.contrib.operators.spark_submit_operator import SparkSubmitOperator
+spark_task = SparkSubmitOperator(task_id="spark-submit-id", dag=dag, application="/path/to/app.py", 
+                                 py_files="file.zip", conn_id="spark_default")

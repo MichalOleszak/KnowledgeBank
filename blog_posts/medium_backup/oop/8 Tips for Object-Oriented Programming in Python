@@ -1,0 +1,162 @@
+8 Tips for Object-Oriented Programming in Python
+Follow these steps to make your Python classes bulletproof
+Michał Oleszak
+Michał Oleszak
+
+May 28·13 min read
+
+
+
+
+
+Photo by Julian Myles on Unsplash. The objects have not been designed well and have collapsed.
+Object-oriented programming, or OOP, is a popular coding paradigm as it ensures code reusability and prevents redundancy. Its appeal made it popular outside of software engineering, in the fields such as data science and machine learning engineering. There is, however, a huge difference between designing an object that just works and writing quality code that fully reaps the benefits of the OOP approach. Let’s take a look at the eight steps that lead to bulletproof Python classes:
+Set attributes in the constructor.
+Distinguish class-level and instance-level data and methods.
+Determine what is equal.
+Provide string representations.
+Know what is static.
+Decide what is internal and private.
+Set access to attributes.
+Use docstrings.
+
+Object-Oriented Programming
+The OOP is based on the idea that the code and the data used by this code should be kept in one place. Hence the notion of objects, which encapsulate the data and the code together. An object is composed of state and behavior. The state of the object is saved in the data it contains, also called attributes, while the behavior is governed by methods.
+object = state (attributes) + behavior (methods)
+In Python, objects are defined by their blueprints called classes. Class’ attributes are represented as Python variables and its methods are embodied by Python functions. Consider the following toy example class representing a bank account.
+It has four methods, allowing us to set account owner or deposit money, among others. Once we set the owner, the owner attribute is created. This class might be deemed fully functional, in the sense that we can work with it. I can create an account for myself with no cash on it, and do some transactions:
+Michal 700
+This code is really badly written, however, as it violates all the eight steps to bulletproof classes. As a result, it can fail in ways you might not have expected! Let’s look at each of the eight steps, one by one.
+
+#1: Set attributes in the constructor
+In our BankAccount class, there are dedicated methods for setting attributes: to set up an account for myself, I have first created an empty account, and then I used the set_owner() method to assign my name to the owner attribute. This is not ideal, for two reasons. First, some attributes might not exist. It’s possible to create an account without a balance. How would we then deposit money? Second, attributes are set in various places. If there was more code in this class, it would be hard for anyone to get an overview of what kind of attributes it has.
+Set attributes in the constructor to ensure they exist and are easily discoverable in one place.
+That’s why it is considered best practice to define all attributes in one place, setting their default values so that they always exist. Python offers a convenient way to do so: the __init__() constructor. This method, when added to the class, will execute automatically once an instance of the object is created. The constructor is also a good place for imposing various checks on attribute values, e.g. to prevent creating a new account with a too negative balance. While we’re at it, let’s add two more attributes that will be useful later: account number and creation date.
+
+Now, we have to set the owner and the account number as we set up the account. Failing to do so will cause an error. If we don’t set the balance, it will default to zero.
+
+Michal 123 0
+
+#2: Distinguish class-level and instance-level data and methods
+Some attributes and methods are by nature inherent to the class in general, while some are specific to the instances of this class. Making a distinction between the two is vital to make sure that an individual’s bank account will not change how the bank accounts in general work.
+Instance-level data should not interfere with how the class works in general. Keep it separate from class-level data.
+Let’s start with attributes. Variables like owner, account_number, created_at or balance are instance-level data, as they can be different for each account. The -10,000 balance threshold, however, against which we compare the balance of a newly created account, is class-level: there is a rule that no account can be set up with a lower balance. Rather than hardcoding it, we should assign it to an attribute in the class definition itself and access through self. later.
+As for methods, deposit() and withdraw() work the same way for each instance of the class, i.e. for each individual account, yet they are considered instance-level methods. This is because they need an instance to exist before they can be used. We need to set up the account first before we deposit money on it. This is reflected in the self argument that each of these methods takes. self denotes the instance, the specific account to which we deposit or from which we withdraw.
+Class-level methods are useful, among others, for creating class objects from external sources, such as csv files.
+It is possible to create class methods in Python, which use cls rather than self, that is: they don’t need an instance to exist. Their popular use case is to actually create an instance from external sources. We might want to have a method that creates a BankAccount instance from a CSV file called testfile.csv containing the owner and the account number in the comma-separated format: Michal,123. To do so, we can add a from_csv() method. We decorate it with the @classmethod decorator and use the class reference, cls, as the first argument. We can use it in the return statement to make the method return the class instance based on the CSV file’s contents. Here’s our updated BankAccount class:
+
+And here is how we can use the from_csv method:
+
+Michal 123 0
+
+#3: Determine was is equal
+We have a decent quality code now! It’s time to actually use it. What do you think would happen, if we create two identical accounts and compare them using the equality operator?
+
+False
+The two accounts have the same owner, account number, and creation date, and yet comparing them with the equality operator yields a False. Why’s that?
+When comparing two instances of an object, Python looks at the memory chunks they occupy. Since the two were created independently, they sit in different parts of my computer’s memory.
+When comparing two instances of an object, Python looks at the memory chunks they occupy. To get meaningful comparisons, define equality explicitely.
+In our example, however, we might want two accounts with the same number and owner to be considered equal. This can be achieved using the special __eq__() function. When defined within the class, it is automatically used whenever class instances are compared using the == operator. This equality function takes two arguments representing two objects, typically called self and other, and should return True when the objects should be considered equal and False otherwise. If we wanted two accounts to be equal if they have the same account number, it’s enough to add the following to our class:
+
+In the same way, one can define when one object should be considered greater than the other (__gt__()), lesser than or equal to the other (__le__()), and so on.
+
+#4: Provide string representations
+Once we have a bank account defined, we might want to print it to see what it looks like.
+
+<__main__.BankAccount object at 0x7f9ec0716a10>
+Not really meaningful, is it? This print output shows the type of the object, that is BankAccount, and a number in hexadecimal pointing to a memory chunk where it is stored. Instead, we might want print() to return something more informative and user-friendly. Printing a pandas DataFrame, for instance, shows us the data in a human-readable format. How did the pandas guys do it?
+Defining the string and reproducible representations for the object makes it human-readable when printed and easy to reproduce, e.g. for debugging.
+What’s being printed can be overridden by providing string representation for our object. This is done via defining the special __str__() function. Its only job is to output the string that we want to be printed. Another related concept is the reproducible representation, or repr. Defining the special __repr__() function that provides the exact string that can be used to recreate the object is a best practice, making it easy to understand how the object was created. Let’s add all this to our code. Note that we also add a helper function to our class to handle parsing dates. We will talk more about it later.
+
+And here is what it gives us:
+
+Bank Account:
+    Account Owner: Michal
+    Account Number: 123
+    Creation Date: 2021-05-24
+    Current Balance: 0
+"BankAccount(owner='Michal', account_number=123, balance=0)"
+First, we get a user-friendly string representation of the bank account. Second, by calling repr, we get a string that can be evaluated to re-create the object in its current state.
+
+#5: Know what is static
+In the previous section, we have added a to_dash_date() function that handles simple date formatting. It doesn’t access any of the class’s data or methods. Actually, we could have put it outside of the class, but since it’s a utility used by the __str__() function to achieve human-readable string representation, it makes sense to place it inside the class.
+Marking functions as static saves memory and improves code readability.
+Such functions are called static functions. Python allows to explicitly mark static functions as such using the @staticmethod decorator:
+
+Doing so has a couple of benefits. First, it eliminates the need to use the self argument, since the method doesn’t need access to the class instance. Second, it reduces memory usage (no need for Python to create a bound method in this case). Finally, marking methods as static improves code readability as it immediately tells one this method is a separate piece of code, independent of the state of the class instance.
+
+#6: Decide what is internal and private
+Some methods and attributes in any class are intended to be explicitly used by the code’s user, such as the withdraw() and deposit() methods in our BankAccount class. Some, however, are not. The to_dash_date() method is a helper utility called by the class under the hood, but not intended to be called manually. Such methods and attributes are referred to as internal and it is the best practice to begin their names with an underscore so that we have _to_dash_date(), self._owner, and so on. This naming convention by itself doesn’t do anything, but it allows people looking at your code to immediately recognize which methods are not part of the public API, and so might change unexpectedly in future versions of the code.
+A related topic is the private methods and attributes. You might want to hide some method or attributes from the outside world, e.g. to make sure they are not overwritten. In Python, there is no mechanism to make them completely hidden, but we might mark them as private by naming them with a leading double underscore. For instance, we might want the minimum balance threshold to be private, and so we set it up like this:
+
+A leading underscore is used for naming internal methods and attributes, while a double leading underscore marks private ones.
+Now, even though it’s accessible within the class as usual, calling my_account.__MIN_BALANCE will throw an exception. This signifies to the user that this attribute is private and no to be tampered with. Yet, it is possible to access it thanks to a trick called name mangling. Python automatically converts private stuff from object.__privatestuff to object._classname__privatestuff, and so we might access the private attribute as my_account._BankAccount__MIN_BALANCE. This practice, however, should be avoided.
+
+#7: Set access to attributes
+Consider this piece of code:
+
+Bank Account:
+    Account Owner: Michal
+    Account Number: 123
+    Creation Date: 1900-01-01
+    Current Balance: -999999
+As you can see, it’s quite easy to change the creation date in an existing account as well as set the balance to a large negative number. Recall that the creation date is set automatically on object creation, and we wouldn’t be able to set up an account with a too negative balance thanks to input validation in the __init__() method. What can we do about it? Ideally, the creation date should be a read-only attribute and the balance should have some validation each time it’s updated. This can be achieved in Python using properties and setters.
+Use properties and setters to make attributes read-only and validate their updates.
+To make, say, the balance attribute read-only, all one needs to do is to add a function to the class called exactly as this attribute decorated with a @property decorator and returning the attribute’s value.
+
+Now, once set on creation, the attribute’s value cannot be changed.
+
+0
+--------------------------------------------------------------------
+AttributeError                     Traceback (most recent call last)
+<ipython-input-179-97fdccecdd35> in <module>
+      2 
+      3 print(my_account.balance)
+----> 4 my_account.balance = 100
+
+AttributeError: can't set attribute
+Cool! That would work for the account number or the creation date, but for balance, we would actually want to be updateable — but not with a too negative value. To achieve this, we need one more thing on top of the property-decorated method. We need yet another function in the class, also called balance and decorated with a @{attribute_name}.setter decorator, in this case: @balance.setter. The function should take a new balance as the argument and update the attribute’s value within the object. While it gets updated, we can add any validation we want. For example, to make sure the balance never drops below our minimum threshold, we can do the following.
+
+Now, every time the balance attribute is being set, the setter method gets called and so our validation is run. Hence, the balance will not be allowed to fall below -10.000.
+
+1000
+-1000
+-3000
+-5000
+-7000
+-9000
+--------------------------------------------------------------------
+ValueError                         Traceback (most recent call last)
+<ipython-input-182-37ef4b15da69> in <module>
+      3 for i in range(10):
+      4     print(my_account.balance)
+----> 5     my_account.balance -= 2000
+
+<ipython-input-181-8849326b10e3> in balance(self, new_balance)
+     19     def balance(self, new_balance):
+     20         if new_balance < self.__MIN_BALANCE:
+---> 21             raise ValueError("Balance to small!")
+     22         else:
+     23             self._balance = new_balance
+
+ValueError: Balance to small!
+
+#8: Use docstrings
+Last but not least, documentation! Unlike external documentation in the form of readmes, docstrings tend not to become outdated so quickly. First, because it's easier to remember to update them while we’re updating the code right below, and second because most IDEs will alert us to obsolete docstrings. They really help to get one’s head around the code when working with it for the first time. So, what should be included in the class docstrings, and how write them?
+PEP8, the broadly followed style guide for writing Python code, states what follows.
+Write docstrings for all public modules, functions, classes, and methods. Docstrings are not necessary for non-public methods, but you should have a comment that describes what the method does. This comment should appear after the “def” line.
+Hence, we should include the public deposit(), withdraw() and from_csv() methods. The only non-public method, apart from all the properties, setters and special methods, is _to_dash_date(), so it will get a comment. As for attributes, we don’t necessarily have to include the private __MIN_BALANCE, but it sees useful to document. Scroll down for our brand-new class docstring.
+
+Finally, here is our BankAccount class after all the refinements.
+
+To sum up, here are the steps leading to bulletproof Python classes again:
+Set attributes in the constructor. This way, they will always exist and will be defined in a single place.
+Distinguish class-level and instance-level data and methods. Instance-level data should not interfere with how the class works in general and should be kept separate from class-level data. Class-level methods can be used, for example, to create a class instance from external sources, e.g. CSV files.
+Determine what is equal. When comparing two instances of an object, Python looks at the memory chunks they occupy. To get meaningful comparisons, define equality explicitly.
+Provide string representations. Defining the string and reproducible representations for the object makes it human-readable when printed and easy to reproduce, e.g. for debugging.
+Know what is static. Explicitely marking functions as static saves memory and improves code readability.
+Decide what is internal and private. A leading underscore is used for naming internal methods and attributes, while a double leading underscore marks private ones. This practice tells your code users which parts are not part of the public API and should not be relied on.
+Set access to attributes. Use properties and setters to make attributes read-only and validate their updates.
+Use docstrings. This really helps to get one’s head around the code when working with it for the first time.
+
+Thanks for reading! If you liked this post, try one of my other articles. Can’t choose? Pick one of these:

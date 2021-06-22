@@ -74,23 +74,39 @@ spark_temp.createOrReplaceTempView("temp")
 file_path = "/usr/local/share/datasets/airports.csv"
 airports = spark.read.csv(file_path, header=True)
 
+# Reading csv to dataframe while setting data types
+schema = StructType([
+  StructField("col1", StringType(), nullable=False),
+  StructField("col2", ByteType(), nullable=True)
+])
+df = spark.read.options(header="true").schema(schema).csv("file.csv")
+
+# Skip invalid rows
+df = spark.read.options(header="true", mode="DROPMALFORMED").csv("file.csv")
+
 
 # Manipulating data with pyspark.sql -----------------------------------------------------------------------------------
 # Creating columns
 flights = spark.table("flights")
 flights = flights.withColumn("duration_hrs", flights.duration_mins / 60)
 
+# Conditionally replace values
+df = df.withColumn("column", when(col("column") > 5, None).otherwise(col("column")))
+
 # Filtering data
 # Filter flights with a SQL string
 long_flights1 = flights.filter("distance > 1000")
 # Filter flights with a boolean column
 long_flights2 = flights.filter(flights.distance > 1000)
+long_flights1 = flights.filter(col("distance") > 1000)
 
 # Selecting
 # Using column names as strings
 selected1 = flights.select("tailnum", "origin", "dest")
 # Using df.col notation
 temp = flights.select(flights.origin, flights.dest, flights.carrier)
+# Rename
+df.select(col("old").alias("new"))
 # The difference between .select() and .withColumn() methods is that .select() returns only the columns you specify,
 # while .withColumn() returns all the columns of the DataFrame in addition to the one you defined.
 # Similar to SQL, you can also use the .select() method to perform column-wise operations. When you're selecting
@@ -246,3 +262,23 @@ best_lr = models.bestModel
 test_results = best_lr.transform(test)
 # Evaluate the predictions
 print(evaluator.evaluate(test_results))
+
+
+# Deploying spark applications ----------------------------------------------------------------------------------------
+spark-submit --master "local[*]" --py-files a.py,b.py MAIN_PYTHON_FILE app_arguments
+# --master [optional] - URL to cluster manager or "local[*]" - where to get resources from
+# --py-files - comma-separated list of zi[, egg or py files to be copied to the worker nodes
+# app_arguments -- args taken by MAIN_PYTHON_FILE
+
+# Prepare zip file to pass to --py0files
+zip --recurse-paths outputfilename.zip folder-to-compress
+spark-submit --py-files outputfilename.zip folder-to-compress/script.py
+
+
+# Unit tests for PySpark ----------------------------------------------------------------------------------------------
+# Providing input for data transformation test cases -- constructing data frames in-memory
+from pyspark.sql import Row
+
+purchase = Row("price", "qunatity", "product")
+record = purchase(12.23, 1, "abc")
+df = spark.createDataFrame((record,))

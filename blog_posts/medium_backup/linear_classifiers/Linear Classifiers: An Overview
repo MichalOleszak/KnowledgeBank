@@ -1,0 +1,85 @@
+Linear Classifiers: An Overview
+This article discusses the mathematical properties and practical Python applications of four popular linear classification methods.
+Michał Oleszak
+Michał Oleszak
+
+May 20, 2019·7 min read
+
+
+
+
+This article is based on a chapter from the excellent Hastie, T., Tibshirani, R., & Friedman, J. H. (2009). The elements of statistical learning: data mining, inference, and prediction. 2nd ed. New York: Springer.
+
+A popular class of procedures for solving classification tasks are based on linear models. What this means is that they aim at dividing the feature space into a collection of regions labeled according to the values the target can take, where the decision boundaries between those regions are linear: they are lines in 2D, planes in 3D, and hyperplanes with more features.
+This article reviews popular linear models for classification, providing the descriptions of the discussed methods as well as Python implementations. We will cover the following approaches:
+Linear Discriminant Analysis,
+Quadratic Discriminant Analysis,
+Regularized Discriminant Analysis,
+Logistic Regression.
+For demonstrative purposes, we will apply each discussed method to the spam data set, in which the task is to classify emails as either spam or not spam based on a set of features describing word frequencies used in the emails. The data set, as well as some descriptions of the variables, can be found on the website of Hastie’s et al. “The elements of statistical learning” textbook, in the Data section.
+Let’s start by importing all the packages used throughout this tutorial and loading the data.
+
+
+Linear Discriminant Analysis
+The first method to be discussed is the Linear Discriminant Analysis (LDA). It assumes that the joint density of all features, conditional on the target's class, is a multivariate Gaussian. This means that the density P of the features X, given the target y is in class k, are assumed to be given by
+
+where d is the number of features, μ is a mean vector, and Σ_k the covariance matrix of the Gaussian density for class k.
+The decision boundary between two classes, say k and l, is the hyperplane on which the probability of belonging to either class is the same. This implies that, on this hyperplane, the difference between the two densities (and hence also the log-odds ratio between them) should be zero.
+An important assumption in LDA is that the Gaussians for different classes share the same covariance matrix: the subscript k from Σ_k in the formula above can be dropped. This assumption comes in handy for the log-odds ratio calculation: it makes the normalization factors and some quadratic parts in the exponent cancel out. This yields a decision boundary between k and l that is linear in X:
+
+To calculate the density of the features, P(X|y=k), one just has to estimate the Gaussian parameters: the means μ_k as the sample means and the covariance matrix Σ as the empirical sample covariance matrix. Having calculated this, the probability of the target belonging to class k can be obtained from the Bayes rule:
+
+where P(y=k) is the prior probability of belonging to class k and can be estimated by the proportion of k-class observations in the sample.
+Note that LDA has no hyperparameters to tune. It takes just a few lines of code to apply it to the spam data.
+
+
+Quadratic Discriminant Analysis
+LDA’s assumption that the Gaussians for different classes share the same covariance matrix is convenient, but might be incorrect for particular data. The left column in the picture below shows how LDA performs for data that indeed come from a multivariate Gaussians with a common covariance matrix (upper panel) versus when the data for different classes have different covariances (lower panel).
+
+Source: https://scikit-learn.org/stable/modules/lda_qda.html
+Hence, one might want to relax the common covariance assumption. In this case, there is not one, but k covariance matrices to be estimated. If there are many features, this can lead to a dramatic increase in the number of parameters in the model. On the other hand, the quadratic terms in the Guassians’ exponents do not cancel out anymore and the decision boundaries are quadratic in X, giving the model more flexibility: see the picture above. This approach is referred to as Quadratic Discriminant Analysis (QDA).
+Thanks to scikit-learn, the Python implementation of QDA is as easy as that of LDA.
+
+
+Regularized Discriminant Analysis
+Just like linear models for regression can be regularized to improve accuracy, so can linear classifiers. One can introduce a shrinking parameter α that shrinks the separate covariance matrices of QDA towards a common LDA matrix:
+
+The shrinkage parameter can take values from 0 (LDA) to 1 (QDA) and any value in between is a compromise between the two approaches. The best value of α can be chosen based on cross-validation. To do this in Python, we need to pass the shrinkage argument to the LDA function, as well as specify the computation algorithm to be least squares, as other computation methods do not support shrinkage.
+
+
+Logistic Regression
+Another approach to linear classification is the logistic regression model, which, despite its name, is a classification rather than a regression method. Logistic regression models the probabilities of an observation belonging to each of the K classes via linear functions, ensuring these probabilities sum up to one and stay in the (0, 1) range. The model is specified in terms of K-1 log-odds ratios, with an arbitrary class chosen as reference class (in this example it is the last class, K). Consequently, the difference between log-probabilities of belonging to a given class and to the reference class is modeled linearly as
+
+where G stands for the true, observed class. From here, the probabilities of an observation belonging to each of the classes can be calculated as
+
+which clearly shows that all class probabilities sum up to one.
+Logistic regression models are typically estimated by maximum likelihood, which is taken care of by scikit-learn. Just like linear models for regression can be regularized to improve accuracy, so can logistic regression. In fact, L2 penalty is the default setting in scikit-learn. It also supports L1 and Elastic Net penalties (to read more on these, check out the link above), but not all of them are supported by all solvers. Scikit-learn’s logistic regression documentation describes it in detail.
+Although logistic regression is mostly used as an inference tool in tasks where the goal is to understand the role of input variables in explaining the outcome (it produces easily interpretable coefficients, just like linear regression does), it can also prove to be of significant predictive power, as the example below demonstrates.
+
+
+Recap & Conclusions
+This article discussed a couple of linear classifiers:
+Linear Discriminant Analysis (LDA) assumes that the joint densities of all features given target’s classes are multivariate Gaussians with the same covariance for each class. The assumption of common covariance is a strong one, but if correct, allows for more efficient parameter estimation (lower variance). On the other hand, this common covariance matrix is estimated based on all points, also those far from the decision boundary. This makes LDA prone to outliers.
+Quadratic Discriminant Analysis (QDA) relaxes the common covariance assumption of LDA by estimating a separate covariance matrix for each class. This gives the model more flexibility, but in the case of many features can lead to a dramatic increase in the number of parameters in the model.
+Regularized Discriminant Analysis is a compromise between LDA and QDA: the regularization parameter can be tuned to set the covariance matrix anywhere between one for all classes (LDA) and completely separate for each class (QDA).
+Logistic Regression models the probabilities of an observation belonging to each of the classes via linear functions. It is generally considered safer and more robust than discriminant analysis approaches, as it is relying on fewer assumptions. It also turned out to be the most accurate for our example spam data.
+
+Thanks for reading! I hope you have learned something useful that will benefit your projects 🚀
+If you liked this post, try one of my other articles. Can’t choose? Pick one of these:
+A Comparison of Shrinkage and Selection Methods for Linear Regression
+A detailed look at 7 popular shrinkage & selection methods.
+towardsdatascience.com
+
+Boost your grasp on boosting
+Demystifying the famous competition-winning algorithm.
+towardsdatascience.com
+
+Model Selection & Assessment
+Going beyond the train-val-test split
+towardsdatascience.com
+
+
+Sources
+Hastie, T., Tibshirani, R., & Friedman, J. H. (2009). The elements of statistical learning: data mining, inference, and prediction. 2nd ed. New York: Springer.
+https://scikit-learn.org/stable/modules/lda_qda.html
+https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html

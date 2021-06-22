@@ -1,0 +1,80 @@
+SVM Kernels: What Do They Actually Do?
+An intuitive visual explanation
+Michał Oleszak
+Michał Oleszak
+
+Aug 29, 2020·8 min read
+
+
+
+
+
+Photo by Kelly Sikkema on Unsplash
+You may have heard about the so-called kernel trick, a maneuver that allows support vector machines, or SVMs, to work well with non-linear data. The idea is to map the data into a high-dimensional space in which it becomes linear and then apply a simple, linear SVM. Sounds sophisticated and to some extent it is. However, while it might be hard to understand how the kernels work, it is pretty easy to grasp what they are trying to achieve. Read on to see it for yourself!
+
+When data are linearly separable: a linear SVM
+First things first: how does the vanilla SVM work? We can use SVMs for both classification and regression tasks, but in this article, we’ll focus on the former. Let’s first consider data with two classes that are linearly separable. We will create two separate blobs of points and fit a linear SVM to them using scikit-learn. Note that we normalize the data before fitting the model since SVMs are sensitive to features’ scales.
+
+The customplot_svm() function, the output of which you can see below, consists of quite some matplotlib code — you can check it out in this jupyter notebook if you’re curious.
+
+Linear SVM with linearly separable data works pretty well.
+There are many lines that separate the two classes perfectly, infinitely many, to be exact. The line fitted by the SVM is special in that it is the middle line of a band marked with the dashed lines, and this band is the widest possible band that can be squeezed between the two classes. This way, the SVM decision line (marked as a solid black line) is as far from both classes as possible, ensuring the model will generalize well to new examples.
+The observations on the border of the band circled in red are called support vectors since they support, or determine, the location of the band. Should we add some observations outside the band, it would not change position.
+As a side note: this is an example of hard-margin classification, which means no observations are allowed into the band. Alternatively, we could do a soft-margin classification: allow some observation into the band, but not too many, making the band even wider at the same time. That would be more robust against outliers and can be controlled by the parameter C in LinearSVC(): we have set it to 1, but decreasing it to 0.1, for instance, would result in a wider band, but with some observations inside it. Anyway, this is not that relevant to our story.
+Most real-life data sets are not nice, linearly separable blobs. Let’s see how the linear SVM handles moon-shaped data.
+
+
+Linear SVM with linearly non-separable data does not work at all.
+This doesn’t look good, does it? Let’s see what we can do about it.
+
+Mapping to higher dimensions
+Before we discuss the kernels and what they do, let’s first look at one powerful idea they make use of: in a high dimensional space, there is a bigger chance the data will become linearly separable.
+This is clearly illustrated by the following pair of plots. When we only have one feature, x1, we cannot separate the data with a single line. Adding another feature, x2, equal to x1 squared, makes it easy to separate the two classes.
+
+Adding another feature makes data linearly separable.
+
+What is a kernel anyway?
+So, what is the kernel trick about? Kernels are simply a smart way of adding more features to the data in the hope of making it linearly separable. Smart, because instead of actually adding them, which would make the model slow, they make use of some magical mathematical properties (which are out of scope of this article) that allow us to obtain exactly the same results as if we had actually added these features, without slowing the model down.
+Two popular kernels are the polynomial kernel and the Gaussian Radial Basis Function, or RBF, kernel. They differ in the types of features that they (pretend to) add. Let’s look at what they do!
+
+Polynomial features with polynomial kernel
+One way to create more features is to use their polynomial combinations up to a certain degree. For instance, with two features A and B, a polynomial of degree 2 would produce 6 features: 1 (any feature to power 0), A, B, A², B², and AB. We can easily add these features manually with scikit-learn’s PolynomialFeatures():
+
+or we can simply use a polynomial kernel:
+
+You can verify yourself that both implementations yield roughly identical plots, somewhat like this:
+
+Decision boundary with a polynomial kernel.
+The advantage of using the kernelized version is that you can specify the degree to be large, thus increasing the chance that data will become linearly separable in this high-dimensional space, without slowing the model down.
+For our moon-data example, it is clear from the scatter plot that a polynomial of degree 3 would be enough. For more complex datasets, however, you might need to use a higher degree. This is when the power of the kernel trick is unleashed.
+
+Similarity features with Gaussian RBF kernel
+Another method to add more features to the data is to use the so-called similarity features. A similarity feature measures how far a value of an existing feature is from a landmark. Let’s make it practical: we have a data set with a single feature, x1. We want to create two similarity features, so we select two landmarks, i.e. reference values from our single feature. Let’s take -1 and 1, for instance. Then, for each value of x1, we calculate how far it is from the first landmark (read on to see how to define ‘far’). This is our new similarity feature, x2. Then we do the same, comparing values of x1 to the second landmark to obtain x3. Now we don’t even need the original feature x1! The two new similarity features make our data easily separable.
+
+Similarity features make the data linearly separable.
+So, how do we calculate the distance of each observation from the landmark? A popular choice is to use the Gaussian Radial Basis Function, or RBF. It is defined as:
+
+where x is our original feature and γ is a parameter, which I set to be 0.3.
+For example, the first observation scores -3 on our only original feature. We computed x2 as exp(-0.3 * (-3-(-1))²)≈0.30, and x3 as exp(-0.3 * (-3-(1))²)≈0.01. That’s the bottom-most dot on the right-hand-side plot.
+In the above example, we have luckily chosen two landmarks that happened to work well. In practice, one might need a lot of landmarks, which translates to many new similarity features. That would slow the SVM down a lot — unless we resort to the kernel trick! Analogous to the polynomial kernel, the RBF kernel allows us to obtain exactly the same results as though we had added a landmark at each value of the original feature without the need to actually do it. Let’s try it out at our moon-shaped data.
+
+
+Decision boundary with RBF kernel, γ=0.3.
+The decision boundary looks pretty decent, but you might have noticed some misclassified examples. We can fix it by tuning the γ parameter. It acts as a regularizer — the smaller it is, the smoother the decision boundary, which prevents overfitting. In this case, however, we seem to actually be underfitting, so let’s increase γ to 0.5.
+
+Decision boundary with RBF kernel, γ=0.5.
+Now all examples have been classifier correctly!
+
+Summary
+Support Vector Machines perform classification by finding linear decision boundaries that are as far away from the data as possible. They work great with linearly separable data but fail miserably otherwise.
+To make non-linear data linearly separable (and thus convenient for SVMs) we can add more features to the data since in a higher-dimensional space the probability of the data being linearly separable increases.
+Two popular types of new features to add are polynomial combinations of existing features (polynomial features) and observation-wise distances from landmarks, i.e. some reference values (similarity features).
+Actually adding them might slow the model down to the extent of making it useless.
+The kernel trick is a smart maneuver that takes advantage of some mathematical properties in order to deliver the same results as though we have added additional features without actually adding them.
+The polynomial and RBF kernels (pretend to) add the polynomial and similarity features, respectively.
+
+Sources
+Geron A., 2019, 2nd edition, Hands-On Machine Learning with Scikit-Learn and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems
+
+Thanks for reading! I hope you have learned something useful that will boost your projects 🚀
+You can find the data and the code for this post (including plotting) here. If you liked this post, try one of my other articles. Can’t choose? Pick one of these:

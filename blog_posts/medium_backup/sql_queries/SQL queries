@@ -1,0 +1,69 @@
+SQL queries
+The basics cheat sheet for ignorants such as myself.
+Michał Oleszak
+Michał Oleszak
+
+Aug 20, 2020·3 min read
+
+
+
+
+
+Photo by National Cancer Institute on Unsplash
+I don’t use SQL very often and every time I need it, I find myself googling for the syntax of even the most basic operations. To help myself out, I have put together a cheat sheet of useful queries, all in one place. I hope you will find it useful, too.
+The queries are in Postgres, but the patterns are translatable to other SQL flavors. The notes are based on the great DataCamp courses, such as Introduction to SQL, Joining Data in SQL, and Introduction to Relational Databases in SQL, as well as on my own StackOverflow searches. Enjoy!
+Key to symbols:
+🟠, 🔵, 🟢, etc. denote fields (i.e. variables, or columns)
+🗂️ denotes the table name
+When there is more than one table in a query, I refer to them as either 🗂️_1, 🗂️_2, etc., or left_🗂️ and right_🗂️, whichever’s more convenient.
+ToC:
+Creating, altering and removing tables, and filling them with data
+Overviewing tables & columns
+Selecting columns
+Filtering rows
+Aggregations, arithmetics, aliasing, sorting & grouping
+Inner joins
+Cases (long if-else statements)
+Left & right joins
+Set theory clauses
+Full & cross joins
+Semi & anti joins
+Subqueries
+
+1. Creating, altering and removing tables, and filling them with data
+
+
+2. Overviewing tables & columns
+
+
+3. Selecting columns
+
+
+4. Filtering rows
+
+
+5. Aggregations, arithmetics, aliasing, sorting & grouping
+
+
+6. Inner joins
+
+
+7. Cases (long if-else statements)
+
+
+8. Left & right joins
+
+
+9. Set theory clauses
+
+
+10. Full & cross joins
+
+
+11. Semi & anti joins
+
+
+12. Subqueries
+
+
+Thanks for reading! I hope you will find this basic cheat sheet useful. If you liked this post, try one of my other articles. Can’t choose? Pick one of these:

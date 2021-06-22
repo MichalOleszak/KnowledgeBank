@@ -1,0 +1,46 @@
+Working with Amazon S3 buckets with Boto3
+The complete cheat sheet.
+Michał Oleszak
+Michał Oleszak
+
+Jul 13, 2020·4 min read
+
+
+
+
+
+Photo by Jeff Kingma on Unsplash
+Amazon Simple Storage Service, or S3, offers space to store, protect, and share data with finely-tuned access control. When working with Python, one can easily interact with S3 with the Boto3 package. In this post, I will put together a cheat sheet of Python commands that I use a lot when working with S3. I hope you will find it useful.
+
+Let’s kick off with a few words about the S3 data structures. On your own computer, you store files in folders. On S3, the folders are called buckets. Inside buckets, you can store objects, such as .csv files. You can refer to buckets by their name, while to objects — by their key. To make the code chunks more tractable, we will use emojis. Here’s the key to symbols:
+🗑 — a bucket’s name, e.g. “mybucket”
+🔑 — an object’s key, e.g. "myfile_s3_name.csv"
+📄 - a file's name on your computer, e.g. "myfile_local_name.csv"
+Both 🗑 and 🔑 can either denote a name already existing on S3 or a name you want to give a newly created bucket or object. 📄 denotes a file you have or want to have somewhere locally on your machine.
+
+
+Setting up a client
+To access any AWS service with Boto3, we have to connect to it with a client. Here, we create an S3 client. We specify the region in which our data lives. We also have to pass the access key and the password, which we can generate in the AWS console, as described here.
+
+Buckets: listing, creating & deleting
+To list the buckets existing on S3, delete one or create a new one, we simply use the list_buckets(), create_bucket() and delete_bucket() functions, respectively.
+
+Objects: listing, downloading, uploading & deleting
+Within a bucket, there reside objects. We can list them with list_objects(). The MaxKeys argument sets the maximum number of objects listed; it’s like calling head() on the results before printing them. We can also list only objects whose keys (names) start with a specific prefix using the Prefix argument.
+We can use upload_file() to upload a file called 📄 to S3 under the name 🔑. Similarly, download_file() will save a file called 🔑 on S3 locally under the name 📄.
+To get some metadata about an object, such as creation or modification time, permission rights or size, we can call head_object().
+Deleting an object works the same way as deleting a bucket: we just need to pass the bucket name and object key to delete_object().
+
+Loading multiple files into a single data frame
+Oftentimes, data are spread across several files. For instance, you can have sales data for different stores or regions in different CSV files with matching column names. For analytics or modeling, we might want to have all these data in a single pandas data frame. The following code chunk will do just that: download all data files in 🗑 whose name starts with “some_prefix” and put it into a single data frame.
+
+Making objects public or private with access control lists (ACLs)
+One way to manage access rights on S3 is with access control lists or ACLs. By default, all files are private, which is the best (and safest!) practice. You can specify a file to be "public-read", in which case, everyone can access it, or "private", making yourself the only authorized person, among others. Look here for the exhaustive list of access options.
+You can set a file’s ACL both when it’s already on S3 using put_object_acl() as well as upon upload via passing appropriate ExtraArgs to upload_file().
+
+Accessing private files with pre-signed URLs
+You can also grant anyone short-time access to a private file by generating a temporary pre-signed URL using the generate_presigned_url() function. This will yield a string that can be inserted right into pandas’ read_csv(), for instance, to download the data. You can specify how long this temporary access link will be valid via the ExpiresIn argument. Here, we create a link valid for 1 hour (3600 seconds).
+
+
+Thanks for reading! I hope you have learned something useful that will boost your projects 🚀
+If you liked this post, try one of my other articles. Can’t choose? Pick one of these:

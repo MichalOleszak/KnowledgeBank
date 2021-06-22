@@ -1,0 +1,62 @@
+Data Measurement Levels
+A statistician’s perspective on the types of variables, their meaning, and implications for machine learning.
+Michał Oleszak
+Michał Oleszak
+
+Dec 14, 2020·8 min read
+
+
+
+
+
+Photo by Charles Deluvio on Unsplash
+I’ve been reading a popular book on machine learning recently. Once I reached the chapter on feature engineering, the author noted that, since most machine learning algorithms require numeric data as input, categorical variables need to be encoded as numeric ones. For instance, to paraphrase the example, we could encode a categorical variable education_level which takes the values: elementary, high_school, university, as numbers 1, 2, and 3, respectively. At that point, even though I’m an ML Engineer by trade, I heard the inner statistician-by-training within me cry out loud! Do people just run .fit_predict() these days, ignoring what the data really mean?
+
+From a statistical perspective, there is more to variable types than the simple distinction between numeric and categorical data. There are, in fact, four so-called data measurement levels, which define what the variable really means on what kind of mathematical operations can be applied to it. And the data measurement type of your variables may impact the way machine learning models treat these data and how they learn from them.
+The data measurement type of your variables may impact the way machine learning models treat these data and how they learn from them.
+The four data measurement levels, from lowest to highest, are nominal, ordinal, interval, and ratio.
+
+Nominal Data 🟨 🟩 🟦
+The term “nominal” comes from Latin and can be translated as “being so in name only”. The only information carried by nominal data is the group an observation belongs to. An example of this could be color. You could encode yellow as 1 and blue as 2, but these numbers would have no specific value nor meaning. And such an encoding would not automatically make green equal to 1.5.
+When it comes to mathematical operations, there ain’t much you can do here. One can only compute the mode (the most frequent value) of a nominal variable. Other measures, such as the mean or the median, make no sense.
+Ordinal Data 🔢
+As the name suggests, ordinal data have some order. It allows you to rank the values, such as for education level: elementary is less than high_school, which in turn is less than university. The ordering allows us to compute the median: if our dataset has 100 examples of each education level, it is correct to say that the median education is high_school. From the definition of the median, this means is that 50% of the examples have high_school or elementary education, while the other 50% have high_school or university education, which is correct and, maybe, an important insight. Calculating the mean, however, makes no sense for ordinal data. What is the average of a university and an elementary school anyway?
+A note for the mathematically-inclined reader: if you encode the levels of an ordinal variable with subsequent numbers, you can safely apply monotone transformations to it, such as taking the logarithm. This is because monotone transformations preserve the order, and the order is all that matters here.
+Interval Data 🌡️
+Interval data builds on top ordinal data. In addition to ordering the values, it also specifies that the intervals between subsequent values are the same. A good example of this is the temperature measured in degrees Celsius: the difference between 1 degree and 5 degrees is the same as between 20 and 24: it’s 4 degrees. Note that this was not the case for ordinal data: we cannot say that the difference between graduating from a high school versus from an elementary school only is the same as the one between a university and a high school.
+In the case of interval type variables, in addition to the mode and the median, computing the arithmetic mean also makes sense. You can also apply linear transformations to interval data.
+Ratio Data ➗
+Ratio data builds on top of interval data. The difference is that ratio type variables have a meaningful zero value. The examples are price, length, weight, amount of something, or temperature measured in Kelvin. The meaningful zero allows us to calculate ratios between two data points: we can say that 4 apples are twice as much as 2, or that $5 is half as expensive as $10. This was not the case for interval data: in the case of temperature measured in degrees Celsius, we cannot say 10 degrees is twice as warm as 5 degrees. Ratios make no sense for scales without a meaningful zero.
+Since we can take ratios of ratio type data, we can also apply scaling transformations, such as multiplication.
+Data Measurement Types: summary
+The four data measurement types are neatly summarized for your convenience in the table below.
+
+Data measurement types, compiled by the author.
+
+Back to Machine Learning
+How does it all relate to machine learning models, I hear you asking. There are two reasons why you should think carefully about what measurement types your variables are before typing .fit_predict():
+Model interpretability.
+Ease of learning.
+Let’s look at each in turn.
+There are two reasons why you should think carefully about what measurement types your variables are: model interpretability and ease of learning.
+
+Model interpretability
+Imagine we are trying to predict income using education level as one of the features. We want our model to be interpretable, that is, we want to quantify the impact of each feature on income in an understandable way. Hence, we opt for (possibly regularized) linear regression model. Now, what if we followed the advice from the book I was reading and we encoded elementary, high_school, university as numbers 1, 2, and 3, respectively?
+Say the estimated regression coefficient of education level is 3000. This means that, according to the model, a person with elementary education would be earning $3000 more now (ceteris paribus), had they finished high school. And if they had graduated from university, they would be earning another $3000 more, so $6000 more than they actually do. Does this make sense? Maybe it does. But it’s more likely that graduation from a university yields a higher return in income (compared to not graduating) than is the case for high school. Not least because university education takes more time and provides more specific knowledge and skills than high school education.
+So, what has happened here? We’ve confused data measurement types, of course! Education level in this example is clearly an ordinal variable, but we treated it as if it was ratio type! Encoding a categorical variable as numeric values 1, 2, and 3 suggests the (linear) machine learning model that the data is of ratio type: 3 is 3 times more than 1 for a computer. What we should have done is encode the education level as two one-hot vectors: binary features indicating whether the education type is elementary and whether it is high_school (since there are 3 possible values, we only need 2 one-hot vectors: if for a given example both are zero, this means the education must be university).
+Encoding a categorical variable as numeric values 1, 2, and 3 suggests the (linear) machine learning model that the data is of ratio type: 3 is 3 times more than 1 for a computer. If it’s not ratio in reality, interpreting the model gets tricky.
+Of course, it could also be that you don’t care about interpretability at all and want to produce as accurate a model as possible. If that’s the case, you still have at least one valid reason to care about the data measurement types: the ease of learning.
+Ease of learning
+The quality of any machine learning model depends to a large degree on the way the data are presented to the model. That’s what motivates the need for feature engineering: it’s not enough to have the data, one must also present it to the model in such a way that it learns quickly and effectively.
+Let’s continue our example of income prediction using education level as one of the features. And let’s assume that it is actually the case that moving from high school to university yields a larger income increase than moving from elementary school to high school. Now, if we confuse the data measurement types and encode the education level incorrectly as 1, 2, and 3 as discussed above, the machine learning algorithm can be smarter than us and discover that the data are ordinal by itself. Tree-based algorithms such as random forest or gradient boosting can, in theory, discover that splitting the education level variable between 2 and 3 leads to a smaller loss than splitting between 1 and 2. Neural networks can learn even more complex non-linear relations, so they should be able to discover that as well.
+The question is: why would we demand from the models to learn this distinction when we already do have this knowledge? By encoding the education level as one-hot vectors, we provide more information to the model and decrease the amount of learning needed for good performance. Not to mention the insurance against the risk of the model failing to learn it for whatever reason.
+Tree-based models or neural networks should be able to learn to distinguish ordinal and ratio data on their own. But why demand it, when we know the distinction already? By properly encoding variables according to their measurement types, we provide more information to the model and make learning easier.
+Of course, adjusting the encoding of education level as discussed above does not guarantee a better model performance. But treating data according to its measurement type is just the right thing to do. It enables a sensible interpretation of the model’s results, and sometimes might decrease learning time or improve performance by making the learning task simpler for the algorithm.
+
+P.S. As I continued reading my machine learning book, I came across another topic that requires statistical rigor, and to which an overly-simplified solution was proposed. This topic is how to handle missing data. I have written a separate post about it, you can check it out here:
+Handling Missing Data
+A statistician’s perspective on how (not to) do it to keep your machine learning workflow unflawed.
+towardsdatascience.com
+
+
+Thanks for reading! If you liked this post, try one of my other articles. Can’t choose? Pick one of these:

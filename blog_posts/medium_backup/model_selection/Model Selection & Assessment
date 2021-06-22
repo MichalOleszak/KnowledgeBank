@@ -1,0 +1,83 @@
+Model Selection & Assessment
+Going beyond the train-val-test split
+Michał Oleszak
+Michał Oleszak
+
+May 13, 2020·9 min read
+
+
+
+
+
+Image source: https://pixabay.com/illustrations/cubes-choice-one-yellow-light-2492010/
+A standard modeling workflow would see you partitioning your data into the training, validation, and testing sets. You would then fit your models to the training data, then use the validation set to perform model selection, and finally, evaluate the very best selected model on the test data to see what generalization performance can be expected of it (model assessment). This flow is presumably your best bet to make sure you have selected the right model and that you won’t be startled once you deploy it to production.
+That being said, one cannot always afford the luxury of setting data aside to form validation and testing sets. If you have very little data, you’d rather use it all for training. In this article, we will discuss methods for selecting and assessing models that let you do exactly this — no validation nor test sets required!
+This article is based on a chapter from Hastie, T., Tibshirani, R., & Friedman, J. H. (2009). The elements of statistical learning: data mining, inference, and prediction. 2nd ed. New York: Springer.
+
+Concerning model errors
+While comparing competing models, you would like to pick the one performing best on new, unseen data. That’s what you would normally use the validation set for: validation data are not seen by the model while it’s being fit, so choosing a model that works best for these data is a good strategy. Alas, in our setting you have no validation data to check different models against! To see what to do about it, let’s first introduce a couple of error measures:
+Training error is the error you get when you run the trained model on the same data it was trained on.
+Testing (or generalization) error is the error you get when you run your model on completely new, unseen data.
+Imagine that after training the model, you observe new values of the response variable for the same values of the features that you had in your training data. For instance, let’s say you are predicting a house’s price based on the number of rooms. In your training data, you had a house worth $300𝑘 with 5 rooms, and now you observe a house sold for $350𝑘, also with 5 rooms. The error the model makes on these new data is called the in-sample error (since the values of the features are the same as in the training sample — not the most straightforward of notations, I agree).
+Now, consider this quantity: in-sample error — training error. It is typically positive: the training error is smaller because it is based on the very same data the model was optimized for. But what does it amount to exactly? Well, it can be shown that (up to an expectation) it holds that
+
+where 𝑁 is the number of observations and the last term is the covariance between the training set response and its predictions. The larger this covariance, the stronger we fit the model to training data (to the point of overfitting), so the training error goes down, increasing the left-hand side of the equation.
+Let’s assume (and this an important assumption) that we are dealing with a model that is linear in its parameters. This means we are talking linear or logistic regression models, non-linear splines, or auto-regressive models, for instance. When that’s the case, then the covariance term above simplifies to d * σϵ², where 𝑑 is a measure of model complexity (number of features in linear regression, number of basis functions in regression splines) and σϵ² is the error variance. After substituting this simplification and rearranging terms, we get
+
+What does this give us? If we could estimate the right-most term, we could then add it to the training error to obtain an estimate of the in-sample error. And the in-sample error is all we need for model selection! Sure, it doesn’t give us information about the models’ generalization performance (that’s the role of model assessment, read on). Also, we don’t really care about the in-sample error’s specific value — it’s rather uncommon to see the same feature values after deployment as in the training data. But the relative magnitude of in-sample errors across different models allows us to pick the best one.
+
+Model selection with information criteria
+The above formula is also known as the Mallows’s 𝐶𝑝:
+
+and when the models are fit under squared loss, it can be used for model selection — we simply pick the model with the lowest 𝐶𝑝.
+If the models are not necessarily fit under squared loss, we need to adjust Mallows’s 𝐶𝑝 slightly. Recall we are discussing models linear in their parameters: think linear or logistic regression, regression splines, or ARIMA models. They are typically estimated by maximum likelihood, and under the Gaussian model, it holds (up to a constant) that
+
+Solving for 𝑒_𝑡𝑟𝑎𝑖𝑛 and substituting this into the formula for 𝐶𝑝 we arrive at the Akaike Information Criterion or AIC:
+
+The AIC is basically a penalized likelihood. It goes up as the model complexity 𝑑 increases and goes down as the model’s fit to the data (the loglikelihood) increases, trading-off these two. We pick the model with the lowest AIC. The best thing about it is that even though AIC is computed using only the training data, minimizing it is asymptotically equivalent to minimizing the leave-one-out cross-validation mean squared error, which makes it great for model selection. For more caveats on the AIC (also in the context of time series forecasting) check out this excellent post by Rob Hyndman, the author of the R’s forecast package.
+Let us now look at a Python example of model selection with AIC. We will use the infamous Boston housing data from scikit-learn’s datasets. Let’s fit two linear regression models explaining house prices. We will employ the statsmodels package for this, as it conveniently computes the AIC for us. Both models will use the number of rooms and house age as features. Model 1 will use the neighborhood crime rate on top of that, while model 2 will use distance to large employment centers instead. Which of the two models is better?
+
+Model1 AIC: 3268.8701039911457
+Model2 AIC: 3300.3758836602733
+As far as the AIC is concerned, Model 1 (the one using the crime rate) is better, as it scores a lower AIC value.
+AIC is not the only information criterion. Another one is the BIC, or Bayesian Information Criterion, also known as the Schwarz criterion. Similarly to the AIC, the BIC is also a penalized likelihood, but with a different penalty term:
+
+This penalty tends to penalize more complex models more heavily than the AIC. Let’s see how our two housing price models score on BIC.
+
+Model1 BIC: 3285.7762506682957
+Model2 BIC: 3317.2820303374233
+Again, Model 1 is preferred, as it scores a lower BIC. In our examples, both criteria where unanimous, but it does not have to be the case. Which criterion should we then base our model selection on? There is no one-size-fits-all answer, but here are a few things to keep in mind:
+BIC is asymptotically consistent, which means it has a high probability of selecting the true model (the one according to which data were generated) when presented a set of competing models.
+AIC does not have the consistency property, but do you believe there is a true model to be selected?
+BIC prefers more parsimonious models. For small data samples, it might end up selecting too simple models. On the other hand, for large samples, AIC tends to choose too complex ones.
+
+Model assessment with cross-validation
+Now that we have selected our model to be the one including the crime rate feature, it would be great to know what kind of performance can we expect of it once deployed. That’s the job of model assessment — to estimate the testing error of a model.
+One way to do so is via the well-known procedure of cross-validation. We split the data randomly into 𝑘 subsets, or folds, and then iterate through them, leaving the current fold out and fitting the model the remaining 𝑘−1 folds. Then, we evaluate the model’s error on the left-out fold and proceed to the next iteration. This way, we obtain 𝑘 error estimates. Once averaged, they form the cross-validated estimate of the testing error. Pretty simple, right? But what should be the value of 𝑘?
+The choice of 𝑘, like so many other choices in machine learning, is between the bias and the variance. Going to the extreme of setting 𝑘=𝑁 results in the so-called leave-one-out cross-validation. In this setting, each observation constitutes its own fold. As a result, the training sets will be very similar across the folds — indeed, they will only differ by one observation. Consequently, the CV estimate of the testing error might suffer from high variance. On the other hand, when 𝑘 is small, we risk high bias. This is because the smaller the 𝑘, the fewer observations constitute the 𝑘−1 training folds. For instance, consider 𝑁=100 observations. With 𝑘=10, each fold has 10 observations and so each training is based on 90 observations. With 𝑘=4, each training uses only 75 observations. If the model performance decreases with less training data, too low 𝑘 will lead to an over-estimated error.
+Ultimately, the choice of 𝑘 should depend on your application. 𝑘=𝑁 is rarely a good idea — it’s also quite computationally expensive to run (𝑁 models need to be trained)! You know your data best — if you are willing to assume (or have proved) that less data won’t make much of a difference to your model’s performance, then you’re good to go with a small 𝑘 of say 3 or 5. But that’s probably not the case if you have only little data (should you have big data, you could just follow the standard train/validation/test split and ignore this article). Hence, a slightly larger 𝑘 of say 10 might be worth a shot. One more thing to consider: if your 𝑘 will be too small, the error will be over-estimated, meaning that the true testing error is likely to be less than what your CV tells you. If you’re satisfied with the cross-validated error estimate, you’re likely to be even happier with the production performance.
+Let’s assess our selected model with 10-fold cross-validation. To do this, we’ll use the scikit-learn API.
+
+Cross-validated testing MSE: 43.925463559757674
+
+Final remarks
+To sum up: what has just happened? In case you don’t have enough data to set aside a validation and a test set, you need other ways to do your model selection and assessment. We have shown what are information criteria and how to use them for model selection, and then how to estimate the expected real-world performance of the selected model with cross-validation.
+Why not use CV for model selection, I hear you ask. You could! However, with small data, information criteria tend to be more reliable. And if your CV will be biased due to too little data, at least you will know the model you’ve selected is the right one — even if its cross-validated testing error estimate was far from perfect.
+Thanks for reading! I hope you have learned something useful that will benefit your projects 🚀
+If you liked this post, try one of my other articles. Can’t choose? Pick one of these:
+Boost your grasp on boosting
+Demystifying the famous competition-winning algorithm.
+towardsdatascience.com
+
+A Comparison of Shrinkage and Selection Methods for Linear Regression
+A detailed look at 7 popular shrinkage & selection methods.
+towardsdatascience.com
+
+Non-linear regression: basis expansion, polynomials & splines
+How to capture non-linear relations with polynomials and splines.
+towardsdatascience.com
+
+
+Sources
+Hastie, T., Tibshirani, R., & Friedman, J. H. (2009). The elements of statistical learning: data mining, inference, and prediction. 2nd ed. New York: Springer.
+https://robjhyndman.com/hyndsight/aic/

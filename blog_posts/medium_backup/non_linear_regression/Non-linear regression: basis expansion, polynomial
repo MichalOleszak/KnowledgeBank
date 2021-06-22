@@ -1,0 +1,97 @@
+Non-linear regression: basis expansion, polynomials & splines
+How to capture non-linear relations with polynomials and splines.
+Michał Oleszak
+Michał Oleszak
+
+Sep 29, 2019·9 min read
+
+
+
+
+This article is based on a chapter from the excellent Hastie, T., Tibshirani, R., & Friedman, J. H. (2009). The elements of statistical learning: data mining, inference, and prediction. 2nd ed. New York: Springer.
+
+Basis expansion
+Popular linear models for classification and regression express the expected target as a linear function of the features. This approximation is convenient and sometimes a necessary one. Convenient, as linear models are easy to interpret and necessary, as with scarce data linear models might be all we can fit to it without overfitting. However, the true underlying function will typically not be linear. Capturing this nonlinearity in the model might, therefore, yield more predictive and explanatory power. A class of modeling approaches addresses this issue by augmenting the input features 𝑋 with some transformations and then use the transformed features in linear models. Such models take the form
+
+called linear basis expansion in X, where hm is the m-th transformation of 𝑋. The beauty of this approach is that once the basis functions ℎ have been determined, the models are linear in these new, transformed variables, and the fitting is as simple as with basic linear models.
+Some widely used basis functions are:
+ℎ𝑚(𝑋) = 𝑋𝑚, which recovers the original linear model;
+ℎ𝑚(𝑋) = 𝑋²j or ℎ𝑚(𝑋) = 𝑋𝑗𝑋𝑘, which allow augmenting the inputs with polynomial terms to achieve higher-order Taylor expansions;
+ℎ𝑚(𝑋) = 𝑙𝑜𝑔(𝑋𝑗), 𝑠𝑞𝑟𝑡(𝑋𝑗) and others, which allow for other nonlinear transformations;
+ℎ𝑚(𝑋) = 𝐼(𝐿𝑚 < 𝑋𝑘 < 𝑈𝑚), which is an indicator for the region of 𝑋𝑘. By breaking the range of 𝑋𝑘 into a set of non-overlapping regions we obtain a model with piecewise-linear contributions of 𝑋𝑘.
+
+Piecewise Polynomials
+A piecewise polynomial function is obtained by dividing the domain of 𝑋 into contiguous intervals and representing the function by a separate polynomial in each interval. The rather lengthy Python code chunk below fits some simple piecewise polynomials to simulated data and plots them nicely. Note that most of the code is for plotting.
+
+
+The upper left panel shows a piecewise constant function with three basis functions:
+
+with the knots 𝜀1 and 𝜀2 equal to 1.5 and 4.5 respectively. Piecewise constant fit boils down to the mean of 𝑌 in each region.
+The upper right panel shows a piecewise linear fit. On top of the previous three basis functions, this one also requires three more, one for each region, that add the relation between 𝑋 and 𝑌 in the usual linear regression way:
+
+Note that as a result, in each region, 𝑌 is modeled as its own mean in this region plus the effect of 𝑋 multiplied with its coefficient β. To see this, just substitute the six basis functions ℎ into the basis expansion formula at the beginning of this article!
+One problem with the piecewise linear model is that it is discontinuous at the knots. This is not desired, as we would like the model to produce a unique output Y for every input X. This is not the case when 𝑓(X) is discontinuous, as there is no unique output at the knot! Therefore, in most cases, one would prefer to have a continuous model, such as the one in the lower-left panel. It can be obtained by enforcing continuity at the knots through incorporating proper constraints into the basis functions:
+
+where 𝑡+ denotes the positive part. Basis function ℎ3 is shown in the lower right panel as an example.
+
+Regression Splines
+Piecewise polynomials, even those continuous at the knots, tend not to be smooth: they rapidly change the slope at the knots. To prevent this and increase their smoothness, it is enough to increase the order of the local polynomial and require the first two derivatives on both sides of the knot to be the same. A function that is continuous and has continuous first and second derivatives is called a cubic spline and can be represented with the following basis functions:
+
+The code chunk below fits this cubic spline to the previously simulated data.
+
+
+The cubic spline above seems to fit well to the data. However, there is a danger associated with using this technique: the behavior of cubic splines tends to be erratic near the boundaries, i.e. beyond the observed values of 𝑋. To smooth the function near the boundaries, one can use a special kind of spline known as a natural spline.
+A natural cubic spline adds additional constraints, namely that the function is linear beyond the boundary knots. There will be a price paid in bias near the boundaries for this rather crude approximation, but assuming linearity near the boundaries, where we have less information anyway, is often considered reasonable.
+A natural cubic spline with 𝐾 knots is represented by 𝐾 basis functions as follows:
+
+where
+
+Let’s now employ cubic and natural splines to model the relation between wage and age, which could be reasonably expected to be non-linear — a perfect use case for splines. For this practical example, we will use the statsmodels package for fitting the splines and patsy for defining formulas. The data is adapted from “Introduction to Statistical Learning” by T. Hastie et al.
+
+
+Both splines look similarly, but notice how the natural spline is linearly stable at the right edge of the plot as opposed to the cubic spline! Let’s now look at one more way of obtaining splines.
+
+Smoothing Splines
+All the methods discussed so far require us to select the number and locations of knots. Smoothing splines are a way to avoid the knot selection problem by using a maximal set of knots. In this approach, the complexity of the fitted curve is not controlled by the knots, but rather by regularisation.
+One can think about smoothing splines as choosing such a function 𝑓(𝑋) from all possible functions with two continuous derivatives that minimize the penalized residual sum of squares (RSS). In practice, 𝑓(𝑋) is almost always chosen to be a cubic function.
+
+The first term in the RSS formula above measures the closeness to the data, while the second term penalizes the curvature of the function. The trade-off between the two is controlled by the regularisation parameter λ:
+When λ = 0, 𝑓(𝑋) can by any arbitrarily complex function that interpolates the data, which would almost certainly lead to overfitting;
+When λ = ∞, the second term dominates and 𝑓(𝑋) is a simple linear fit, as no curvature at all is tolerated.
+Setting the regularisation parameter somewhere in between these two extremes will hopefully produce a model that fits the data well, but does not overfit.
+Let’s fit the smoothing spline to the wage-age data. We will use the csaps package for this, which defines the regularisation penalty slightly differently: it accepts values between 0 and 1, where 0 is a straight line and 1 is a natural cubic spline interpolation. The package also requires us to prepare the data before fitting the model. It can only handle one value of 𝑌 for every 𝑋. Hence, we will group by age and aggregate wage using the median.
+
+
+
+Parameter Selection
+The parameters defining regression splines encompass the degree of the spline and the number and placements of the knots. Sometimes domain knowledge about the relation being modeled can provide some indication as to where the knots should be placed. For smoothing splines, one has to choose the smoothing parameter. In practice, for all types of splines, the parameters can be tuned via cross-validation or set based on the analysis of the residual plot, depending on the goal of modeling.
+
+Recap & Conclusion
+Polynomials and splines allow modeling non-linear relations, yielding more predictive and explanatory power than linear models. They achieve it by augmenting the input features with some transformations and then using the transformed features in linear models.
+Piecewise polynomials are obtained by dividing the domain of input features into contiguous intervals and fitting a separate polynomial in each interval. They can be forced to be continuous at the knots, but they tend not to be smooth.
+Cubic splines are an answer to piecewise polynomials’ smoothness issue. They ensure smoothness at the knots by requiring the first two derivatives on both sides of the knot to be the same. However, they come with their own disadvantage: the behavior of cubic splines tends to be erratic outside the observed values of inputs.
+Natural splines add additional constraints, namely that the function is linear beyond the boundary knots, which makes it more reliable in those regions.
+Smoothing splines are obtained by balancing the trade-off between the closeness of the model to the data and the complexity of the fitted curve: regularisation parameter penalizes too complex functions that could lead to overfitting.
+Parameters of regression (cubic and natural) spline encompass the number and placement of the knots. For smoothing splines, the regularisation parameter needs to be chosen. Parameter selection can be based on domain knowledge, cross-validation, or residuals’ properties.
+
+All examples in this article featured univariate splines: there was only one input variable. In practice, one would typically want to include multiple predictors in the model. No worries: all the discussed methods naturally extend to the multivariate case. For instance, check out the MultivariateCubicSmoothingSpline class in the csaps package.
+A final remark to the readers acquainted with the R language: R has more to offer than Python when it comes to spline modeling. Check out the bs() function from the splines package (which, by the way, is what Python’s statsmodels mimics behind the hoods) and the mgcv package.
+
+Thanks for reading! I hope you have learned something useful that will benefit your projects 🚀
+If you liked this post, try one of my other articles. Can’t choose? Pick one of these:
+A Comparison of Shrinkage and Selection Methods for Linear Regression
+A detailed look at 7 popular shrinkage & selection methods.
+towardsdatascience.com
+
+Boost your grasp on boosting
+Demystifying the famous competition-winning algorithm.
+towardsdatascience.com
+
+Uncertainty from imputation
+Are you taking it into account in your predictions?
+towardsdatascience.com
+
+
+Sources
+Hastie, T., Tibshirani, R., & Friedman, J. H. (2009). The elements of statistical learning: data mining, inference, and prediction. 2nd ed. New York: Springer.
+https://pypi.org/project/csaps/

@@ -1,0 +1,95 @@
+The Gentlest of Introductions to Bayesian Data Analysis
+How to think in a natural way based on data
+Michał Oleszak
+Michał Oleszak
+
+Apr 26·13 min read
+
+
+
+
+
+Photo by Kenneth John dela Vega on Unsplash
+If you have ever taken a statistics class at university or an online course, you might recall terms such as hypothesis testing, confidence intervals, or p-values. If so, what you were taught was the so-called “classical” or “frequentist” statistics, which is the dominant approach in teaching STATS101. There is, however, another school called Bayesian statistics, which builds up a different way of thinking about data and models.
+The Bayesian approach is often neglected at universities and online courses alike as harder to explain, understand, and apply. I believe such branding is unjust. Actually, I think the Bayesian way of thinking is more natural and offers significant advantages over the classical approach. Let me do my best to offer you the gentlest of introductions to Bayesian statistics in this article. Let’s dive in!
+
+Updating beliefs with data
+Imagine we are at a pool table. You are standing with your back to the table so that you can’t see it. I place a white ball somewhere on the table and ask you where it is: in the right part of the table, in the left part, or in the middle? Naturally, you have no idea whatsoever and all you can do is guess. Then, I start placing color balls randomly on the table and each time I do, I tell you if the new ball is to the left or to the right of the white one. After 5 rounds, the table (which you still cannot see) may look somewhat like this:
+
+Pool table after randomly placing on white and five color balls. Image by the author.
+From what I’ve told you, you know that four of the color balls are to the right of the white ball, and one is to the left. Does it tell you anything about the location of the white ball? Sure it does! Since the color balls were placed randomly and most of them are to the right from the white one, you might conclude that it’s more likely that the white ball is somewhere in the left part of the table.
+Take a moment to ponder over what has just happened: you have updated your belief about the white ball location based on data. Initially, you knew nothing about its location: from your viewpoint, it was equally likely that it’s in any part of the table. Now, with five data points, you know something, although this something is not very precise: that the ball is more likely to be on the left side than on the right.
+The Bayesian approach is all about updating one’s beliefs based on data.
+Now, what would the table look like once I have placed 50 color balls on it?
+
+Pool table after randomly placing on white and 50 color balls. Image by the author.
+At this point, I would have told you that 9 out of 50 color balls, or 18%, are to the left of the white ball while the remaining 41, or 82%, are to the right. Based on this information, you can update your belief about the white ball location: it is very likely somewhere one-fifth of the table’s length from its left edge. The more data you have, the more precise your estimation.
+That was Bayesian inference in a nutshell: you started off with some prior belief about the quantity of interest — the white ball’s location. Your prior belief was that it is equally likely to be anywhere on the table. Then, as new data were coming in, you have updated your belief up to the point when you had a lot of data and were able to pinpoint the ball's location precisely — this is called the posterior belief, which is the prior belief after it has evolved based on data.
+The Bayesian way of thinking is natural for humans.
+I’d argue that this Bayesian way of thinking is actually the way we think. Consider this trivial real-life example. You are going out and don’t know if you should take the umbrella with you. The weather has been great recently, so you don’t think you will need one — that’s your prior belief. Then you spot a weatherman on TV forecasting a 50% chance of rain, which makes you update your belief and consider taking the umbrella. As you take a look out of the window and see the dark clouds looming towards you, you are sure the umbrella might be useful — that’s your posterior belief. But how does this belief-updating way of thinking relate to data, statistics, and models?
+
+Three steps to go Bayes
+There are three things, characteristic to the Bayesian approach, that you will need to get your head around:
+Parameters have distributions,
+Probability is subjective,
+Bayes’ formula is cool.
+Let’s look at them one by one.
+Parameters have distributions
+In statistics, parameters are some unknown quantities that we are interested in, such as the location of the white ball on the table, or weights in a fancy neural network. We typically apply some statistical procedure or fit a machine learning model to estimate them from data. In classical statistics, such estimates are fixed values, numbers set in stone. Think about traditional linear regression: you run it, and get the regression coefficients.
+In the Bayesian approach, parameters are not numbers, but rather random variables. This means they can take many different values with given probabilities, described by their probability distributions. Consider the following parameter: the distance of the white ball from the table’s left edge in centimeters (the table is three meters long). Initially, your prior belief was that the ball is equally likely to be anywhere between 0 and 300 centimeters from the left edge. This is captured by the distribution in the left panel of the figure below. After 5 color balls have been placed, your posterior belief about the white ball’s location (expressed as a probability distribution) could be like the one in the middle panel. Once all 50 color balls are on the table, you can update your belief again to express that you are even more sure about the white ball’s location.
+
+Image by the author.
+Notice how the probability distributions capture what we know about the parameter, and how certain we can be about it. The narrower the distribution, the smaller the range of possible values, and so the more certain we are.
+Probability distributions capture what we know about parameters and how certain can we be about it.
+Probability is subjective
+In the Bayesian approach, we are dealing with what’s called subjective probability. And no, it doesn’t mean that it is unfair or biased in some way.
+The discussion about the very definition of probability is a long-standing mathematical as well as philosophical debate. All these disputes aside, one of the popular definitions is that of frequentist probability, which states that probability is the frequency in repeated trials. Why is the probability of rolling six with a dice 1/6? Because if you rolled it 6 000 000 times, you’d get approximately 1 000 000 sixes. And if you rolled it infinitely many times, then exactly 1/6 rolls will come up six. That’s the frequentist definition around which the entire frequentist statistics is based via assuming that your data is a single realization, or trial, from a set of infinitely many data samples you could hypothetically get. Sounds strange or unintuitive? Well, because it is. But that’s how most of classical statistics works. Think about the meaning of a 95% confidence interval. If you re-collected the data infinitely many times obtaining slightly different data samples and repeated your analysis on each sample, 95% of such intervals would capture the parameter of interest.
+The Bayesians, in contrast, define probability as subjective, which you can think of as intuitive probability. By this definition, you don’t need repeated trials. You can just define probability based on your own judgment. You‘re free to say: I think there is an 80% chance that Chelsea will win the Champions League this season, and it’s a perfectly valid probability statement.
+Bayesians allow defining probabilities based on one’s personal judgment.
+Are you wondering why this seemingly unimportant distinction is so vital? Read on to find out!
+Bayes formula is cool
+At the core of Bayesian inference, there is the so-called Bayes’ theorem. As intimidating as it might sound, it’s just a simple formula to calculate conditional probabilities. What are these? The following example is borrowed from the Bayesian Data Analysis course that I teach on DataCamp.
+
+Three balls in a box: one blue, and two orange. Image from the Bayesian Data Analysis in Python course, taught by the author at DataCamp.
+Imagine a box with three balls inside. One is blue, two are orange. You draw one at random. The probability that it’s blue is P(blue)=1/3, and that it’s orange —P(orange)= 2/3. These are unconditional probabilities. Conditional probabilities, on the other hand, are the probabilities of some event given that some other event has occurred earlier. Say, you have drawn an orange ball and put it aside. Now, there are two balls remaining inside the box: one blue, and one orange. You draw one of the two at random. What is the probability that it’s blue? We denote the quantity in question as P(blue|orange), and read as: the probability that the second ball is blue, given that the first one was orange. In this case, it amounts to 1/2. The Bayes formula allows calculating exactly this. Here’s what it says:
+
+Bayes’ formula.
+where A and B are some events. Translating it to the balls examples yields
+
+You can think about the Bayes’ Theorem as a probability axiom that just holds. In this toy example, it was not that helpful, since to calculate P(blue|orange) we need to know P(orange|blue), which is just as hard (or easy) to get. But that’s not always the case!
+Bayes’ formula is the secret key to updating beliefs based on data. We just need one small trick: we can replace the events in the formula (such as drawing a blue ball) with probability distributions, and the formula still holds!
+Bayes’ formula is the secret key to updating beliefs based on data.
+This means we can rewrite it as follows:
+
+I have replaced the capital P with a small p, which is customarily done to stress that we are talking about probability distributions rather than probabilities of events. The rest is still the same.
+The term on the left that we are interested in is the distribution of the parameters given the data. This is our posterior distribution. To compute it, we need three quantities:
+The distribution of data given the parameters. This is called the likelihood and depends on the model we use for our data.
+The distribution of parameters. This is our prior distribution. In the pool table example from before, we would use the uniform distribution between 0 and 300.
+The distribution of data. This one might be hard to compute, but since the entire fraction needs to sum up to one (since it’s a distribution), you can simply think about it as a normalizing factor, making it all sum to one.
+So, in short, to get the posterior distributions of the parameters, we need to come up with the prior distribution and multiply it with the likelihood, which is based on our model of choice. But how does one multiply distributions with each other? Well, there are a couple of ways to do it:
+You can actually write down the formulas for probability density functions and multiply them on paper, hoping you can reduce the result to something simple. In some cases, when the prior and the likelihood align nicely, that’s possible. If so, we call such priors conjugate priors for the respective likelihood. Such cases have been already researched, so in fact, you don’t need to do any pen and paper math yourself, you can just use a formula from the Wikipedia table.
+If the approach above does not work, you can always resort to simulation methods known as Markov Chain Monte Carlo or MCMC for short. These are too complex for this introductory post, but all they do is just simulate draws from the posterior distributions of the parameters.
+Whichever method you choose, the final outcome is always the posterior distribution of the parameters. Enough of the theory, let’s take a look at Bayesian inference in action!
+
+Rolling the mysterious dice
+I have a six-sided die. But it’s not a regular die. Instead of having each of one, two, three, four, five, and six dots on one of its faces, mine can have any number of dots on each face. I will roll it 30 times, and your job is to estimate the probability of rolling a six after each roll, based on all the rolls you have seen. This probability can be zero, one, or anything in between.
+Let’s start with the frequentist approach. Without any data, we cannot estimate the probability of rolling a six. Then, our first roll is a four. With this single data point, we can only estimate the probability of getting a six to be 0. Next, we have a two, which does not change our estimate, but after that, we get five sixes in a row, which brings our estimate to 5/7 or over 0.7 (since five rolls came up six in 7 attempts so far). The plot below shows how the frequentist estimate evolves after each roll. Finally, after 30 rolls, we end up with the probability of getting a six of around 0.47.
+
+Probability of rolling a six after observing each roll — the frequentist estimate. Image by the author.
+Now, let’s do it the Bayesian way. We will need a prior for our parameter — what do you think might be the probability of rolling a six, without seeing any data? Well, an arguably reasonable thing to do would be to assume that I’m bluffing and my die is actually just a regular die. If that’s the case, the probability of rolling a six would be 1/6. Hence, our prior distribution should peak around 1/6 or 0.17, but it should be wide to allow for other possibilities too. A good choice would be a Beta(1, 3) distribution, which you can see on top of the plot below, labeled ‘Before rolls’. The plot shows how this prior belief gets updated as the data — or the rolls — come in. The rolling outcomes are the same as before. Witch each new roll, our distribution — the Bayesian estimate of the probability of rolling a six — becomes narrower, indicating more certainty in the estimation. It also moves to the right, in general, indicating the probability we are after is likely larger than 0.17. Finally, after 30 rolls, the posterior distribution peak around 0.42, with the range of possible values more or less between 0.25 to 0.65.
+
+Probability of rolling a six after observing each roll — the Bayesian estimate. Image by the author.
+Actually, the six faces of my die have 1, 2, 3, 4, 6, and 6 dots, respectively, which means the probability of rolling six is 2/6 or 0.33. I have simulated the rolls and got 14 sixes in 30 rolls. How do the two estimation methods compare?
+There are a couple of things to take away from this frequentist vs Bayesian comparison:
+With little data, the frequentist approach is very unreliable. It gives you a number, creating a false sense of security, but this number can be terribly biased. Here, we got a frequentist estimate of 47% when the true value was 33%.
+Rather than a single number, the Bayesian approach provides a distribution for the parameter we are estimating. Thanks to this, you can see how certain your estimation is. Note that with more data, the posterior becomes narrower, indicating more certainty. Here, the value of 33% is maybe not the most likely, but still pretty much possible under the posterior distribution.
+The Bayesian approach relies more on the prior if there is little data. With no data, the posterior is exactly the prior. The more data, the more the prior evolves with it. This can be dangerous (you could choose some terribly poor prior that would skew the results) but used responsibly, it can be of advantage — more on this in the next section.
+
+It pays to go Bayes
+Why go Bayes? Besides being a more natural way of statistical thinking, the Bayesian approach offers a range of practical advantages:
+Thanks to outputting distributions of parameters instead of single numbers, it captures uncertainty in a natural way.
+It works even with little data, although relying heavily on the prior. For this reason, the prior choice is an important and responsible task. In practice, one typically picks the prior based on previous research (e.g. when estimating a drug’s efficacy, the prior efficacy rate could be that of similar drugs or the one found in previous trials of the same drug) or based on common sense (e.g. when estimating the price elasticity of a product, the prior elasticity could be some distribution that only allows for negative values — typically the demand drops with a price increase).
+The Bayesian approach makes hypothesis testing much easier and more intuitive. In A/B tests, for instance, it allows directly calculating the probability that variant A is better than B without resorting to p-values or assuming confidence levels.
+
+Thanks for reading! If you are interested in learning more, check out my Bayesian Data Analysis in Python course at DataCamp. It starts off with the very basics and builds up through Bayesian A/B testing and decision analysis up to fitting and evaluating Bayesian regression models with MCMC simulation methods.
+If you liked this post, try one of my other articles. Can’t choose? Pick one of these:

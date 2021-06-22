@@ -1,0 +1,79 @@
+The Hypothesis Tester’s Guide
+Michał Oleszak
+Michał Oleszak
+
+Feb 8·10 min read
+
+
+
+
+A short primer on why we can reject hypotheses, but cannot accept them, with examples and visuals.
+
+Image by the author.
+Hypothesis testing is the basis of the classical statistical inference. It’s a framework for making decisions under uncertainty with the goal to prevent you from making stupid decisions — provided there is data to verify their stupidity. If there is no such data… ¯\_(ツ)_/¯
+The goal of hypothesis testing is to prevent you from making stupid decisions — provided there is data to verify their stupidity.
+The catch here is that you can only use hypothesis testing to dismiss a choice as a stupid one, but you cannot use it to embrace a choice as s good one. Why? Read on to find out!
+
+Setting up the hypotheses
+It all starts with a decision to make. Consider this one: you have a large data processing pipeline that you think is too slow. Hence, you rewrite the code to use more efficient data structures and end up with a new and hopefully faster version of the pipeline. The decision to make is: should you replace the old pipeline with the new one?
+You want your decision to be a data-driven one, so you collect some data. You run each pipeline 50 times and record the runtimes. The old pipeline takes on average 41 minutes to finish, with a variance of 25. For the new pipeline, the corresponding numbers are 38 and 29.
+old pipeline runtime: mean = 41, variance = 38
+new pipeline runtime: mean = 38, variance = 29
+Now, is the new pipeline's average runtime three minutes shorter because it is indeed more efficient, or are these averages different by chance? One way to find out is to re-record the runtimes of both pipelines many, many more times… But that would take more time than it’s worth it. Enters hypothesis testing!
+At this point, you can formulate your hypothesis. Typically, it should be the opposite of what you actually want to prove, and you will shortly see why. In our example, the hypothesis would be that the average runtimes of both pipelines are, in fact, the same, or even that the old one is faster. This is called the null hypothesis, which we will try to reject. Then, there is the alternative hypothesis, comprising everything not included in the null, here: that the new pipeline is faster.
+Typically, the null hypothesis is defined as the opposite of what we actually want to prove.
+The null hypothesis is typically denoted as H₀ and the alternative hypothesis as H₁. So, we have this:
+H₀: old runtime ≤ new runtime
+H₁: old runtime > new_runtime
+Good. Now, why are they in this order? Why don’t we assume that the new pipeline is faster in the null hypothesis? It is because the null hypothesis should reflect our default action, that is: what we would do without any data or testing.
+With no data whatsoever proving that the new pipeline is faster, you wouldn’t implement it throughout the entire company, risking a waste of time and resources, would you? Your default action is not to switch to the new pipeline unless the data convinces us that it is indeed faster and we should reject the null hypothesis.
+The null hypothesis reflects our default action: what we would do without any data or testing.
+We’ve said that we can only reject a hypothesis, not accept it. We have our null hypothesis that the new pipeline is actually not faster, which reflects our default action of not switching to the new pipeline. Next, we will try to reject it based on data. If we can do it, we go for the new pipeline. If we can’t, we stay with the old one.
+Now you can see why hypothesis testing can prevent us from making stupid decisions. The alternative hypothesis is a potentially stupid decision. Switching to the new pipeline if it is not faster would be a stupid waste of time and resources. Hypothesis testing prevents us from doing it unless the data prove that the new pipeline is faster and switching is actually not stupid.
+The alternative hypothesis reflects a potentially stupid decision. Hypothesis testing prevents us from making it unless the data prove otherwise.
+What if the new pipeline is truly faster, but the data doesn’t prove it well enough and we mistakenly stay with the old system? Well… That’s the risk we are taking here. More about it later.
+
+Does the data make your null hypothesis look stupid?
+Okay, so how do we decide whether to reject the null hypothesis? We do so based on something called a test statistic. It is a single number calculated according to some formula, specific to the test we are conducting. In general, there are two conditions a number has to meet to be considered a test statistic:
+It has to be computable from the data we have collected.
+We need to know its distribution if the null hypothesis is true.
+The first part is easy, we have the runtimes of both pipelines and we can cook up these numbers to get our test statistic. The second part might need some elaboration. What it says is that assuming the null hypothesis is true, so assuming the new pipeline is not faster, we know that our test statistic has a particular distribution. How do we know it? Because it’s been proved. Mathematically. That’s what some statisticians do for a living.
+In our case, we are comparing the averages of two groups (runtimes of the old and the new pipeline). It has been proved that if the true averages are equal and we observe a difference by chance and randomness, then the following test statistic has a t-distribution.
+
+The t-statistic formula, screenshot from Wikipedia.
+The Xs with dashes on top of them denote the means of the two groups, the s² the variances, and n is the number of measurements, assumed the same in both groups. Recall we have measure 50 runtimes of each pipeline, so n=50. No magic here, some basic computation and we get our test statistic: t=2.887.
+Now, we know that the distribution of this test statistic under the null hypothesis is a t-distribution with (2*n)-2 degrees of freedom — that’s what statisticians in academia have proved. Let’s compare this distribution to the number that we’ve got.
+
+The t-distribution with 98 df versus the observed test statistic. Image by the author.
+What do we see here? The blue density shows the probability of the test statistic taking a particular value assuming the null is true. Unsurprisingly, if the averages are the same, the most likely difference between them is zero, and a difference of five is close to impossible.
+The t-statistic computed from our data equals 2.887. What does this mean? That if the null was true, then getting this value is highly unlikely. So one of the two has just happened: either the very small probability of getting 2.887 materialized itself, or the null hypothesis is false.
+If the new pipeline was not faster than the old one, getting the t-statistic we got would be highly unlikely. So, most likely, the null hypothesis is false.
+Considering this 2.887 that we got, the null hypothesis starts to look stupid. The chance of getting 2.887 and the null still being true is extremely small. How small, you might ask. The number quantifying the answer is called the p-value. The p-value is the probability of getting 2.887 or an even larger number, assuming the null hypothesis is true. In other words, the p-value is simply the proportion of the blue mass to the right of the red dashed line.
+The p-value is the proportion of the blue mass laying to the right of the red dashed line. It’s the probability of getting a t-statistics that we got (or an even more extreme one) if the null hypothesis is true.
+In this case, the p-value equals 0.00479, or 0.479%, suggesting the null hypothesis is very likely to be false. Hence, we reject it: we declare the new pipeline as faster and we switch to it happily!
+
+How sure can we be?
+The risk we are taking here is that the null is actually true and a very unlikely event that happens with the probability of roughly 0.5% (that is 1 in 200 times) has occurred. If that’s the case, we have mistakenly rejected a good null hypothesis or switched to a new pipeline that is not faster, which is known as the false positive or type-1 error.
+This is something we have to live with — a 0.5% chance of making such a mistake. If we were to be meticulous, we would have chosen a significance level before calculating anything. The significance level is the probability of making a type-1 error that we can tolerate. The particular value would depend on the business context, e.g. on the cost of making a mistake. But in general, we would say that we can live with a probability of wrongly rejecting the null not larger than 1%, for instance. Since our p-value is less than this, we can safely reject the null.
+If the p-value is smaller than our significance level (accepted risk level), we reject the null hypothesis.
+But imagine that switching to the new pipeline requires turning all company’s systems off for a while. This is a huge cost and we can only accept it if the new pipeline is indeed faster. In this scenario, your significance level could be, say, 0.1%, meaning that you only accept a 1-in-a-1000 chance of switching to a pipeline that is not faster. In this case, the p-value is larger than the significance level, so you would not switch! There is not enough information for you in the data to prove that the new pipeline is faster.
+
+Why can’t we accept the null?
+So, we can reject or not reject the null, depending on our risk tolerance. If we reject the null, we say it is false. If we don’t, we say there was not enough information in the data to reject it. But why are we talking rejection, we can’t we accept the null and say that the new pipeline is not faster?
+Consider this story. When in Iceland, I wanted very much to meet a reindeer in the wild. Despite having done some highlands treks, I haven’t spotted one. Does this prove there are no reindeers in Iceland?
+If my null hypothesis was that there are none, I could have rejected it by spotting just a single reindeer. But how could I accept it? I could always say: the chance of spotting a reindeer is small. Had I stayed longer, I would finally see one.
+Back to our data. Take a look at this plot.
+
+Blue: distribution of the t-statistic if the null hypothesis holds. Green: if the alternative hypothesis holds. Image by the author.
+The blue density is again the one of the t-statistic if the null hypothesis is true. But if it’s not true, then the t-statistic can have any other distribution. Say it has the green one (which we don’t know in reality), and imagine we have calculated from data our t-statistic of 0.5
+Under the null hypothesis, the t-statistic that we got is quite probable, so we would not reject it. But under the green distribution, it just as likely! Since we don’t know the green, we cannot know if it isn’t even more likely under it.
+When the t-statistic is very unlikely under the null, we reject the null as false. But if it is very likely, it can still be even more likely under some other distribution. Hence, we can never accept the null — we can only not reject.
+
+It pays to go Bayes!
+All of this was the so-called classical statistics. If it doesn’t resonate with you, and you feel that the p-value thresholds and confidence levels are somewhat arbitrary, it might be you’re a Bayesian at heart!
+The Gentlest of Introductions to Bayesian Data Analysis
+towardsdatascience.com
+
+If so, do take a look at my introductory article to the topic or at the Bayesian Data Analysis in Python course that I teach on DataCamp.
+
+Thanks for reading! If you liked this post, try one of my other articles. Can’t choose? Pick one of these:

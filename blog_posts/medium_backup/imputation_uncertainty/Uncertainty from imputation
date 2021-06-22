@@ -1,0 +1,46 @@
+Uncertainty from imputation
+Are you taking it into account in your predictions?
+Michał Oleszak
+Michał Oleszak
+
+Jun 12, 2020·5 min read
+
+
+
+
+
+Image by Jerzy Górecki from Pixabay
+A few weeks ago, the course in handling missing data in R that I’ve been developing with DataCamp went live. From the feedback I got from the students so far it follows that the part of the course they benefit from the most is about how to incorporate the uncertainty from imputation into modeling. In this article, I will discuss it briefly in the context of making predictions with machine learning models.
+
+To demonstrate the topic, we will analyze the biopics data set from the fivethirtyeight R package. We will be working with a small and processed version of the original data. Let’s take a look at it.
+
+
+The biopics data contain some information on a number of biographical movies. The features include the movie’s country of production, release year, log earnings at the box offices, number of subjects featured in the movie, the type of subjects or reason for recognition, and their gender. The task here is to predict the log-earnings based on the remaining features. We are considering shooting our very own movie. It will be released in the US next year and it will tell a story of a single character: a female athlete. We would like to know how much we are likely to earn.
+
+Unfortunately, the data set is not complete: there are a number of missing values in each feature column.
+
+
+One way to go about it is to impute (i.e. fill-in) the missing data in some way and once the data are complete, feed them to the model. This is actually what most people do, so let’s do it too. We will impute the data with hot-deck imputation from the VIM package and train a random forest using the ranger package. If you are interested in how hot-deck works, what other imputation methods are available, and how to tweak them to work well, feel free to check out the course linked to at the bottom of this article.
+
+0.01210784
+We have obtained a single prediction of 0.01210784. Once we invert the log-transformation, we will see that our movie is expected to earn exp(0.01210784) ≈ $1m. We are millionaires! But how sure can we be about it?
+The prediction above completely ignores the fact that the random forest model was fit to imputed data.
+It is important to note that the imputed values are not set in stone. They are just estimates and estimates come with uncertainty.
+To express it in the statistical jargon: the imputed values are estimated based on the observed ones, and the latter are drawn from some population; hence, there is double uncertainty involved: the uncertainty associated with data sampling and uncertainty coming from the imputation method. One would be unwise to act upon such an uncertain prediction!
+While there is no way whatsoever to magically convert uncertainty into certainty in statistics, there are ways to capture this uncertainty and take it into account when acting upon models’ predictions.
+One way to do this in our case is by bootstrapping. What we need to do is to take a bootstrap sample from the original, incomplete data. This means we are sampling rows of the data with replacement. Then, we impute the bootstrap sample, build a model on the imputed data, and finally make the prediction. We repeat the procedure many, say 1000, times, taking different, random bootstrap samples. As a result, we obtain a distribution of predicted earnings for our planned movie and this distribution captures the uncertainty from imputation.
+This is pretty easy to implement in R thanks to the boot package. We only need to define a function that receives the original data and the indices of the to-be-sampled rows as inputs. The function should then select these rows, impute the bootstrap sample, train a model, and return the prediction. All that's left to do is to pass this custom function to the boot function.
+
+
+What this output tells us is that our original, single prediction of 0.01210784 is somewhat biased compared to the mean of the bootstrapped distribution and that this distribution has a pretty large standard error, signifying considerable uncertainty.
+Let’s now compute the 95% confidence interval for our prediction.
+
+
+So, we are 95% sure our movie will log-earn something between -1.02 and 1.18. Converting it back to dollars leaves us with the range from $362𝑘 and $3.2𝑚. Quite a spread. Let’s plot the distribution of the prediction, the single prediction, and the confidence interval all in one graph.
+
+The orange line at 0.01 denotes the prediction we got from training a single model on the data imputed only once. This single-shot didn’t even give us the most likely outcome! This is due to the bias which becomes clear from the visualization: the most likely earnings are at the peak of the distribution somewhat to the right from our initial prediction. And then: look at how wide the distribution is!
+Shooting the movie might still be worth it, but depending on your risk aversion, you might want to take precautions in case it doesn’t pay off, which is not that unlikely.
+
+Thanks for reading! I hope you have learned something useful that will benefit your projects 🚀
+You can find the data set and all the code for this article, including plotting, here. If you are interested in learning more about missing data, various imputation methods, and other ways of incorporating imputation uncertainty into modeling, please check out my course.
+If you liked this post, try one of my other articles. Can’t choose? Pick one of these:

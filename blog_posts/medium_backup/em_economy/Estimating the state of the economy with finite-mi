@@ -1,0 +1,113 @@
+Estimating the state of the economy with finite-mixture models and the EM algorithm
+Michał Oleszak
+Michał Oleszak
+
+May 17, 2020·10 min read
+
+
+
+
+
+Finite mixture models assume the existence of a latent, unobserved variable that impacts the distribution from which the data are generated. This idea has numerous practical applications: for instance, stock prices might change according to some assumed model, but the parameters of this model are likely to be different during bull and bear markets. In this case, the latent variable is the state of the economy, a somewhat undefined term, but a very impactful one.
+Fitting finite mixtures to data comprises estimating the parameters of the distributions from which the data might come, as well as the probability of coming from each of them. This allows us to quantify and estimate important but undefined and unobservable variables, such as the already mentioned state of the economy! It is no easy task, though, with the standard maximum likelihood approach. Luckily, the clever expectation-maximization (or EM) algorithm comes to rescue.
+This article is split into three parts, discussing the following topics:
+What the EM algorithm is, how it works, and how to implement it in Python.
+How to apply it in practice to estimate the state of the economy.
+Appendix: the math behind the EM algorithm for curious readers.
+Let’s dive straight in!
+
+The Expectation-Maximization algorithm
+We will discuss the EM algorithm using some randomly generated data first. Let’s start with the data generating process. Let’s say our data might come from two different normal distributions. One is described by a mean of -4 and a standard deviation of 2. For the other, the parameters are 11 and 3, respectively.
+
+The data we actually observe are a mixture of the above two, defined as
+
+where Δ ∈ {0,1} with the probability 𝑝 of being 1. In our example, let’s set 𝑝 to 0.65. Consequently, if for a given data point Δ=1, it comes from the distribution 𝑑𝑎𝑡𝑎1, and if Δ=0, it comes from 𝑑𝑎𝑡𝑎2. Here, Δ is the latent variable we would not observe in reality which impacts the data generation process. Let’s generate some data according to this process and plot their histogram.
+
+
+A quick look at the plot suggests the data might have arisen under a mixture of two normals. Hence, a finite mixture of two Gaussians seems to be the appropriate model for these data. Remember: all we observe is the data, and what we need to estimate are the parameters: 𝜇1, 𝜎1, 𝜇2, 𝜎2, and 𝑝, called the mixing probability, which is the probability of the data coming from one of the distributions — say the first one.
+The likelihood of such data is very hard to maximize analytically. If you’d like to know why that’s the case, scroll down to the mathematical appendix. But there is another way — the EM algorithm. It’s a method providing the (possibly local) maximum of the log-likelihood function using an iterative two-step procedure:
+Expectation (E) step,
+Maximization (M) step.
+In the E-step, we compute the so-called complete data likelihood function, based on the joint density of the data and the latent variable Δ. In the M-step, we maximize the expectation of this function. We repeat the two steps iteratively until the parameter estimates do not change anymore. All the mathematical derivations are relegated to the appendix below; for now, let me just offer you out-of-the-box formulas.
+In the case of our mixture of two Gaussians, the E-step comprises computing the probability that 𝑝=1 given the other parameters, denoted as 𝑝𝑝1:
+
+where 𝜙(𝑑𝑎𝑡𝑎;𝜇1,𝜎1) is the probability density of the data under the first distribution, a Gaussian with mean 𝜇1 and standard deviation 𝜎1. Let’s code it down:
+
+The maximizing formulas applied in the M-step are as follows (scroll to the bottom for the derivations):
+
+The formulas for 𝜇2 and 𝜎2 are the same, except that they use (1−𝑝𝑝1) in place of 𝑝𝑝1. Let’s translate it into Python:
+
+As you see, the E-step conditions on the parameters 𝜇1, 𝜎1, 𝜇2, 𝜎2, and 𝑝 and the M-step updates them. To get it started, we need to initialize these parameters before we run the first E-step iteration. A popular choice is to set the means 𝜇 to any random data points drawn from the data, the standard deviations 𝜎 to the standard deviation of the data, and 𝑝 to 0.5:
+
+We have now coded the entire EM algorithm! Let’s put all this code together into a class called TwoGaussiansMixture() with a fit() method which takes data and num_iter as arguments, initializes the parameters and iterates through the E and M steps for num_iter iterations. The class will also have three other utility methods:
+predict(), which takes some data x and produces the predicted PDF of our fitted Gaussian mixture for these data,
+get_mixing_probability(), which takes some data x and returns the probability of coming from one of the distributions for each data point,
+plot_predictions_on_data(), which plots the PDF produced by predict() on top of the histogram of the original data.
+
+Now, let’s fit our model to the data with 100 iterations and plot the predicted PDF.
+
+
+The blue histogram is exactly the same as the one above, depicting the original data. The orange line is the probability density, or PDF, of the Gaussian mixture we have fit. It fits data pretty well! We can also plot the mixing probability on top of the plot above.
+
+On the left-hand side of the plot the mixing probability is close to zero, meaning that the model is sure the values on the x-axis come from the left distribution. The more we go to the right, the more sure the model becomes that the data come from the other one.
+Finally, let’s look at the parameters. Where they estimated correctly?
+print(model.mu_1, model.mu_2, model.sigma_1, model.sigma_2, p)
+11.263067573735341 -3.893589091692746 2.5184757384087786 2.162510874493102 0.2999296508820708
+Recall the true means were -4 and 11, the standard deviations were 2 and 3, and 𝑝 was 0.65 (so 1−𝑝 was 0.35 — the model does not care which distribution is which). The parameter estimates seem close to the true values!
+
+Estimating the state of the economy
+Now that we have seen how the EM algorithm works on some randomly generated data, let’s put this knowledge to practice! The plot below shows the quarterly GDP growth rate in the US from 1967 until 2019. The red stripes are time periods declared as recessions by the Federal Reserve. We can see that recessions are associated with the GDP growth rate going down sharply.
+
+Data source: FRED
+Let’s compare the histograms of the GDP growth rate for recession vs non-recession time.
+
+Looks like two Gaussians? That’s a great use-case for our TwoGaussiansMixture() model! In this context, we assume that the GPD growth rate has a normal distribution with parameters depending on the latent variable Δ, which is either 1 or 0: recession or no recession. The parameter 𝑝 in this setting can be read as the probability of a recession, a great estimate of the state of the economy.
+We will re-use our TwoGaussiansMixture() class, along the get_mixing_probability() method to compute 𝑝 for each original data point. Since the raw probabilities 𝑝 are quite noisy, we will smooth them with a rolling average.
+
+Now, let’s plot our estimated probability of recession versus the Fed-declared recessions.
+
+In the last three recessions: the housing bubble of 2007, the dot-com bubble of the early 2000s, and the oil price shock of 1990, our estimates peak, indicating high probabilities of recessions, which indeed took place. Some of the earlier ones have been captured pretty well too, although 1983, for which the model indicates a 90% probability of a recession, actually did not see one.
+Perhaps the model is not perfect, but remember that the only data it gets to see are the GPD growth rates, and it outputs a probabilistic estimate of the state of the economy — may be the predicted peak in 1983 captures a danger the economy almost crashed into?
+
+Thanks for reading! If you are curious about where do the EM equations come from, feel free to dive into the math appendix below. Otherwise, grab some data and build a finite mixture model yourself! All the code, including the one producing the plots, is available here.
+If you liked this post, try one of my other articles. Can’t choose? Pick one of these:
+Boost your grasp on boosting
+Demystifying the famous competition-winning algorithm.
+towardsdatascience.com
+
+A Comparison of Shrinkage and Selection Methods for Linear Regression
+A detailed look at 7 popular shrinkage & selection methods.
+towardsdatascience.com
+
+Model Selection & Assessment
+Going beyond the train-val-test split
+towardsdatascience.com
+
+
+Appendix: The mathematics of the EM algorithm
+In this optional section, we will show why we had to use the EM algorithm to estimate the mixture model. We will also derive the formulas we have applied earlier.
+Recall the data generating process is the following:
+
+Let’s denote all the model parameters jointly as 𝜃={𝜇1,𝜎1,𝜇2,𝜎2,𝑝}.
+Since data is a mixture of two Gaussians and the data points are independent, the likelihood function of the data is the product across the Gaussian mixtures for each data point:
+
+where 𝜙 denotes a PDF of the Gaussian distribution. If we took the log of the likelihood in order to maximize it easier, note that the sum over the Gaussian PDFs would appear inside the log, making it not easy at all. We could try numerical methods, but this turns out hard with a mixture of more Gaussians. Finally, we are also interested in knowing which distribution is relevant for each data point given the parameters, i.e. the probability 𝑃(Δ=1|𝜃).
+Likelihood
+This is where the EM magic enters! Even though Δ is unobserved, we may consider it to be part of the data set. This is called data augmentation (not to be confused with the machine learning meaning of this term, which denotes artificially creating more data based on the true observations). We then consider the so-called complete data likelihood function, based on the joint density of data and Δ.
+By the laws of conditional probability, we can derive the joint density of data and Δ:
+
+where 𝐼 is the indicator function that is 1 if its argument is true and 0 otherwise. The complete data likelihood function is the product of the above across observations:
+
+and when we take the logarithm of it, the log of a product becomes a sum of logs and we obtain the following log-complete-data-likelihood function:
+
+E-step
+The log-likelihood above is what needs to be maximized. However, we do not observe the 𝐼(Δ𝑛=1) part of it. Hence, we simply take the expectation with respect to Δ. This requires us to compute the expectation 𝐸[𝐼(Δ𝑛=1)], which is simply 𝑃(Δ=1|𝜃). This quantity has been denoted as 𝑝𝑝1 in the code above and can be computed as follows:
+
+Having done this, we can plug in the above into the formula for 𝑙𝑜𝑔𝐿 to compute the expected log-likelihood:
+
+M-step
+The hard work’s done! Maximizing the above is actually quite simple since there are three separate additive parts and each of them can be maximized separately. The first part provides the new estimate of 𝑝 as the mean of 𝑝𝑝1. The second one can be re-written using the normal PDF formula as:
+
+which, after setting the first derivative to zero, and solving for the maximum, provides formulas for updating 𝜇1 and 𝜎1:
+
+The formulas for updating 𝜇2 and 𝜎2 can be derived accordingly. These are the exact formulas we have used in the code earlier.
